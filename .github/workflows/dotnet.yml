@@ -21,7 +21,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Change working directory to AdventuraClick
-      run: cd AdventuraClick
+      run: cd ${{ github.workspace }}/AdventuraClick
     - name: List current directory contents
       run: ls -la
     - name: Restore dependencies
