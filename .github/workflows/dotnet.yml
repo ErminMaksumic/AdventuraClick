@@ -25,8 +25,14 @@ jobs:
     - name: List current directory contents
       run: ls -la
     - name: Restore dependencies
-      run: dotnet restore
+      run: |
+       cd AdventuraClick
+       dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: |
+       cd AdventuraClick
+       dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: |
+       cd AdventuraClick
+       dotnet test --no-build --verbosity normal
