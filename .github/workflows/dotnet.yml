@@ -20,13 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Print current directory
-      run: pwd
-    - name: Change working directory
-      run: cd AdventuraClick
     - name: Restore dependencies
-      run: dotnet restore AdventuraClick.csproj
+      run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore AdventuraClick.csproj
+      run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
