@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using AdventuraClick.Service.Database;
+using AdventuraClick.Service.Interfaces;
+using AdventuraClick.Model.SearchObjects;
+using AdventuraClick.Service.Implementation;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IBaseService<AdventuraClick.Model.Role, BaseSearchObject>, RoleService>();
+builder.Services.AddAutoMapper(typeof(Mapper).Assembly);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AdventuraClickContext>(options =>
