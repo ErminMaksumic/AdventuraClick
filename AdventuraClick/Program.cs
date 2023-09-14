@@ -14,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBaseService<AdventuraClick.Model.Role, BaseSearchObject>, RoleService>();
+builder.Services.AddTransient<ITravelService, TravelService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddAutoMapper(typeof(Mapper).Assembly);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
