@@ -9,7 +9,7 @@ namespace AdventuraClick.Service.Implementation
         ICRUDService<TModel, TSearch, TInsert, TUpdate> where TModel : class where TSearch : BaseSearchObject
         where TInsert : class where TDatabase : class where TUpdate : class
     {
-        public CRUDService(AdventuraClickContext context, IMapper mapper) : base(context, mapper)
+        public CRUDService(AdventuraClickInitContext context, IMapper mapper) : base(context, mapper)
         { }
         public virtual TModel Insert(TInsert request)
         {
