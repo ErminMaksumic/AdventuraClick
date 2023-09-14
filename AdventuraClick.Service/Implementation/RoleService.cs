@@ -7,7 +7,7 @@ namespace AdventuraClick.Service.Implementation
 {
     public class RoleService : BaseService<Model.Role, Role, BaseSearchObject>, IRoleService
     {
-        public RoleService(AdventuraClickContext context, IMapper mapper) : base(context, mapper)
+        public RoleService(AdventuraClickInitContext context, IMapper mapper) : base(context, mapper)
         { }
     }
 }

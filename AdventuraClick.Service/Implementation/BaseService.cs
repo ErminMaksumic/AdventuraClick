@@ -13,10 +13,10 @@ namespace AdventuraClick.Service.Implementation
     public class BaseService<TModel, TDatabase, TSearch> : IBaseService<TModel, TSearch> where TModel : class
        where TDatabase : class where TSearch : BaseSearchObject
     {
-        public readonly AdventuraClickContext _context;
+        public readonly AdventuraClickInitContext _context;
         public readonly IMapper _mapper;
 
-        public BaseService(AdventuraClickContext context, IMapper mapper)
+        public BaseService(AdventuraClickInitContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
