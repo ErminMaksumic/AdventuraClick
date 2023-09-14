@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdventuraClick.Service.Migrations
 {
-    [DbContext(typeof(AdventuraClickContext))]
+    [DbContext(typeof(AdventuraClickInitContext))]
     [Migration("20230902220847_init")]
     partial class init
     {

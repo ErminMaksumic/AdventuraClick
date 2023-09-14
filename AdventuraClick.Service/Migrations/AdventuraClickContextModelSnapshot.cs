@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AdventuraClick.Service.Migrations
 {
-    [DbContext(typeof(AdventuraClickContext))]
+    [DbContext(typeof(AdventuraClickInitContext))]
     partial class AdventuraClickContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

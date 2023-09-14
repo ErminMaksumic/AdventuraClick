@@ -17,7 +17,7 @@ builder.Services.AddScoped<IBaseService<AdventuraClick.Model.Role, BaseSearchObj
 builder.Services.AddAutoMapper(typeof(Mapper).Assembly);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AdventuraClickContext>(options =>
+builder.Services.AddDbContext<AdventuraClickInitContext>(options =>
 options.UseSqlServer(connectionString));
 
 var app = builder.Build();
