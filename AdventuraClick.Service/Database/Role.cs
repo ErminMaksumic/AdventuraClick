@@ -1,18 +1,12 @@
 ﻿namespace AdventuraClick.Service.Database
 {
-<<<<<<< Updated upstream
     public class Role
     {
         public int RoleId { get; set; }
+
         public string Name { get; set; } = null!;
-        public string? Description { get; set; }
+
+        public virtual ICollection<User> Users { get; set; } = new List<User>();
     }
-=======
-    public int RoleId { get; set; }
-
-    public string Name { get; set; } = null!;
-
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
->>>>>>> Stashed changes
 }
 
