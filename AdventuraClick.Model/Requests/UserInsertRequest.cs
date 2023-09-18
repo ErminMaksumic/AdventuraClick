@@ -17,13 +17,12 @@ namespace AdventuraClick.Model.Requests
 
         [MinLength(4), MaxLength(15)]
         [Required(AllowEmptyStrings = false)]
-        public string UserName { get; set; }
+        public string Username { get; set; }
         [Required(AllowEmptyStrings = false), MaxLength(20)]
         public string Password { get; set; }
         [Required(AllowEmptyStrings = false), MaxLength(20)]
         public string PasswordConfirmation { get; set; }
         public int? RoleId { get; set; }
-        [Required]
-        public byte[] Image { get; set; }
+        public byte[]? Image { get; set; }
     }
 }
