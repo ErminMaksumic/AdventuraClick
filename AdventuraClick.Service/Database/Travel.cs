@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace AdventuraClick.Service.Database;
 
-namespace AdventuraClick.Service.Database;
-
-public partial class Travel
+public class Travel
 {
     public int TravelId { get; set; }
 
