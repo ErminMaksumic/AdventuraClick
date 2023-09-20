@@ -1,4 +1,5 @@
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
+import 'package:adventuraclick_mobile/screens/register_screen.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -63,7 +64,7 @@ class LoginScreen extends StatelessWidget {
                             errorStyle: TextStyle(color: Colors.red),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         TextFormField(
                           obscureText: true,
                           validator: (value) {
@@ -98,10 +99,10 @@ class LoginScreen extends StatelessWidget {
                     color: Colors.blue.withOpacity(0.5),
                     spreadRadius: 1,
                     blurRadius: 5,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [Colors.red, Colors.deepPurple],
                 ),
               ),
@@ -142,7 +143,7 @@ class LoginScreen extends StatelessWidget {
                     );
                   }
                 },
-                child: Center(
+                child: const Center(
                   child: Text(
                     "Login",
                     style: TextStyle(
@@ -154,12 +155,13 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
                 // Navigate to registration screen
+                Navigator.pushNamed(context, RegistrationScreen.routeName);
               },
-              child: Text(
+              child: const Text(
                 "Not Registered? Click here!",
                 style: TextStyle(
                   color: Colors.deepPurple,

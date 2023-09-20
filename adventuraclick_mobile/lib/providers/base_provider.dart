@@ -13,7 +13,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   String? fullUrl;
 
-  HttpClient client = new HttpClient();
+  HttpClient client = HttpClient();
   IOClient? http;
 
   BaseProvider(String endPoint) {
