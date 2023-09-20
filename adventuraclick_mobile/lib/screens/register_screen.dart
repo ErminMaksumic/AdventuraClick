@@ -252,8 +252,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           labelStyle: const TextStyle(
             color: Colors.cyan,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
               width: 1,
               color: Colors.cyan,
             ),

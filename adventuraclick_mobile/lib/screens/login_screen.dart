@@ -113,6 +113,7 @@ class LoginScreen extends StatelessWidget {
                       Authorization.username = _usernameController.text;
                       Authorization.password = _passwordController.text;
                       await _userProvider.login();
+                      if(!context.mounted) return;
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
@@ -128,6 +129,7 @@ class LoginScreen extends StatelessWidget {
                       );
                     }
                   } on Exception {
+                    if(!context.mounted) return;
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
