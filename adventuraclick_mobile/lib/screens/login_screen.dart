@@ -5,6 +5,7 @@ import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   static const String routeName = "/login";
   final TextEditingController _usernameController = TextEditingController();
@@ -56,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
                         child: TextFormField(
@@ -64,6 +65,7 @@ class LoginScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "Required field!";
                             }
+                            return null;
                           },
                           controller: _usernameController,
                           decoration: const InputDecoration(
@@ -84,6 +86,7 @@ class LoginScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "Required field!";
                             }
+                            return null;
                           },
                           controller: _passwordController,
                           decoration: const InputDecoration(
@@ -98,11 +101,11 @@ class LoginScreen extends StatelessWidget {
               ),
               Container(
                   height: 50,
-                  margin: EdgeInsets.fromLTRB(45, 0, 45, 0),
+                  margin: const EdgeInsets.fromLTRB(45, 0, 45, 0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.blue])),
+                          const LinearGradient(colors: [Colors.cyan, Colors.blue])),
                   child: InkWell(
                     onTap: () async {
                       try {
@@ -110,28 +113,43 @@ class LoginScreen extends StatelessWidget {
                           Authorization.username = _usernameController.text;
                           Authorization.password = _passwordController.text;
                           await _userProvider.login();
+                          // ignore: use_build_context_synchronously
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: const Text("Login success"),
+                                  content:
+                                      const Text("Success login"),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text("Ok"),
+                                      onPressed: () => Navigator.pop(context),
+                                    )
+                                  ],
+                                ));
                         //   Navigator.popAndPushNamed(
                         //       context, test.routeName);
                         }
-                      } on Exception catch (e) {
+                      } on Exception {
+                        // ignore: use_build_context_synchronously
                         showDialog(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
-                                  title: Text("Login failed"),
+                                  title: const Text("Login failed"),
                                   content:
-                                      Text("Invalid username and/or password"),
+                                      const Text("Invalid username and/or password"),
                                   actions: [
                                     TextButton(
-                                      child: Text("Ok"),
+                                      child: const Text("Ok"),
                                       onPressed: () => Navigator.pop(context),
                                     )
                                   ],
                                 ));
                       }
                     },
-                    child: Center(child: Text("Login")),
+                    child: const Center(child: Text("Login")),
                   )),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                   child: InkWell(
                 child: const Center(
