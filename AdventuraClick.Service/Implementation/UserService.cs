@@ -20,6 +20,37 @@ namespace AdventuraClick.Service.Interfaces
         public UserService(AdventuraClickInitContext context, IMapper mapper) : base(context, mapper)
         { }
 
+        public override Model.User Insert(UserInsertRequest request)
+        {
+
+            if (request != null)
+            {
+
+                if (_context.Users.Where(a => a.Username == request.Username).Any())
+                {
+                    throw new UserException("User with that username already exists!");
+                }
+                if (request.Password != request.PasswordConfirmation)
+                {
+                    throw new UserException("The two password fields didn't match");
+                }
+
+                var newUser = _mapper.Map<User>(request);
+
+                newUser.PasswordSalt = GenerateSalt();
+
+                newUser.PasswordHash = GenerateHash(newUser.PasswordSalt, request.Password);
+
+
+                _context.Users.Add(newUser);
+                _context.SaveChanges();
+
+                return _mapper.Map<Model.User>(newUser);
+            }
+            return null;
+        }
+
+
         public Model.User Login(string username, string password)
         {
             var entity = _context.Users.Include("Role").
