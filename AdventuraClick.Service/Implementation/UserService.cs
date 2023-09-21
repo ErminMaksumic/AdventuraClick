@@ -41,6 +41,8 @@ namespace AdventuraClick.Service.Interfaces
 
                 newUser.PasswordHash = GenerateHash(newUser.PasswordSalt, request.Password);
 
+                newUser.RoleId ??= 1;
+
 
                 _context.Users.Add(newUser);
                 _context.SaveChanges();
@@ -69,6 +71,18 @@ namespace AdventuraClick.Service.Interfaces
             }
 
             return _mapper.Map<Model.User>(entity);
+        }
+
+        public override void BeforeInsert(UserInsertRequest request, User entity)
+        {
+
+            entity.PasswordSalt = GenerateSalt();
+
+            var hash = GenerateHash(entity.PasswordSalt, request.Password);
+
+            entity.PasswordHash = hash;
+
+            base.BeforeInsert(request, entity);
         }
 
         public static string GenerateSalt()

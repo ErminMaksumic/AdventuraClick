@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'dart:developer' as developer;
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +12,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   String? fullUrl;
 
-  HttpClient client = new HttpClient();
+  HttpClient client = HttpClient();
   IOClient? http;
 
   BaseProvider(String endPoint) {
