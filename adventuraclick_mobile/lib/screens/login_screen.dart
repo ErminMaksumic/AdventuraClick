@@ -51,42 +51,6 @@ class LoginScreen extends StatelessWidget {
                         buildInputField(_usernameController, 'Username'),
                         const SizedBox(height: 20),
                         buildInputField(_passwordController, 'Password'),
-                        TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Required field!";
-                            }
-                            return null;
-                          },
-                          controller: _usernameController,
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.person),
-                            prefixIconColor: Colors.deepPurple,
-                            border: OutlineInputBorder(),
-                            labelText: "Username",
-                            labelStyle: TextStyle(color: Colors.deepPurple),
-                            errorStyle: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          obscureText: true,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Required field!";
-                            }
-                            return null;
-                          },
-                          controller: _passwordController,
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            prefixIconColor: Colors.deepPurple,
-                            border: OutlineInputBorder(),
-                            labelText: "Password",
-                            labelStyle: TextStyle(color: Colors.deepPurple),
-                            errorStyle: TextStyle(color: Colors.red),
-                          ),
-                        ),
                       ],
                     ),
                   ),

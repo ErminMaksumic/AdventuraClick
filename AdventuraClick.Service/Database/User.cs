@@ -13,6 +13,8 @@ public partial class User
 
     public string LastName { get; set; } = null!;
 
+    public string Email { get; set; }
+
     public DateTime? DateOfBirth { get; set; }
 
     public string? CreatedAt { get; set; }
