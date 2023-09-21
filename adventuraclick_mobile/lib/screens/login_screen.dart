@@ -1,4 +1,5 @@
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
+import 'package:adventuraclick_mobile/screens/register_screen.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,42 @@ class LoginScreen extends StatelessWidget {
                         buildInputField(_usernameController, 'Username'),
                         const SizedBox(height: 20),
                         buildInputField(_passwordController, 'Password'),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Required field!";
+                            }
+                            return null;
+                          },
+                          controller: _usernameController,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.person),
+                            prefixIconColor: Colors.deepPurple,
+                            border: OutlineInputBorder(),
+                            labelText: "Username",
+                            labelStyle: TextStyle(color: Colors.deepPurple),
+                            errorStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Required field!";
+                            }
+                            return null;
+                          },
+                          controller: _passwordController,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.lock),
+                            prefixIconColor: Colors.deepPurple,
+                            border: OutlineInputBorder(),
+                            labelText: "Password",
+                            labelStyle: TextStyle(color: Colors.deepPurple),
+                            errorStyle: TextStyle(color: Colors.red),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -66,10 +103,10 @@ class LoginScreen extends StatelessWidget {
                     color: Colors.blue.withOpacity(0.5),
                     spreadRadius: 1,
                     blurRadius: 5,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [Colors.red, Colors.deepPurple],
                 ),
               ),
@@ -112,7 +149,7 @@ class LoginScreen extends StatelessWidget {
                     );
                   }
                 },
-                child: Center(
+                child: const Center(
                   child: Text(
                     "Login",
                     style: TextStyle(
@@ -124,12 +161,13 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
                 // Navigate to registration screen
+                Navigator.pushNamed(context, RegistrationScreen.routeName);
               },
-              child: Text(
+              child: const Text(
                 "Not Registered? Click here!",
                 style: TextStyle(
                   color: Colors.deepPurple,
