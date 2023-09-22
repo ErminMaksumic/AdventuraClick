@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: const Center(
-          child: Text("Login"),
+          child: Text("AdventuraClick"),
         ),
       ),
       body: SingleChildScrollView(

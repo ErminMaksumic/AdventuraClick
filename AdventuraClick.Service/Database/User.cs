@@ -17,6 +17,8 @@ public partial class User
 
     public DateTime? DateOfBirth { get; set; }
 
+    public byte[] Image { get; set; } = null!;
+
     public string? CreatedAt { get; set; }
 
     public string? PasswordHash { get; set; }
