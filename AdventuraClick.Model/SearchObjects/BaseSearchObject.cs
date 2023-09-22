@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventuraClick.Model.SearchObjects
+﻿namespace AdventuraClick.Model.SearchObjects
 {
     public class BaseSearchObject
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

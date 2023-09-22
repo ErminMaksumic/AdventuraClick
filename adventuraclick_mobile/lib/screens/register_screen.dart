@@ -7,6 +7,7 @@ import 'package:adventuraclick_mobile/model/user_insert_request.dart';
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import '../../providers/user_provider.dart';
+import '../utils/buildInputFields.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String routeName = "/register";
@@ -54,7 +55,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         imageString = x;
       });
     } on Exception catch (e) {
-      print("Failed to pick an image: ${e.toString()}");
+      if (kDebugMode) {
+        print("Failed to pick an image: ${e.toString()}");
+      }
     }
   }
 
@@ -71,12 +74,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       request.image = imageString;
       await _userProvider.register(request);
 
+      if (!mounted) return;
       showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
           title: const Text("Success"),
-          content:
-              Text("You are registered as ${_userNameController.text}"),
+          content: Text("You are registered as ${_userNameController.text}"),
           actions: [
             TextButton(
               onPressed: () async => await Navigator.popAndPushNamed(
@@ -109,30 +112,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     _userProvider = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               Container(
                 height: 200,
-                margin: const EdgeInsets.only(top: 10),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/background.jpg'),
                     fit: BoxFit.fill,
-                  ),
-                ),
-                child: Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 160),
-                    child: const Text(
-                      "Register",
-                      style: TextStyle(
-                        color: Colors.cyan,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
                 ),
               ),
@@ -149,7 +141,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         gradient: const LinearGradient(
-                          colors: [Colors.cyan, Colors.blue],
+                          colors: [Colors.red, Colors.deepPurple],
                         ),
                       ),
                       child: InkWell(
@@ -157,109 +149,80 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           pickImage();
                         },
                         child: const Center(
-                          child: Text("Select the picture"),
+                          child: Text(
+                            "Select the picture",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
-              const Center(
-                child: Text(
-                  "Picture is required field",
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
               Padding(
-                padding: const EdgeInsets.all(50),
-                child: Form(
-                  key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Column(
-                    children: [
-                      _buildInputField(
-                        _firstNameController,
-                        "FirstName",
-                      ),
-                      _buildInputField(
-                        _lastNameController,
-                        "Last name",
-                      ),
-                      _buildInputField(
-                        _emailController,
-                        "Email",
-                      ),
-                      _buildInputField(
-                        _userNameController,
-                        "Username",
-                      ),
-                      _buildInputField(
-                        _passwordController,
-                        "Password",
-                        isPassword: true,
-                      ),
-                      _buildInputField(
-                        _passwordConfirmationController,
-                        "Password confirmation",
-                        isPassword: true,
-                      ),
-                      const SizedBox(height: 20),
-                      Container(
-                        height: 50,
-                        margin: const EdgeInsets.fromLTRB(50, 20, 50, 0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: const LinearGradient(
-                            colors: [Colors.cyan, Colors.blue],
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 3),
+                child: Card(
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Form(
+                      key: _formKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      child: Column(
+                        children: [
+                          buildInputField(
+                            _firstNameController,
+                            "First name",
                           ),
-                        ),
-                        child: InkWell(
-                          onTap: () async {
-                            if (_formKey.currentState!.validate()) {
-                              register();
-                            }
-                          },
-                          child: const Center(
-                            child: Text("Register"),
+                          buildInputField(
+                            _lastNameController,
+                            "Last name",
                           ),
-                        ),
+                          buildInputField(
+                            _emailController,
+                            "Email",
+                          ),
+                          buildInputField(
+                            _userNameController,
+                            "Username",
+                          ),
+                          buildInputField(
+                            _passwordController,
+                            "Password",
+                            isPassword: true,
+                          ),
+                          buildInputField(
+                            _passwordConfirmationController,
+                            "Password confirmation",
+                            isPassword: true,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
+              Container(
+                height: 50,
+                margin: const EdgeInsets.fromLTRB(50, 20, 50, 0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                    colors: [Colors.deepPurple, Colors.red],
+                  ),
+                ),
+                child: InkWell(
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
+                      register();
+                    }
+                  },
+                  child: const Center(
+                    child: Text("Register", style: TextStyle(color: Colors.white),),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildInputField(
-    TextEditingController controller,
-    String labelText, {
-    bool isPassword = false,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      child: TextFormField(
-        obscureText: isPassword,
-        validator: (value) {
-          if (value!.isEmpty) {
-            return "Required field!";
-          }
-          return null;
-        },
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: const TextStyle(
-            color: Colors.cyan,
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 1,
-              color: Colors.cyan,
-            ),
-          ),
-        ),
-        controller: controller,
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
 import 'package:adventuraclick_mobile/screens/register_screen.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
+import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +22,8 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: const Center(
-          child:Text("Login"),
-          ),
+          child: Text("AdventuraClick"),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -47,42 +48,9 @@ class LoginScreen extends StatelessWidget {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       children: [
-                        TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Required field!";
-                            }
-                            return null;
-                          },
-                          controller: _usernameController,
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.person),
-                            prefixIconColor: Colors.deepPurple,
-                            border: OutlineInputBorder(),
-                            labelText: "Username",
-                            labelStyle: TextStyle(color: Colors.deepPurple),
-                            errorStyle: TextStyle(color: Colors.red),
-                          ),
-                        ),
+                        buildInputField(_usernameController, 'Username'),
                         const SizedBox(height: 20),
-                        TextFormField(
-                          obscureText: true,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Required field!";
-                            }
-                            return null;
-                          },
-                          controller: _passwordController,
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            prefixIconColor: Colors.deepPurple,
-                            border: OutlineInputBorder(),
-                            labelText: "Password",
-                            labelStyle: TextStyle(color: Colors.deepPurple),
-                            errorStyle: TextStyle(color: Colors.red),
-                          ),
-                        ),
+                        buildInputField(_passwordController, 'Password'),
                       ],
                     ),
                   ),
@@ -113,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                       Authorization.username = _usernameController.text;
                       Authorization.password = _passwordController.text;
                       await _userProvider.login();
-                      if(!context.mounted) return;
+                      if (!context.mounted) return;
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
@@ -129,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                       );
                     }
                   } on Exception {
-                    if(!context.mounted) return;
+                    if (!context.mounted) return;
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(

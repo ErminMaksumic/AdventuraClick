@@ -5,12 +5,8 @@ using AdventuraClick.Service.Database;
 using AdventuraClick.Service.Implementation;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventuraClick.Service.Interfaces
 {
@@ -43,10 +39,10 @@ namespace AdventuraClick.Service.Interfaces
 
                 newUser.RoleId ??= 1;
 
+                newUser.CreatedAt = DateTime.Now.ToString();
 
                 _context.Users.Add(newUser);
                 _context.SaveChanges();
-
                 return _mapper.Map<Model.User>(newUser);
             }
             return null;
@@ -71,6 +67,23 @@ namespace AdventuraClick.Service.Interfaces
             }
 
             return _mapper.Map<Model.User>(entity);
+        }
+
+        public override IQueryable<User> AddFilter(IQueryable<User> query, UserSearchObject searchObject = null)
+        {
+            var filteredQuery = base.AddFilter(query, searchObject);
+
+            if (!string.IsNullOrWhiteSpace(searchObject.UserName))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Username.StartsWith(searchObject.UserName));
+            }
+            if (!string.IsNullOrWhiteSpace(searchObject.FullName))
+            {
+                filteredQuery = filteredQuery.Where(x => (x.FirstName + " " + x.LastName)
+                .StartsWith(searchObject.FullName));
+            }
+
+            return filteredQuery;
         }
 
         public override void BeforeInsert(UserInsertRequest request, User entity)
@@ -111,4 +124,5 @@ namespace AdventuraClick.Service.Interfaces
             return Convert.ToBase64String(inArray);
         }
     }
+
 }
