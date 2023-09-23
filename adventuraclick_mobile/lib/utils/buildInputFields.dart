@@ -5,13 +5,14 @@ Widget buildInputField(
     TextEditingController controller,
     String labelText, {
     bool isPassword = false,
+    bool optional = false,
   }) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         obscureText: isPassword,
         validator: (value) {
-          if (value!.isEmpty) {
+          if (value!.isEmpty && !optional) {
             return "Required field!";
           }
           return null;
@@ -20,7 +21,9 @@ Widget buildInputField(
         decoration: InputDecoration(
           prefixIcon: IconResolver(fieldText: labelText.toLowerCase().replaceAll(' ', '')),
           prefixIconColor: Colors.deepPurple,
-          border: const OutlineInputBorder(),
+          enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.deepPurple), // Change the border color here
+      ),
           labelText: labelText,
           labelStyle: const TextStyle(color: Colors.deepPurple),
           errorStyle: const TextStyle(color: Colors.red),

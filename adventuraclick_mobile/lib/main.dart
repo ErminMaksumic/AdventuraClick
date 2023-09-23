@@ -1,5 +1,6 @@
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
+import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
 import 'package:adventuraclick_mobile/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         }
         if (settings.name == RegistrationScreen.routeName) {
           return MaterialPageRoute(builder: (context) => const RegistrationScreen());
+        }
+        if (settings.name == ProfileScreen.routeName) {
+          return MaterialPageRoute(builder: (context) => const ProfileScreen());
         }
         return null;
       },

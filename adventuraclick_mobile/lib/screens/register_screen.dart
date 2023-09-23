@@ -113,8 +113,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     _userProvider = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-      ),
+          backgroundColor: Colors.deepPurple,
+          title: const Text("AdventuraClick")),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -215,7 +215,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }
                   },
                   child: const Center(
-                    child: Text("Register", style: TextStyle(color: Colors.white),),
+                    child: Text(
+                      "Register",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),

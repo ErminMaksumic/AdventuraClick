@@ -11,6 +11,7 @@ class User {
   String? email;
   int? roleId;
   String? fullName;
+  String? image;
 
   User();
 

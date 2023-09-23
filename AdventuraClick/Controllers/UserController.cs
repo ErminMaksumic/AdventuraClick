@@ -33,5 +33,11 @@ namespace AdventuraClick.Controllers
         {
             return base.Insert(request);
         }
+
+        [HttpPut("profileUpdate/{id}")]
+        public Model.User ProfileUpdate(int id, [FromBody] ProfileUpdateRequest req)
+        {
+            return _service.ProfileUpdate(id, req);
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace AdventuraClick.Service.Interfaces
     public interface IUserService : ICRUDService<Model.User, UserSearchObject, UserInsertRequest, UserUpdateRequest>
     {
         User Login(string username, string password);
+        User ProfileUpdate(int id, ProfileUpdateRequest req);
+
     }
 }

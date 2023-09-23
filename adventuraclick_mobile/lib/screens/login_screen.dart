@@ -1,4 +1,5 @@
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
+import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
 import 'package:adventuraclick_mobile/screens/register_screen.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
@@ -20,11 +21,8 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-        title: const Center(
-          child: Text("AdventuraClick"),
-        ),
-      ),
+          backgroundColor: Colors.deepPurple,
+          title: const Text("AdventuraClick")),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -50,7 +48,8 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         buildInputField(_usernameController, 'Username'),
                         const SizedBox(height: 20),
-                        buildInputField(_passwordController, 'Password'),
+                        buildInputField(_passwordController, 'Password',
+                            isPassword: true),
                       ],
                     ),
                   ),
@@ -80,8 +79,10 @@ class LoginScreen extends StatelessWidget {
                     if (_formKey.currentState!.validate()) {
                       Authorization.username = _usernameController.text;
                       Authorization.password = _passwordController.text;
-                      await _userProvider.login();
+                      Authorization.user = await _userProvider.login();
                       if (!context.mounted) return;
+                      Navigator.popAndPushNamed(
+                          context, ProfileScreen.routeName);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(

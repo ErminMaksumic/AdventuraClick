@@ -2,13 +2,13 @@
 using AdventuraClick.Model.Requests;
 using AdventuraClick.Model.SearchObjects;
 using AdventuraClick.Service.Database;
-using AdventuraClick.Service.Implementation;
+using AdventuraClick.Service.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AdventuraClick.Service.Interfaces
+namespace AdventuraClick.Service.Implementation
 {
     public class UserService : CRUDService<Model.User, UserSearchObject, Database.User, UserInsertRequest, UserUpdateRequest>,
        IUserService
@@ -123,6 +123,32 @@ namespace AdventuraClick.Service.Interfaces
             byte[] inArray = algorithm.ComputeHash(dst);
             return Convert.ToBase64String(inArray);
         }
-    }
 
+        public Model.User ProfileUpdate(int id, ProfileUpdateRequest req)
+        {
+            var entity = _context.Users.Find(id);
+
+            if (req.Password != req.PasswordConfirmation)
+            {
+                throw new UserException("The two password fields didn't match");
+            }
+
+            if (entity != null)
+            {
+                if (!string.IsNullOrEmpty(req.Password))
+                {
+                    entity.PasswordSalt = GenerateSalt();
+                    entity.PasswordHash = GenerateHash(entity.PasswordSalt, req.Password);
+                }
+
+                entity.Image = req.Image ?? entity.Image;
+                entity.FirstName = req.FirstName ?? entity.FirstName;
+                entity.LastName = req.LastName ?? entity.LastName;
+            }
+
+            _context.SaveChanges();
+            return _mapper.Map<Model.User>(entity);
+        }
+
+    }
 }
