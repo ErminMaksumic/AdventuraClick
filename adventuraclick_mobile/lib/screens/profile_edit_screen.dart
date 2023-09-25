@@ -43,18 +43,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 10),
               padding: const EdgeInsets.all(10),
               color: Colors.deepPurple[50],
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.settings, // Dodajte željenu ikonu
-                    size: 20,
-                    color: Colors.deepPurple,
-                  ),
-                  SizedBox(width: 8), // Razmak između ikone i teksta
                   Text(
                     "Edit your profile",
                     style: TextStyle(
