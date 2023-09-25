@@ -58,9 +58,6 @@ namespace AdventuraClick.Service.Database
                 entity.ToTable("Location");
 
                 entity.Property(e => e.LocationId).HasColumnName("locationId");
-                entity.Property(e => e.Name)
-                    .HasMaxLength(40)
-                    .HasColumnName("name");
             });
 
             modelBuilder.Entity<Payment>(entity =>
