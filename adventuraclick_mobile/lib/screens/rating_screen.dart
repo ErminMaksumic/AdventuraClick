@@ -89,7 +89,7 @@ class _RatingScreenState extends State<RatingScreen> {
               height: 200,
               child: Card(
                 margin: const EdgeInsets.only(top: 40),
-                color: Colors.black,
+                color: Colors.grey,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
@@ -117,8 +117,8 @@ class _RatingScreenState extends State<RatingScreen> {
                       await _ratingProvider.insert({
                         'rate': rating.round(),
                         'comment': _reviewController.text,
-                        'offerId': 1 /*widget.id*/,
-                        'userId': 1 /*Authorization.user!.userId*/,
+                        'travelId': 1 /*widget.id*/,
+                        'userId': 2 /*Authorization.user!.userId*/,
                       });
                       if(!mounted) return;
                       showDialog(

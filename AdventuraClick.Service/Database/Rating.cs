@@ -13,5 +13,9 @@ namespace AdventuraClick.Service.Database
         public int? TravelId { get; set; }
 
         public virtual Travel? Travel { get; set; }
+
+        public int? UserId { get; set; }
+
+        public virtual User? User { get; set; }
     }
 }

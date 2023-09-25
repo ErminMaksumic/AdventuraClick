@@ -10,6 +10,5 @@
 
         public int? TravelId { get; set; }
 
-        public virtual Travel? Travel { get; set; }
     }
 }
