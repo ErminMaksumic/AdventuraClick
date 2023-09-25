@@ -21,6 +21,9 @@ namespace AdventuraClick.Service.Mapper
             CreateMap<Database.Reservation, ReservationUpdateRequest>().ReverseMap();
             // Role
             CreateMap<Database.Role, Model.Role>().ReverseMap();
+            // Rating
+            CreateMap<Database.Rating, Model.Rating>().ReverseMap();
+            CreateMap<Database.Rating, RatingUpsertRequest>().ReverseMap();
         }
     }
 }

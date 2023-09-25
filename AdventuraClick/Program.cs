@@ -38,6 +38,7 @@ builder.Services.AddScoped<IBaseService<AdventuraClick.Model.Role, BaseSearchObj
 builder.Services.AddTransient<ITravelService, TravelService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IReservationService, ReservationService>();
+builder.Services.AddTransient<IRatingService, RatingService>();
 // 
 builder.Services.AddAutoMapper(typeof(Mapper).Assembly);
 builder.Services.AddAuthentication("BasicAuthentication")

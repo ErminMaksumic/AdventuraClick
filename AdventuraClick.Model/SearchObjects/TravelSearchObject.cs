@@ -8,6 +8,6 @@ namespace AdventuraClick.Model.SearchObjects
 {
     public class TravelSearchObject : BaseSearchObject
     {
-        public float Price { get; set; }
+        public float? Price { get; set; }
     }
 }

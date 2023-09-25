@@ -9,11 +9,17 @@ namespace AdventuraClick.Model
 {
     public class TravelUpsertRequest
     {
-        [Required(AllowEmptyStrings = false), MaxLength(20)]
-        public string Name { get; set; }
-        [Required(AllowEmptyStrings = false), Range(1, 1000)]
-        public decimal Price { get; set; }
-        public string Status { get; set; }
-        public byte[]? Image { get; set; }
+        public string Name { get; set; } = null!;
+
+        public DateTime Date { get; set; }
+
+        public string? Image { get; set; }
+
+        public string? Description { get; set; }
+
+        public float Price { get; set; }
+
+        public string? Status { get; set; }
+
     }
 }
