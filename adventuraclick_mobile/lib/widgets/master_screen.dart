@@ -1,4 +1,5 @@
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
+import 'package:adventuraclick_mobile/screens/rating_screen.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -23,9 +24,10 @@ class MasterScreenWidget extends StatelessWidget {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
+          // temporary navigation
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'TBC',
+            icon: Icon(Icons.rate_review),
+            label: 'Rate',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
@@ -33,14 +35,14 @@ class MasterScreenWidget extends StatelessWidget {
           ),
         ],
         currentIndex: index!,
-        backgroundColor: Colors.deepPurple, // Promijenite boju pozadine ovdje
+        backgroundColor: Colors.deepPurple,
         onTap: (index) {
           switch (index) {
             case 0:
               Navigator.pushNamed(context, LoginScreen.routeName);
               break;
             case 1:
-              Navigator.pushNamed(context, LoginScreen.routeName);
+              Navigator.pushNamed(context, RatingScreen.routeName);
               break;
             case 2:
               Navigator.pushNamed(context, LoginScreen.routeName);

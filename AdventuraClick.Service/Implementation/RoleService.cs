@@ -1,13 +1,12 @@
 ﻿using AdventuraClick.Model.SearchObjects;
-using AdventuraClick.Service.Database;
 using AdventuraClick.Service.Interfaces;
 using AutoMapper;
 
 namespace AdventuraClick.Service.Implementation
 {
-    public class RoleService : BaseService<Model.Role, Role, BaseSearchObject>, IRoleService
+    public class RoleService : BaseService<Model.Role, Database.Role, BaseSearchObject>, IRoleService
     {
-        public RoleService(AdventuraClickInitContext context, IMapper mapper) : base(context, mapper)
+        public RoleService(Database.AdventuraClickInitContext context, IMapper mapper) : base(context, mapper)
         { }
     }
 }

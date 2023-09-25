@@ -43,8 +43,7 @@ class UserProvider extends BaseProvider<User> {
   }
 
   Future<User?> updateProfile(dynamic request) async {
-    var url =
-        Uri.parse("$fullUrl/profileUpdate/${Authorization.user!.userId}");
+    var url = Uri.parse("$fullUrl/profileUpdate/${Authorization.user!.userId}");
 
     Map<String, String> headers = createHeaders();
     var response =

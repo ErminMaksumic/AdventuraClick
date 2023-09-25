@@ -103,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 child: const Center(
                     child: Text(
-                  "Select the new picture",
+                  "Select new picture",
                   style: TextStyle(color: Colors.white),
                 )),
               ),
