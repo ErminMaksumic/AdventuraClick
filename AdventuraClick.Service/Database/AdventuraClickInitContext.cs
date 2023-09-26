@@ -58,9 +58,6 @@ namespace AdventuraClick.Service.Database
                 entity.ToTable("Location");
 
                 entity.Property(e => e.LocationId).HasColumnName("locationId");
-                entity.Property(e => e.Name)
-                    .HasMaxLength(40)
-                    .HasColumnName("name");
             });
 
             modelBuilder.Entity<Payment>(entity =>
@@ -148,32 +145,9 @@ namespace AdventuraClick.Service.Database
                     .HasColumnName("status");
                 entity.Property(e => e.TravelTypeId).HasColumnName("travelTypeId");
 
-                entity.HasOne(d => d.Location).WithMany(p => p.Travels)
-                    .HasForeignKey(d => d.LocationId)
-                    .HasConstraintName("FK_REFERENCE_4");
-
                 entity.HasOne(d => d.TravelType).WithMany(p => p.Travels)
                     .HasForeignKey(d => d.TravelTypeId)
                     .HasConstraintName("FK_REFERENCE_3");
-
-                entity.HasMany(d => d.AddServices).WithMany(p => p.Travels)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "TravelAddService",
-                        r => r.HasOne<AdditionalService>().WithMany()
-                            .HasForeignKey("AddServiceId")
-                            .OnDelete(DeleteBehavior.ClientSetNull)
-                            .HasConstraintName("FK_REFERENCE_7"),
-                        l => l.HasOne<Travel>().WithMany()
-                            .HasForeignKey("TravelId")
-                            .OnDelete(DeleteBehavior.ClientSetNull)
-                            .HasConstraintName("FK_REFERENCE_6"),
-                        j =>
-                        {
-                            j.HasKey("TravelId", "AddServiceId").HasName("PK_11");
-                            j.ToTable("TravelAddService");
-                            j.IndexerProperty<int>("TravelId").HasColumnName("travelId");
-                            j.IndexerProperty<int>("AddServiceId").HasColumnName("addServiceId");
-                        });
             });
 
             modelBuilder.Entity<TravelType>(entity =>

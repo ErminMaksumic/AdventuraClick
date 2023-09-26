@@ -16,9 +16,12 @@ Travel _$TravelFromJson(Map<String, dynamic> json) => Travel()
   ..date = json['date'] == null ? null : DateTime.parse(json['date'] as String)
   ..locationId = json['locationId'] as int?
   ..travelTypeId = json['travelTypeId'] as int?
-  ..additionalServices = (json['additionalServices'] as List<dynamic>?)
-      ?.map((e) => AdditionalServices.fromJson(e as Map<String, dynamic>))
-      .toList();
+  ..travelType = json['travelType'] == null
+      ? null
+      : TravelType.fromJson(json['travelType'] as Map<String, dynamic>)
+  ..location = json['location'] == null
+      ? null
+      : Location.fromJson(json['location'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$TravelToJson(Travel instance) => <String, dynamic>{
       'travelId': instance.travelId,
@@ -30,5 +33,6 @@ Map<String, dynamic> _$TravelToJson(Travel instance) => <String, dynamic>{
       'date': instance.date?.toIso8601String(),
       'locationId': instance.locationId,
       'travelTypeId': instance.travelTypeId,
-      'additionalServices': instance.additionalServices,
+      'travelType': instance.travelType,
+      'location': instance.location,
     };

@@ -19,5 +19,8 @@
         public int? TravelTypeId { get; set; }
 
         public int? LocationId { get; set; }
+
+        public virtual TravelType? TravelType { get; set; }
+
     }
 }
