@@ -188,7 +188,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                             //   Navigator.pushNamed(context,
                             //       "${reservation.routeName}/${data.travelId}");
                             // },
-                            child: Center(child: Text("Reserve your travel!"))),
+                            child: Center(child: Text("Reserve your travel!", style: TextStyle(color: Colors.white),))),
                       ),
                     ],
                   ),
