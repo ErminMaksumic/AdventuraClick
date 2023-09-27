@@ -26,7 +26,7 @@ public class Travel
 
     public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
 
-    public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    public virtual ICollection<AdditionalServiceReservation> AdditionalServicesReservations { get; set; } = new List<AdditionalServiceReservation>();
 
     public virtual ICollection<IncludedItemTravel> IncludedItemTravels { get; set; }
 

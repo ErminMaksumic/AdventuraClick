@@ -16,6 +16,8 @@ namespace AdventuraClick.Service.Database
 
         public virtual DbSet<AdditionalService> AdditionalServices { get; set; }
 
+        public virtual DbSet<AdditionalServiceReservation> AdditionalServiceReservations { get; set; }
+
         public virtual DbSet<Location> Locations { get; set; }
 
         public virtual DbSet<Payment> Payments { get; set; }
@@ -107,10 +109,6 @@ namespace AdventuraClick.Service.Database
                 entity.Property(e => e.Note).HasColumnName("note");
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.TravelId).HasColumnName("travelId");
-
-                entity.HasOne(d => d.Travel).WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.TravelId)
-                    .HasConstraintName("FK_REFERENCE_8");
             });
 
             modelBuilder.Entity<Role>(entity =>

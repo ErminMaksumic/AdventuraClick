@@ -1,14 +1,17 @@
-﻿namespace AdventuraClick.Model.Requests
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AdventuraClick.Model.Requests
 {
     public class ReservationInsertRequest
     {
-        public string? Note { get; set; }
-
-        public string? Status { get; set; }
-
-        public string Date { get; set; } = null!;
-
+        public string Status { get; set; }
+        [MaxLength(30)]
+        public string Note { get; set; }
+        [Required]
+        public DateTime? Date { get; set; }
+        public int? UserId { get; set; }
         public int? TravelId { get; set; }
+        public List<int> AdditionalServices { get; set; } = new List<int>();
 
     }
 }

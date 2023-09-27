@@ -14,5 +14,13 @@ public partial class Reservation
 
     public virtual Travel? Travel { get; set; }
 
-    public virtual ICollection<AdditionalService> AddServices { get; set; } = new List<AdditionalService>();
+    public int? UserId { get; set; }
+
+    public virtual User? User { get; set; }
+
+    public int? PaymentId { get; set; }
+
+    public virtual Payment? Payment { get; set; }
+
+    public virtual ICollection<AdditionalServiceReservation> AdditionalServicesReservations { get; set; } = new List<AdditionalServiceReservation>();
 }
