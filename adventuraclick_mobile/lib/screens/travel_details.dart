@@ -4,6 +4,7 @@ import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
+import 'package:adventuraclick_mobile/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,8 @@ class TravelDetailsScreen extends StatefulWidget {
 
   @override
   State<TravelDetailsScreen> createState() =>
-      _TravelDetailsScreenState(this.id);
+      // ignore: no_logic_in_create_state
+      _TravelDetailsScreenState(id);
 }
 
 class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
@@ -33,7 +35,6 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
   }
 
   Future loadData() async {
-
     //debug
     //inspect(mockedData);
 
@@ -49,11 +50,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
     return Scaffold(
         body: _buildTravelDetails(),
         drawer: const DrawerMenu(),
-        appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
-          title: const Text("AdventuraClick"),
-        ));
-  }
+);  }
 
   _buildTravelDetails() {
     if (data.name == null) {
@@ -64,7 +61,9 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
       );
     }
 
-    return SafeArea(
+    return MasterScreenWidget(
+      index: 2,
+      child: SafeArea(
       child: Stack(
         children: <Widget>[
           SizedBox(
@@ -78,43 +77,42 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 250),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    data.name!,
-                    style: const TextStyle(
-                        color: Colors.deepPurple,
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
                 Row(
                   children: <Widget>[
                     const SizedBox(width: 16.0),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 8.0,
+                        vertical: 10.0,
                         horizontal: 16.0,
                       ),
                       decoration: BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Text(
-                        data.travelType?.name ?? '',
+                        data.travelType?.name ?? 'Unknown',
                         style: const TextStyle(
-                            color: Colors.white, fontSize: 13.0),
+                            color: Colors.red, fontSize: 15.0),
                       ),
                     ),
                     const Spacer(),
                   ],
                 ),
                 Container(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.fromLTRB(32, 20, 32, 32),
                   color: Colors.white,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
+                      Center(
+                        child: Text(
+                          data.name!,
+                          style: const TextStyle(
+                              color: Colors.deepPurple,
+                              fontSize: 28.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -160,6 +158,10 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                         style: const TextStyle(
                             fontWeight: FontWeight.w300, fontSize: 14.0),
                       ),
+                      const SizedBox(height: 30),
+                      Column(
+                        children: _buildIncludedItems(),
+                      ),
                       const SizedBox(height: 30.0),
                       Text(
                         "Description".toUpperCase(),
@@ -186,7 +188,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                             //   Navigator.pushNamed(context,
                             //       "${reservation.routeName}/${data.travelId}");
                             // },
-                            child: Center(child: Text("Reserve your travel!"))),
+                            child: Center(child: Text("Reserve your travel!", style: TextStyle(color: Colors.white),))),
                       ),
                     ],
                   ),
@@ -196,6 +198,45 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
           ),
         ],
       ),
+    )
     );
+  }
+
+  List<Widget> _buildIncludedItems() {
+    List<Widget> list = data.includedItems!
+        .map(
+          (x) => Row(
+            children: [
+              const Icon(
+                Icons.travel_explore_rounded,
+                color: Colors.green,
+              ),
+              const SizedBox(width: 10),
+              Text(x.name!,
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w300, fontSize: 14.0)),
+            ],
+          ),
+        )
+        .cast<Widget>()
+        .toList();
+
+    list.insert(
+        0,
+        Row(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      child: Text(
+        "Included: ".toUpperCase(),
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14.0),
+      ),
+    ),
+  ],
+));
+
+    return list;
   }
 }

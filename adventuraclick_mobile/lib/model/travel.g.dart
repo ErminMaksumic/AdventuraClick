@@ -21,7 +21,10 @@ Travel _$TravelFromJson(Map<String, dynamic> json) => Travel()
       : TravelType.fromJson(json['travelType'] as Map<String, dynamic>)
   ..location = json['location'] == null
       ? null
-      : Location.fromJson(json['location'] as Map<String, dynamic>);
+      : Location.fromJson(json['location'] as Map<String, dynamic>)
+  ..includedItems = (json['includedItems'] as List<dynamic>?)
+      ?.map((e) => IncludedItem.fromJson(e as Map<String, dynamic>))
+      .toList();
 
 Map<String, dynamic> _$TravelToJson(Travel instance) => <String, dynamic>{
       'travelId': instance.travelId,
@@ -35,4 +38,5 @@ Map<String, dynamic> _$TravelToJson(Travel instance) => <String, dynamic>{
       'travelTypeId': instance.travelTypeId,
       'travelType': instance.travelType,
       'location': instance.location,
+      'includedItems': instance.includedItems,
     };
