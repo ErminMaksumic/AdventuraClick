@@ -1,3 +1,4 @@
+import 'package:adventuraclick_mobile/providers/payment_provider.dart';
 import 'package:adventuraclick_mobile/providers/rating_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
@@ -14,6 +15,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => UserProvider()),
     ChangeNotifierProvider(create: (_) => RatingProvider()),
     ChangeNotifierProvider(create: (_) => TravelProvider()),
+    ChangeNotifierProvider(create: (_) => PaymentProvider()),
   ], child: const MyApp()));
 }
 
