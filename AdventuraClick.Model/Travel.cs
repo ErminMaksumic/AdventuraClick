@@ -22,5 +22,8 @@
 
         public virtual TravelType? TravelType { get; set; }
 
+        public virtual Location? Location { get; set; }
+
+
     }
 }

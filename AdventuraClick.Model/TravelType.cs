@@ -8,6 +8,5 @@
 
         public string? Description { get; set; }
 
-        public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
     }
 }
