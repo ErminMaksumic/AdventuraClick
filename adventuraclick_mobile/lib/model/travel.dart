@@ -1,5 +1,6 @@
 import 'package:adventuraclick_mobile/data/mockResponse.dart';
 import 'package:adventuraclick_mobile/model/additional_services.dart';
+import 'package:adventuraclick_mobile/model/included_item.dart';
 import 'package:adventuraclick_mobile/model/location.dart';
 import 'package:adventuraclick_mobile/model/travel_type.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -18,6 +19,7 @@ class Travel {
   int? travelTypeId;
   TravelType? travelType;
   Location? location;
+  List<IncludedItem>? includedItems;
 
   Travel();
 

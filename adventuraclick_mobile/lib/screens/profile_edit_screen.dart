@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _userProvider = Provider.of(context, listen: false);
 
     return MasterScreenWidget(
-        index: 2,
+        index: 1,
         child: SingleChildScrollView(
             child: Column(
           children: [
@@ -73,10 +73,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 250,
                             width: 300,
                             child: (image == null && currentPicture == null)
-      ? Image.asset('assets/images/404.png')
-      : (image == null
-          ? imageFromBase64String(currentPicture!)
-          : Image.file(image!))),
+                                ? Image.asset('assets/images/404.png')
+                                : (image == null
+                                    ? imageFromBase64String(currentPicture!)
+                                    : Image.file(image!))),
                       ],
                     ),
                   ),
