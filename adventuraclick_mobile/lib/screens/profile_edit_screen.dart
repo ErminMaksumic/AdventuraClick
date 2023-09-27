@@ -72,11 +72,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(
                             height: 250,
                             width: 300,
-                            child: image == null
-                                ? imageFromBase64String(currentPicture!)
-                                : Image.file(
-                                    image!,
-                                  )),
+                            child: (image == null && currentPicture == null)
+      ? Image.asset('assets/images/404.png')
+      : (image == null
+          ? imageFromBase64String(currentPicture!)
+          : Image.file(image!))),
                       ],
                     ),
                   ),

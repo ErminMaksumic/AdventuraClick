@@ -8,5 +8,5 @@ public partial class AdditionalService
 
     public float Price { get; set; }
 
-    public virtual ICollection<Travel> Travels { get; set; } = new List<Travel>();
+    public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }

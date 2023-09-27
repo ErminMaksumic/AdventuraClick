@@ -1,4 +1,7 @@
+import 'package:adventuraclick_mobile/data/mockResponse.dart';
 import 'package:adventuraclick_mobile/model/additional_services.dart';
+import 'package:adventuraclick_mobile/model/location.dart';
+import 'package:adventuraclick_mobile/model/travel_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'travel.g.dart';
 
@@ -13,7 +16,8 @@ class Travel {
   DateTime? date;
   int? locationId;
   int? travelTypeId;
-  List<AdditionalServices>? additionalServices;
+  TravelType? travelType;
+  Location? location;
 
   Travel();
 

@@ -30,5 +30,4 @@ public class Travel
 
     public virtual TravelType? TravelType { get; set; }
 
-    public virtual ICollection<AdditionalService> AddServices { get; set; } = new List<AdditionalService>();
 }

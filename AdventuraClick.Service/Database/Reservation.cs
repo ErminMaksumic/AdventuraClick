@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AdventuraClick.Service.Database;
+﻿namespace AdventuraClick.Service.Database;
 
 public partial class Reservation
 {
@@ -16,4 +13,6 @@ public partial class Reservation
     public int? TravelId { get; set; }
 
     public virtual Travel? Travel { get; set; }
+
+    public virtual ICollection<AdditionalService> AddServices { get; set; } = new List<AdditionalService>();
 }

@@ -4,6 +4,7 @@ using AdventuraClick.Service.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdventuraClick.Service.Migrations
 {
     [DbContext(typeof(AdventuraClickInitContext))]
-    partial class AdventuraClickContextModelSnapshot : ModelSnapshot
+    [Migration("20230926185954_movedAddServices")]
+    partial class movedAddServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,11 +73,10 @@ namespace AdventuraClick.Service.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocationId"));
 
-                    b.Property<string>("CityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CountryName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("name");
 
                     b.HasKey("LocationId")
                         .HasName("PK_7");
@@ -396,8 +398,9 @@ namespace AdventuraClick.Service.Migrations
             modelBuilder.Entity("AdventuraClick.Service.Database.Travel", b =>
                 {
                     b.HasOne("AdventuraClick.Service.Database.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
+                        .WithMany("Travels")
+                        .HasForeignKey("LocationId")
+                        .HasConstraintName("FK_REFERENCE_4");
 
                     b.HasOne("AdventuraClick.Service.Database.TravelType", "TravelType")
                         .WithMany("Travels")
@@ -417,6 +420,11 @@ namespace AdventuraClick.Service.Migrations
                         .HasConstraintName("FK_REFERENCE_1");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("AdventuraClick.Service.Database.Location", b =>
+                {
+                    b.Navigation("Travels");
                 });
 
             modelBuilder.Entity("AdventuraClick.Service.Database.Role", b =>

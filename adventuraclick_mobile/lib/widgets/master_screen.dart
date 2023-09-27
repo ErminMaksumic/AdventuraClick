@@ -1,5 +1,6 @@
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
 import 'package:adventuraclick_mobile/screens/rating_screen.dart';
+import 'package:adventuraclick_mobile/screens/travel_details.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -29,9 +30,10 @@ class MasterScreenWidget extends StatelessWidget {
             icon: Icon(Icons.rate_review),
             label: 'Rate',
           ),
+          // temporary travel screen
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'My profile',
+            icon: Icon(Icons.travel_explore),
+            label: 'Travel',
           ),
         ],
         currentIndex: index!,
@@ -45,7 +47,7 @@ class MasterScreenWidget extends StatelessWidget {
               Navigator.pushNamed(context, RatingScreen.routeName);
               break;
             case 2:
-              Navigator.pushNamed(context, LoginScreen.routeName);
+              Navigator.pushNamed(context, TravelDetailsScreen.routeName);
               break;
           }
         },
