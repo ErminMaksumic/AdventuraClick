@@ -1,5 +1,7 @@
+import 'package:adventuraclick_mobile/providers/additional_service_provider.dart';
 import 'package:adventuraclick_mobile/providers/payment_provider.dart';
 import 'package:adventuraclick_mobile/providers/rating_provider.dart';
+import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
@@ -16,6 +18,8 @@ void main() {
     ChangeNotifierProvider(create: (_) => RatingProvider()),
     ChangeNotifierProvider(create: (_) => TravelProvider()),
     ChangeNotifierProvider(create: (_) => PaymentProvider()),
+    ChangeNotifierProvider(create: (_) => ReservationProvider()),
+    ChangeNotifierProvider(create: (_) => AdditionalServiceProvider()),
   ], child: const MyApp()));
 }
 
