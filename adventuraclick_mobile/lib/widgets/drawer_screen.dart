@@ -1,4 +1,5 @@
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
+import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +19,10 @@ class DrawerMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('TBC'),
+            title: const Text('Reservation - temp'),
             onTap: () {
               Navigator.popAndPushNamed(
-                  context, LoginScreen.routeName);
+                  context, ReservationScreen.routeName);
             },
           ),
           ListTile(

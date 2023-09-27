@@ -2,7 +2,7 @@ import 'package:adventuraclick_mobile/model/reservation.dart';
 import 'package:adventuraclick_mobile/providers/base_provider.dart';
 
 class ReservationProvider extends BaseProvider<Reservation> {
-  ReservationProvider() : super("Rating");
+  ReservationProvider() : super("Reservation");
 
   @override
   Reservation fromJson(data) {
