@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:developer';
 
-import 'package:adventuraclick_mobile/data/mockResponse.dart';
 import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
@@ -21,9 +19,6 @@ class TravelDetailsScreen extends StatefulWidget {
 }
 
 class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
-  // temporary mock
-  var mockedData = convertMockedDataToTravelList();
-
   TravelProvider? _travelProvider;
   Travel data = Travel();
   String id;
@@ -43,6 +38,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
     //inspect(mockedData);
 
     var tempData = await _travelProvider?.getById(int.parse(id));
+    inspect(tempData);
     setState(() {
       data = tempData!;
     });
@@ -73,7 +69,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
         children: <Widget>[
           SizedBox(
             height: 350,
-            child: Image.memory(dataFromBase64String(mockedData[0].image!),
+            child: Image.memory(dataFromBase64String(data.image!),
                 fit: BoxFit.cover),
           ),
           SingleChildScrollView(
@@ -85,7 +81,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
-                    mockedData[0].name!,
+                    data.name!,
                     style: const TextStyle(
                         color: Colors.deepPurple,
                         fontSize: 28.0,
@@ -104,7 +100,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Text(
-                        mockedData[0].travelType?.name ?? '',
+                        data.travelType?.name ?? '',
                         style: const TextStyle(
                             color: Colors.white, fontSize: 13.0),
                       ),
@@ -146,7 +142,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                       ),
                       const SizedBox(height: 10.0),
                       Text(
-                        '${mockedData[0].location?.cityName}, ${mockedData[0].location?.countryName}',
+                        '${data.location?.cityName}, ${data.location?.countryName}',
                         textAlign: TextAlign.justify,
                         style: const TextStyle(
                             fontWeight: FontWeight.w300, fontSize: 14.0),
@@ -159,7 +155,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                       ),
                       const SizedBox(height: 10.0),
                       Text(
-                        mockedData[0].date.toString(),
+                        data.date.toString(),
                         textAlign: TextAlign.justify,
                         style: const TextStyle(
                             fontWeight: FontWeight.w300, fontSize: 14.0),
@@ -172,7 +168,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                       ),
                       const SizedBox(height: 10.0),
                       Text(
-                        mockedData[0].description ?? '',
+                        data.description ?? '',
                         textAlign: TextAlign.justify,
                         style: const TextStyle(
                             fontWeight: FontWeight.w300, fontSize: 14.0),
