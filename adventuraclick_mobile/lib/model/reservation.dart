@@ -7,7 +7,7 @@ part 'reservation.g.dart';
 class Reservation {
   int? reservationId;
   int? userId;
-  int? travel;
+  int? travelId;
   int? paymentId;
   String? status;
   String? date;

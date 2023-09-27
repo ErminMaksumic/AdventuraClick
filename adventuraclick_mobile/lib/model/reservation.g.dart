@@ -9,6 +9,7 @@ part of 'reservation.dart';
 Reservation _$ReservationFromJson(Map<String, dynamic> json) => Reservation()
   ..reservationId = json['reservationId'] as int?
   ..userId = json['userId'] as int?
+  ..travelId = json['travelId'] as int?
   ..paymentId = json['paymentId'] as int?
   ..status = json['status'] as String?
   ..date = json['date'] as String?
@@ -23,6 +24,7 @@ Map<String, dynamic> _$ReservationToJson(Reservation instance) =>
     <String, dynamic>{
       'reservationId': instance.reservationId,
       'userId': instance.userId,
+      'travelId': instance.travelId,
       'paymentId': instance.paymentId,
       'status': instance.status,
       'date': instance.date,
