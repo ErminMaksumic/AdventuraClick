@@ -50,11 +50,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
     return Scaffold(
         body: _buildTravelDetails(),
         drawer: const DrawerMenu(),
-        appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
-          title: const Text("AdventuraClick"),
-        ));
-  }
+);  }
 
   _buildTravelDetails() {
     if (data.name == null) {
@@ -86,16 +82,16 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                     const SizedBox(width: 16.0),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 8.0,
+                        vertical: 10.0,
                         horizontal: 16.0,
                       ),
                       decoration: BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Text(
-                        data.travelType?.name ?? '',
+                        data.travelType?.name ?? 'Unknown',
                         style: const TextStyle(
-                            color: Colors.white, fontSize: 13.0),
+                            color: Colors.red, fontSize: 15.0),
                       ),
                     ),
                     const Spacer(),
