@@ -33,6 +33,7 @@ namespace AdventuraClick.Service.Mapper
             CreateMap<Database.IncludedItem, IncludedItemUpsertRequest>().ReverseMap();
             // Payment
             CreateMap<Database.Payment, Model.Payment>().ReverseMap();
+            CreateMap<Database.Payment, PaymentUpsertRequest>().ReverseMap();
             // AdditionalServiceReservation
             CreateMap<Database.AdditionalServiceReservation, Model.AdditionalServiceReservation>().ReverseMap();
 
