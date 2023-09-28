@@ -136,6 +136,19 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                           ),
                           const SizedBox(height: 10.0),
                           Text(
+                            "Nights: ".toUpperCase(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 14.0),
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text(
+                            data.numberOfNights.toString(),
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w300, fontSize: 14.0),
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text(
                             "Location".toUpperCase(),
                             style: const TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 14.0),
@@ -147,7 +160,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                             style: const TextStyle(
                                 fontWeight: FontWeight.w300, fontSize: 14.0),
                           ),
-                          const SizedBox(height: 30.0),
+                          const SizedBox(height: 10.0),
                           Text(
                             "Date".toUpperCase(),
                             style: const TextStyle(
@@ -160,11 +173,11 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                             style: const TextStyle(
                                 fontWeight: FontWeight.w300, fontSize: 14.0),
                           ),
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 10),
                           Column(
                             children: _buildIncludedItems(),
                           ),
-                          const SizedBox(height: 30.0),
+                          const SizedBox(height: 10.0),
                           Text(
                             "Description".toUpperCase(),
                             style: const TextStyle(
@@ -177,7 +190,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                             style: const TextStyle(
                                 fontWeight: FontWeight.w300, fontSize: 14.0),
                           ),
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 20),
                           Container(
                             height: 50,
                             width: 400,

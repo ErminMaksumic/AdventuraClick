@@ -4,8 +4,6 @@
     {
         public int ReservationId { get; set; }
 
-        public string? Note { get; set; }
-
         public string? Status { get; set; }
 
         public string Date { get; set; } = null!;

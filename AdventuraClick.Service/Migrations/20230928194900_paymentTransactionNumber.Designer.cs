@@ -4,6 +4,7 @@ using AdventuraClick.Service.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdventuraClick.Service.Migrations
 {
     [DbContext(typeof(AdventuraClickInitContext))]
-    partial class AdventuraClickContextModelSnapshot : ModelSnapshot
+    [Migration("20230928194900_paymentTransactionNumber")]
+    partial class paymentTransactionNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,9 +306,6 @@ namespace AdventuraClick.Service.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("name");
-
-                    b.Property<int>("NumberOfNights")
-                        .HasColumnType("int");
 
                     b.Property<float>("Price")
                         .HasColumnType("real")

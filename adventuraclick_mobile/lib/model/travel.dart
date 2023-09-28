@@ -14,6 +14,7 @@ class Travel {
   String? image;
   String? description;
   double? price;
+  int? numberOfNights;
   DateTime? date;
   int? locationId;
   int? travelTypeId;

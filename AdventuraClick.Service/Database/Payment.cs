@@ -10,6 +10,8 @@ public partial class Payment
 
     public float Amount { get; set; }
 
+    public string TransactionNumber { get; set; }
+
     public int? TravelId { get; set; }
 
     public virtual Travel? Travel { get; set; }

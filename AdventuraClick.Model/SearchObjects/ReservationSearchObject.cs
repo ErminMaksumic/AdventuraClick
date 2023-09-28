@@ -5,6 +5,7 @@
         public bool IncludeUser { get; set; }
         public bool IncludeAdditionalServices { get; set; }
         public bool IncludeTravel { get; set; }
+        public bool IncludePayment { get; set; }
 
 
     }

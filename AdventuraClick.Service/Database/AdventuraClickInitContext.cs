@@ -106,7 +106,6 @@ namespace AdventuraClick.Service.Database
                 entity.Property(e => e.Date)
                     .HasMaxLength(40)
                     .HasColumnName("date");
-                entity.Property(e => e.Note).HasColumnName("note");
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.TravelId).HasColumnName("travelId");
             });

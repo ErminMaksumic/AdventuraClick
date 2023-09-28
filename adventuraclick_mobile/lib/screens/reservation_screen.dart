@@ -47,7 +47,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
@@ -57,7 +56,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
     _additionalServiceProvider = context.read<AdditionalServiceProvider>();
     _paymentProvider = context.read<PaymentProvider>();
     Stripe.publishableKey =
-        "pk_test_51LXsy4GXcNCijvMXdjVDqB7K28efOhBim1tVizcvkuGHE38cF421qwVvF1FSEFMIYQFVxiUjCLk7FX6hMu0sYdIq00Zwp0NpCA";
+        "pk_test_51LYvFoDcMolufBl1C62vG2kBj4cwnEI4ZCqxnYDr321H8jJXCW0PkOpVdR7HOBiotcUCtKAVShIpJDIAugULk84H00c5JG5CcC";
     setState(() {});
     loadData();
   }
@@ -288,7 +287,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
           body: body,
           headers: {
             'Authorization':
-                'Bearer tbc',
+                'Bearer sk_test_51LYvFoDcMolufBl1uKvRlAoWHLj0jASSB4GN33lYWbm1ivdZHXykGJvEsxrXVQgPJsLg9ayg5vzLYfzaiGcYonTw00aCnZElga',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       return jsonDecode(response.body);
@@ -343,7 +342,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
         'status': "Active",
         'additionalServices': valuesIds,
         'payment': {
-          'transactionId': paymentIntentData!['id'],
+          'transactionNumber': paymentIntentData!['id'],
           'amount': calculateAmount(_data!.price!),
           'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
           'fullName': "${_firstNameController.text} ${_lastNameController.text}"

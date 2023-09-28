@@ -10,6 +10,7 @@
 
         public float Amount { get; set; }
 
+        public string TransactionNumber { get; set; }
 
     }
 }
