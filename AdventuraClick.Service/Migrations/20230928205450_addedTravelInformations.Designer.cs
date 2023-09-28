@@ -4,6 +4,7 @@ using AdventuraClick.Service.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdventuraClick.Service.Migrations
 {
     [DbContext(typeof(AdventuraClickInitContext))]
-    partial class AdventuraClickContextModelSnapshot : ModelSnapshot
+    [Migration("20230928205450_addedTravelInformations")]
+    partial class addedTravelInformations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,12 +348,7 @@ namespace AdventuraClick.Service.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TravelId")
-                        .HasColumnType("int");
-
                     b.HasKey("TravelInformationId");
-
-                    b.HasIndex("TravelId");
 
                     b.ToTable("TravelInformations");
                 });
@@ -553,17 +551,6 @@ namespace AdventuraClick.Service.Migrations
                     b.Navigation("TravelType");
                 });
 
-            modelBuilder.Entity("AdventuraClick.Service.Database.TravelInformation", b =>
-                {
-                    b.HasOne("AdventuraClick.Service.Database.Travel", "Travel")
-                        .WithMany("TravelInformations")
-                        .HasForeignKey("TravelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Travel");
-                });
-
             modelBuilder.Entity("AdventuraClick.Service.Database.User", b =>
                 {
                     b.HasOne("AdventuraClick.Service.Database.Role", "Role")
@@ -608,8 +595,6 @@ namespace AdventuraClick.Service.Migrations
                     b.Navigation("Payments");
 
                     b.Navigation("Ratings");
-
-                    b.Navigation("TravelInformations");
                 });
 
             modelBuilder.Entity("AdventuraClick.Service.Database.TravelType", b =>

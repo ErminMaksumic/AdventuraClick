@@ -32,7 +32,13 @@ namespace AdventuraClick.Service.Implementation
 
         public override Model.Travel GetById(int id)
         {
-            var entity = _context.Travels.Include("Location").Include("TravelType").Include(x=> x.IncludedItemTravels).ThenInclude(x=> x.IncludedItem).FirstOrDefault(x => x.TravelId == id);
+            var entity = _context.Travels.
+                Include("Location").
+                Include("TravelType").
+                Include(x=> x.TravelInformations).
+                Include(x=> x.IncludedItemTravels).
+                ThenInclude(x=> x.IncludedItem).
+                FirstOrDefault(x => x.TravelId == id);
 
             return _mapper.Map<Model.Travel>(entity);
         }

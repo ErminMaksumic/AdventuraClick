@@ -37,13 +37,13 @@ class _ReservationScreenState extends State<ReservationScreen> {
   late PaymentProvider _paymentProvider;
   Travel? _data;
   List<AdditionalServices>? _additionalServices = [];
-  String? selectedDate;
   String? expDate;
   Map<String, dynamic>? paymentIntentData;
   final _formKey = GlobalKey<FormState>();
   List<int> valuesIds = [];
   List<AdditionalServices>? valuesObjects = [];
   double amount = 0;
+  int selectedDate = 99;
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -112,12 +112,19 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 15),
-                    ElevatedButton(
-                      onPressed: () => _selectDate(context),
-                      child: Text(selectedDate != null
-                          ? "$selectedDate"
-                          : 'Select date for your reservation'),
-                    ),
+                    const SizedBox(height: 15.0),
+                DropdownButton(
+                    items: _buildDateDownList(),
+                    value: selectedDate,
+                    icon: Icon(Icons.date_range),
+                    hint: Text("Dates"),
+                    //hint: Text("Room Type"),
+                    onChanged: (dynamic value) {
+                      setState(() {
+                        selectedDate = value;
+                      });
+                    }),
+                const SizedBox(height: 35.0),
                     Row(
                       children: [
                         Container(
@@ -189,19 +196,24 @@ class _ReservationScreenState extends State<ReservationScreen> {
     );
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+    List<DropdownMenuItem> _buildDateDownList() {
+    List<DropdownMenuItem> list = <DropdownMenuItem>[];
 
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        String formated = DateFormat('yyyy-MM-dd').format(picked);
-        selectedDate = formated;
-      });
-    }
+    list.add(const DropdownMenuItem(
+      value: 99,
+      enabled: false,
+      child:
+          Text("Available dates", style: TextStyle(color: Colors.black)),
+    ));
+
+    list.addAll(
+       _data!.travelInformations!.map((x) => DropdownMenuItem(
+              child: Text(x.departureTime.toString(), style: TextStyle(color: Colors.black)),
+              value: [].indexOf(x),
+            ))
+        .toList());
+
+    return list;
   }
 
   Future<void> makePayment(double amount) async {

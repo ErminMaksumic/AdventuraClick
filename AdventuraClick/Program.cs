@@ -41,6 +41,7 @@ builder.Services.AddTransient<IReservationService, ReservationService>();
 builder.Services.AddTransient<IRatingService, RatingService>();
 builder.Services.AddTransient<IIncludedItem, IncludedItemService>();
 builder.Services.AddTransient<IPaymentService, PaymentService>();
+builder.Services.AddTransient<ITravelInformationService, TravelInformationService>();
 builder.Services.AddTransient<IAdditionalService, AdventuraClick.Service.Implementation.AdditionalService>();
 // 
 builder.Services.AddAutoMapper(typeof(Mapper).Assembly);

@@ -24,6 +24,8 @@ public class Travel
 
     public virtual Location? Location { get; set; }
 
+    public virtual ICollection<TravelInformation> TravelInformations { get; set; }
+
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
     public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();

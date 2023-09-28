@@ -22,6 +22,10 @@
 
         public int? LocationId { get; set; }
 
+        public int? TravelInformationId { get; set; }
+
+        public virtual ICollection<TravelInformation> TravelInformations { get; set; }
+
         public virtual TravelType? TravelType { get; set; }
 
         public virtual Location? Location { get; set; }
