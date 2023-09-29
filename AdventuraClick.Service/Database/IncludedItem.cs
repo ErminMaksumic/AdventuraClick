@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventuraClick.Service.Database
+﻿namespace AdventuraClick.Service.Database
 {
     public class IncludedItem
     {

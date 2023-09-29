@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 namespace AdventuraClick.Model.SearchObjects
 {
     public class AdditionalServiceSearchObject : BaseSearchObject
-    {}
+    { }
 }

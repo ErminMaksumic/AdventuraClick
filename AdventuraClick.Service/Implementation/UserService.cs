@@ -32,15 +32,10 @@ namespace AdventuraClick.Service.Implementation
                 }
 
                 var newUser = _mapper.Map<User>(request);
-
                 newUser.PasswordSalt = GenerateSalt();
-
                 newUser.PasswordHash = GenerateHash(newUser.PasswordSalt, request.Password);
-
                 newUser.RoleId ??= 1;
-
                 newUser.CreatedAt = DateTime.Now.ToString();
-
                 _context.Users.Add(newUser);
                 _context.SaveChanges();
                 return _mapper.Map<Model.User>(newUser);
@@ -90,11 +85,8 @@ namespace AdventuraClick.Service.Implementation
         {
 
             entity.PasswordSalt = GenerateSalt();
-
             var hash = GenerateHash(entity.PasswordSalt, request.Password);
-
             entity.PasswordHash = hash;
-
             base.BeforeInsert(request, entity);
         }
 
@@ -111,14 +103,10 @@ namespace AdventuraClick.Service.Implementation
         public static string GenerateHash(string salt, string password)
         {
             byte[] src = Convert.FromBase64String(salt);
-
             byte[] bytes = Encoding.Unicode.GetBytes(password);
-
             byte[] dst = new byte[src.Length + bytes.Length];
-
             System.Buffer.BlockCopy(src, 0, dst, 0, src.Length);
             System.Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
-
             HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
             byte[] inArray = algorithm.ComputeHash(dst);
             return Convert.ToBase64String(inArray);
