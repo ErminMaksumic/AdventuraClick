@@ -21,7 +21,7 @@ Widget buildInputField(
         decoration: InputDecoration(
           prefixIcon: IconResolver(fieldText: labelText.toLowerCase().replaceAll(' ', '')),
           prefixIconColor: Colors.deepPurple,
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.deepPurple), // Change the border color here
       ),
           labelText: labelText,

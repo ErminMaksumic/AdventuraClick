@@ -16,6 +16,8 @@ namespace AdventuraClick.Service.Database
 
         public virtual DbSet<AdditionalService> AdditionalServices { get; set; }
 
+        public virtual DbSet<AdditionalServiceReservation> AdditionalServiceReservations { get; set; }
+
         public virtual DbSet<Location> Locations { get; set; }
 
         public virtual DbSet<Payment> Payments { get; set; }
@@ -33,6 +35,9 @@ namespace AdventuraClick.Service.Database
         public virtual DbSet<User> Users { get; set; }
 
         public virtual DbSet<IncludedItemTravel> IncludedItemTravels { get; set; } = null!;
+
+        public virtual DbSet<TravelInformation> TravelInformations { get; set; } = null!;
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -104,13 +109,8 @@ namespace AdventuraClick.Service.Database
                 entity.Property(e => e.Date)
                     .HasMaxLength(40)
                     .HasColumnName("date");
-                entity.Property(e => e.Note).HasColumnName("note");
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.TravelId).HasColumnName("travelId");
-
-                entity.HasOne(d => d.Travel).WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.TravelId)
-                    .HasConstraintName("FK_REFERENCE_8");
             });
 
             modelBuilder.Entity<Role>(entity =>

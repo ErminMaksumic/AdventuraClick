@@ -15,6 +15,8 @@ namespace AdventuraClick.Model
 
         public string? Image { get; set; }
 
+        public int NumberOfNights {  get; set; }
+
         public string? Description { get; set; }
 
         public float Price { get; set; }

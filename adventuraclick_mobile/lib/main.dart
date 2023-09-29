@@ -1,19 +1,30 @@
+import 'package:adventuraclick_mobile/providers/additional_service_provider.dart';
+import 'package:adventuraclick_mobile/providers/payment_provider.dart';
 import 'package:adventuraclick_mobile/providers/rating_provider.dart';
+import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
 import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
 import 'package:adventuraclick_mobile/screens/rating_screen.dart';
 import 'package:adventuraclick_mobile/screens/register_screen.dart';
+import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
 import 'package:adventuraclick_mobile/screens/travel_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  // Load env variables
+  await dotenv.load(fileName: "lib/.env");
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => UserProvider()),
     ChangeNotifierProvider(create: (_) => RatingProvider()),
     ChangeNotifierProvider(create: (_) => TravelProvider()),
+    ChangeNotifierProvider(create: (_) => PaymentProvider()),
+    ChangeNotifierProvider(create: (_) => ReservationProvider()),
+    ChangeNotifierProvider(create: (_) => AdditionalServiceProvider()),
   ], child: const MyApp()));
 }
 
@@ -44,15 +55,20 @@ class MyApp extends StatelessWidget {
         // dynamic uri for sending url with id
         var uri = Uri.parse(settings.name!);
         // temporary solution
-        var id1 = '1'; //uri.pathSegments[1];
+        var id = '1'; //uri.pathSegments[1];
         if ("/${uri.pathSegments.first}" == RatingScreen.routeName) {
-          return MaterialPageRoute(builder: (context) => RatingScreen(id1));
+          return MaterialPageRoute(builder: (context) => RatingScreen(id));
         }
         if ("/${uri.pathSegments.first}" == TravelDetailsScreen.routeName) {
-          var id2 = '1'; //uri.pathSegments[1];
           return MaterialPageRoute(
-              builder: (context) => TravelDetailsScreen(id2));
+              builder: (context) => TravelDetailsScreen(id));
         }
+        // temporary
+        if ("/${uri.pathSegments.first}" ==
+              ReservationScreen.routeName) {
+            return MaterialPageRoute(
+                builder: (context) => ReservationScreen(id));
+          }
         return null;
       },
     );

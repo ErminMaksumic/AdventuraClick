@@ -10,6 +10,8 @@
 
         public string? Image { get; set; }
 
+        public int NumberOfNights { get; set; }
+
         public string? Description { get; set; }
 
         public float Price { get; set; }
@@ -19,6 +21,10 @@
         public int? TravelTypeId { get; set; }
 
         public int? LocationId { get; set; }
+
+        public int? TravelInformationId { get; set; }
+
+        public virtual ICollection<TravelInformation> TravelInformations { get; set; }
 
         public virtual TravelType? TravelType { get; set; }
 

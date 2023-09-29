@@ -1,4 +1,3 @@
-import 'package:adventuraclick_mobile/model/additional_services.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'travel_type.g.dart';
 

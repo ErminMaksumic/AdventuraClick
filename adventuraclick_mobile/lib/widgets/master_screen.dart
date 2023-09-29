@@ -1,9 +1,7 @@
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
 import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
-import 'package:adventuraclick_mobile/screens/rating_screen.dart';
 import 'package:adventuraclick_mobile/screens/travel_details.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
-import 'package:provider/single_child_widget.dart';
 
 import 'package:flutter/material.dart';
 

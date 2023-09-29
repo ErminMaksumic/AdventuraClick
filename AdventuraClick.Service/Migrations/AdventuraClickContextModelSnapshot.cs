@@ -22,21 +22,6 @@ namespace AdventuraClick.Service.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AdditionalServiceReservation", b =>
-                {
-                    b.Property<int>("AddServicesAddServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReservationsReservationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AddServicesAddServiceId", "ReservationsReservationId");
-
-                    b.HasIndex("ReservationsReservationId");
-
-                    b.ToTable("AdditionalServiceReservation");
-                });
-
             modelBuilder.Entity("AdventuraClick.Service.Database.AdditionalService", b =>
                 {
                     b.Property<int>("AddServiceId")
@@ -59,6 +44,34 @@ namespace AdventuraClick.Service.Migrations
                         .HasName("PK_9");
 
                     b.ToTable("AdditionalService", (string)null);
+                });
+
+            modelBuilder.Entity("AdventuraClick.Service.Database.AdditionalServiceReservation", b =>
+                {
+                    b.Property<int>("AdditionalServiceReservationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdditionalServiceReservationId"));
+
+                    b.Property<int>("AdditionalServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TravelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AdditionalServiceReservationId");
+
+                    b.HasIndex("AdditionalServiceId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.HasIndex("TravelId");
+
+                    b.ToTable("AdditionalServiceReservations");
                 });
 
             modelBuilder.Entity("AdventuraClick.Service.Database.IncludedItem", b =>
@@ -141,6 +154,14 @@ namespace AdventuraClick.Service.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("date");
 
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("TravelId")
                         .HasColumnType("int")
                         .HasColumnName("travelId");
@@ -194,15 +215,16 @@ namespace AdventuraClick.Service.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservationId"));
 
-                    b.Property<string>("Date")
-                        .IsRequired()
+                    b.Property<int?>("AdditionalServiceAddServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
                         .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
+                        .HasColumnType("datetime2")
                         .HasColumnName("date");
 
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("note");
+                    b.Property<int?>("PaymentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)")
@@ -212,10 +234,24 @@ namespace AdventuraClick.Service.Migrations
                         .HasColumnType("int")
                         .HasColumnName("travelId");
 
+                    b.Property<int?>("TravelInformationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("ReservationId")
                         .HasName("PK_4");
 
+                    b.HasIndex("AdditionalServiceAddServiceId");
+
+                    b.HasIndex("PaymentId");
+
                     b.HasIndex("TravelId");
+
+                    b.HasIndex("TravelInformationId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reservation", (string)null);
                 });
@@ -272,6 +308,9 @@ namespace AdventuraClick.Service.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("name");
 
+                    b.Property<int>("NumberOfNights")
+                        .HasColumnType("int");
+
                     b.Property<float>("Price")
                         .HasColumnType("real")
                         .HasColumnName("price");
@@ -293,6 +332,31 @@ namespace AdventuraClick.Service.Migrations
                     b.HasIndex("TravelTypeId");
 
                     b.ToTable("Travel", (string)null);
+                });
+
+            modelBuilder.Entity("AdventuraClick.Service.Database.TravelInformation", b =>
+                {
+                    b.Property<int>("TravelInformationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TravelInformationId"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DepartureTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TravelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TravelInformationId");
+
+                    b.HasIndex("TravelId");
+
+                    b.ToTable("TravelInformations");
                 });
 
             modelBuilder.Entity("AdventuraClick.Service.Database.TravelType", b =>
@@ -384,19 +448,27 @@ namespace AdventuraClick.Service.Migrations
                     b.ToTable("User", (string)null);
                 });
 
-            modelBuilder.Entity("AdditionalServiceReservation", b =>
+            modelBuilder.Entity("AdventuraClick.Service.Database.AdditionalServiceReservation", b =>
                 {
-                    b.HasOne("AdventuraClick.Service.Database.AdditionalService", null)
+                    b.HasOne("AdventuraClick.Service.Database.AdditionalService", "AdditionalService")
                         .WithMany()
-                        .HasForeignKey("AddServicesAddServiceId")
+                        .HasForeignKey("AdditionalServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AdventuraClick.Service.Database.Reservation", null)
-                        .WithMany()
-                        .HasForeignKey("ReservationsReservationId")
+                    b.HasOne("AdventuraClick.Service.Database.Reservation", "Reservation")
+                        .WithMany("AdditionalServicesReservations")
+                        .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("AdventuraClick.Service.Database.Travel", null)
+                        .WithMany("AdditionalServicesReservations")
+                        .HasForeignKey("TravelId");
+
+                    b.Navigation("AdditionalService");
+
+                    b.Navigation("Reservation");
                 });
 
             modelBuilder.Entity("AdventuraClick.Service.Database.IncludedItemTravel", b =>
@@ -446,12 +518,33 @@ namespace AdventuraClick.Service.Migrations
 
             modelBuilder.Entity("AdventuraClick.Service.Database.Reservation", b =>
                 {
-                    b.HasOne("AdventuraClick.Service.Database.Travel", "Travel")
+                    b.HasOne("AdventuraClick.Service.Database.AdditionalService", null)
                         .WithMany("Reservations")
-                        .HasForeignKey("TravelId")
-                        .HasConstraintName("FK_REFERENCE_8");
+                        .HasForeignKey("AdditionalServiceAddServiceId");
+
+                    b.HasOne("AdventuraClick.Service.Database.Payment", "Payment")
+                        .WithMany("Reservations")
+                        .HasForeignKey("PaymentId");
+
+                    b.HasOne("AdventuraClick.Service.Database.Travel", "Travel")
+                        .WithMany()
+                        .HasForeignKey("TravelId");
+
+                    b.HasOne("AdventuraClick.Service.Database.TravelInformation", "TravelInformation")
+                        .WithMany()
+                        .HasForeignKey("TravelInformationId");
+
+                    b.HasOne("AdventuraClick.Service.Database.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Payment");
 
                     b.Navigation("Travel");
+
+                    b.Navigation("TravelInformation");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AdventuraClick.Service.Database.Travel", b =>
@@ -470,6 +563,17 @@ namespace AdventuraClick.Service.Migrations
                     b.Navigation("TravelType");
                 });
 
+            modelBuilder.Entity("AdventuraClick.Service.Database.TravelInformation", b =>
+                {
+                    b.HasOne("AdventuraClick.Service.Database.Travel", "Travel")
+                        .WithMany("TravelInformations")
+                        .HasForeignKey("TravelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Travel");
+                });
+
             modelBuilder.Entity("AdventuraClick.Service.Database.User", b =>
                 {
                     b.HasOne("AdventuraClick.Service.Database.Role", "Role")
@@ -480,9 +584,24 @@ namespace AdventuraClick.Service.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("AdventuraClick.Service.Database.AdditionalService", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
             modelBuilder.Entity("AdventuraClick.Service.Database.IncludedItem", b =>
                 {
                     b.Navigation("IncludedItemTravels");
+                });
+
+            modelBuilder.Entity("AdventuraClick.Service.Database.Payment", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("AdventuraClick.Service.Database.Reservation", b =>
+                {
+                    b.Navigation("AdditionalServicesReservations");
                 });
 
             modelBuilder.Entity("AdventuraClick.Service.Database.Role", b =>
@@ -492,13 +611,15 @@ namespace AdventuraClick.Service.Migrations
 
             modelBuilder.Entity("AdventuraClick.Service.Database.Travel", b =>
                 {
+                    b.Navigation("AdditionalServicesReservations");
+
                     b.Navigation("IncludedItemTravels");
 
                     b.Navigation("Payments");
 
                     b.Navigation("Ratings");
 
-                    b.Navigation("Reservations");
+                    b.Navigation("TravelInformations");
                 });
 
             modelBuilder.Entity("AdventuraClick.Service.Database.TravelType", b =>
