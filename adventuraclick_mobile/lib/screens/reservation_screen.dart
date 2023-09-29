@@ -1,25 +1,17 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:io' as Io;
-import 'dart:typed_data';
-import 'dart:ui';
 import 'package:adventuraclick_mobile/model/additional_services.dart';
 import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/providers/additional_service_provider.dart';
-import 'package:adventuraclick_mobile/providers/payment_provider.dart';
 import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
+import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart';
-import '../../main.dart';
 
 class ReservationScreen extends StatefulWidget {
   static const String routeName = "/reservation";
@@ -34,7 +26,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
   late TravelProvider _travelProvider;
   late ReservationProvider _reservationProvider;
   late AdditionalServiceProvider _additionalServiceProvider;
-  late PaymentProvider _paymentProvider;
   Travel? _data;
   List<AdditionalServices>? _additionalServices = [];
   String? expDate;
@@ -54,7 +45,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
     _travelProvider = context.read<TravelProvider>();
     _reservationProvider = context.read<ReservationProvider>();
     _additionalServiceProvider = context.read<AdditionalServiceProvider>();
-    _paymentProvider = context.read<PaymentProvider>();
     Stripe.publishableKey =
         "pk_test_51LYvFoDcMolufBl1C62vG2kBj4cwnEI4ZCqxnYDr321H8jJXCW0PkOpVdR7HOBiotcUCtKAVShIpJDIAugULk84H00c5JG5CcC";
     setState(() {});
@@ -97,74 +87,42 @@ class _ReservationScreenState extends State<ReservationScreen> {
                       child: Text(
                     "Reservation for travel : ${_data!.name!}",
                     style: const TextStyle(
-                        color: Colors.cyan,
+                        color: Colors.deepPurple,
                         fontSize: 25,
                         fontWeight: FontWeight.bold),
                   )),
                 ),
               ),
-              const SizedBox(
-                height: 35,
-              ),
+              const SizedBox(height: 20),
               Form(
                 key: _formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   children: [
                     const SizedBox(height: 15),
-                    const SizedBox(height: 15.0),
-                DropdownButton(
-                    items: _buildDateDownList(),
-                    value: selectedDate,
-                    icon: Icon(Icons.date_range),
-                    hint: Text("Dates"),
-                    //hint: Text("Room Type"),
-                    onChanged: (dynamic value) {
-                      setState(() {
-                        selectedDate = value;
-                      });
-                    }),
-                const SizedBox(height: 35.0),
-                    Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 15),
-                          width: MediaQuery.of(context).size.width / 2,
-                          padding: const EdgeInsets.all(10),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Required field!";
-                              }
-                            },
-                            decoration: const InputDecoration(
-                                labelText: "First name",
-                                labelStyle: TextStyle(color: Colors.cyan),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: Colors.cyan))),
-                            controller: _firstNameController,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 15),
-                          width: MediaQuery.of(context).size.width / 2,
-                          padding: const EdgeInsets.all(8),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Required field!";
-                              }
-                            },
-                            decoration: const InputDecoration(
-                                labelText: "Last name",
-                                labelStyle: TextStyle(color: Colors.cyan),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: Colors.cyan))),
-                            controller: _lastNameController,
-                          ),
-                        ),
+                    const Text(
+                      'Select a travel date:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    DropdownButton(
+                        items: _buildDateDownList(),
+                        value: selectedDate,
+                        icon: const Icon(Icons.date_range),
+                        hint: const Text("Dates"),
+                        //hint: Text("Room Type"),
+                        onChanged: (dynamic value) {
+                          setState(() {
+                            selectedDate = value;
+                          });
+                        }),
+                    const SizedBox(height: 35.0),
+                    Column(
+                       children: [
+                        buildInputField(_firstNameController, 'First Name'),
+                        const SizedBox(height: 20),
+                        buildInputField(_lastNameController, 'Last Name'),
                       ],
                     ),
                     const SizedBox(height: 20),
@@ -174,7 +132,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     const SizedBox(height: 20),
                     Container(
                       height: 50,
-                      margin: EdgeInsets.fromLTRB(50, 20, 50, 0),
+                      margin: const EdgeInsets.fromLTRB(50, 20, 50, 0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           gradient: const LinearGradient(
@@ -196,20 +154,20 @@ class _ReservationScreenState extends State<ReservationScreen> {
     );
   }
 
-    List<DropdownMenuItem> _buildDateDownList() {
+  List<DropdownMenuItem> _buildDateDownList() {
     List<DropdownMenuItem> list = <DropdownMenuItem>[];
 
     list.add(const DropdownMenuItem(
       value: 99,
       enabled: false,
-      child:
-          Text("Available dates", style: TextStyle(color: Colors.black)),
+      child: Text("Available dates", style: TextStyle(color: Colors.black)),
     ));
 
-    list.addAll(
-       _data!.travelInformations!.map((x) => DropdownMenuItem(
-              child: Text(x.departureTime.toString(), style: TextStyle(color: Colors.black)),
-              value: [].indexOf(x),
+    list.addAll(_data!.travelInformations!
+        .map((x) => DropdownMenuItem(
+              value: _data!.travelInformations!.indexOf(x),
+              child: Text(DateFormat('dd-MM-yyyy').format(x.departureTime!),
+                  style: const TextStyle(color: Colors.black)),
             ))
         .toList());
 
@@ -218,7 +176,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
   Future<void> makePayment(double amount) async {
     try {
-      if (_formKey.currentState!.validate() && selectedDate != null) {
+      if (_formKey.currentState!.validate() && selectedDate != 99) {
         paymentIntentData =
             await createPaymentIntent((amount * 100).round().toString(), 'usd');
         await Stripe.instance
@@ -313,8 +271,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
       return [const Text("Loading data")];
     }
 
-    List<int>? addServiceIds = [];
-
     List<Widget> list = _additionalServices!
         .map(
           (x) => Center(
@@ -325,7 +281,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
               // isThreeLine: true,
               activeColor: Colors.green,
               checkColor: Colors.white,
-              value: valuesIds.indexOf(x.addServiceId!) != -1 ? true : false,
+              value: valuesIds.contains(x.addServiceId!) ? true : false,
               onChanged: (bool? value) {
                 setState(() {
                   if (value! == true) {
@@ -347,12 +303,15 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
   void createReservationPayment() async {
     try {
-      var reservation = await _reservationProvider.insert({
-        'date': selectedDate,
+      await _reservationProvider.insert({
         'userId': Authorization.user!.userId,
         'travelId': _data!.travelId,
+        'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
         'status': "Active",
         'additionalServices': valuesIds,
+        'travelInformationId': selectedDate == 99
+            ? null
+            : _data!.travelInformations![selectedDate].travelInformationId,
         'payment': {
           'transactionNumber': paymentIntentData!['id'],
           'amount': calculateAmount(_data!.price!),

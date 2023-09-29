@@ -10,7 +10,7 @@ class Reservation {
   int? travelId;
   int? paymentId;
   String? status;
-  String? date;
+  DateTime? date;
   Travel? travel;
   List<AdditionalServices>? additionalServices;
 

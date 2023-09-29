@@ -12,7 +12,7 @@ Reservation _$ReservationFromJson(Map<String, dynamic> json) => Reservation()
   ..travelId = json['travelId'] as int?
   ..paymentId = json['paymentId'] as int?
   ..status = json['status'] as String?
-  ..date = json['date'] as String?
+  ..date = json['date'] == null ? null : DateTime.parse(json['date'] as String)
   ..travel = json['travel'] == null
       ? null
       : Travel.fromJson(json['travel'] as Map<String, dynamic>)
@@ -27,7 +27,7 @@ Map<String, dynamic> _$ReservationToJson(Reservation instance) =>
       'travelId': instance.travelId,
       'paymentId': instance.paymentId,
       'status': instance.status,
-      'date': instance.date,
+      'date': instance.date?.toIso8601String(),
       'travel': instance.travel,
       'additionalServices': instance.additionalServices,
     };

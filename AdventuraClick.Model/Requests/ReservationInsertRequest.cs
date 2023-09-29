@@ -11,7 +11,6 @@ namespace AdventuraClick.Model.Requests
         public int? TravelId { get; set; }
         public List<int> AdditionalServices { get; set; } = new List<int>();
         public PaymentUpsertRequest Payment { get; set; }
-
-
+        public int? TravelInformationId { get; set; }
     }
 }

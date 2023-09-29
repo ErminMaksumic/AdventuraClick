@@ -4,7 +4,7 @@ part 'travel_information.g.dart';
 @JsonSerializable()
 class TravelInformation {
   int? travelInformationId;
-  String? departureTime;
+  DateTime? departureTime;
 
   TravelInformation();
 

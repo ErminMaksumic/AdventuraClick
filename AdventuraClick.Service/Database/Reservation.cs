@@ -6,7 +6,7 @@ public partial class Reservation
 
     public string? Status { get; set; }
 
-    public string Date { get; set; } = null!;
+    public DateTime Date { get; set; }
 
     public int? TravelId { get; set; }
 
@@ -19,6 +19,10 @@ public partial class Reservation
     public int? PaymentId { get; set; }
 
     public virtual Payment? Payment { get; set; }
+
+    public int? TravelInformationId { get; set; }
+
+    public virtual TravelInformation? TravelInformation { get; set; }
 
     public virtual ICollection<AdditionalServiceReservation> AdditionalServicesReservations { get; set; } = new List<AdditionalServiceReservation>();
 }

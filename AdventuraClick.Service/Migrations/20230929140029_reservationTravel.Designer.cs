@@ -4,6 +4,7 @@ using AdventuraClick.Service.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdventuraClick.Service.Migrations
 {
     [DbContext(typeof(AdventuraClickInitContext))]
-    partial class AdventuraClickContextModelSnapshot : ModelSnapshot
+    [Migration("20230929140029_reservationTravel")]
+    partial class reservationTravel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,9 +221,10 @@ namespace AdventuraClick.Service.Migrations
                     b.Property<int?>("AdditionalServiceAddServiceId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<string>("Date")
+                        .IsRequired()
                         .HasMaxLength(40)
-                        .HasColumnType("datetime2")
+                        .HasColumnType("nvarchar(40)")
                         .HasColumnName("date");
 
                     b.Property<int?>("PaymentId")
