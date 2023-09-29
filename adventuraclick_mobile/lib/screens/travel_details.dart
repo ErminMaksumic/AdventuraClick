@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
+import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
 import 'package:adventuraclick_mobile/widgets/master_screen.dart';
@@ -198,12 +199,12 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                 borderRadius: BorderRadius.circular(50),
                                 gradient: const LinearGradient(
                                     colors: [Colors.deepPurple, Colors.red])),
-                            child: const InkWell(
-                                // onTap: () {
-                                //   Navigator.pushNamed(context,
-                                //       "${reservation.routeName}/${data.travelId}");
-                                // },
-                                child: Center(
+                            child: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context,
+                                      "${ReservationScreen.routeName}/${data.travelId}");
+                                },
+                                child: const Center(
                                     child: Text(
                               "Reserve your travel!",
                               style: TextStyle(color: Colors.white),

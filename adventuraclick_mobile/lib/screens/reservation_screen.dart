@@ -71,10 +71,12 @@ class _ReservationScreenState extends State<ReservationScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
+          child: Card(
+                elevation: 5,
+                child: Column(
             children: [
               SizedBox(
-                height: 200,
+                height: 300,
                 width: 500,
                 child: Image.memory(dataFromBase64String(_data!.image!),
                     fit: BoxFit.cover),
@@ -82,15 +84,18 @@ class _ReservationScreenState extends State<ReservationScreen> {
               Container(
                 margin: const EdgeInsets.only(top: 20),
                 padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Colors.deepPurple,
+                ),
                 child: Center(
-                  child: Center(
-                      child: Text(
-                    "Reservation for travel : ${_data!.name!}",
+                  child: Text(
+                    _data!.name!,
                     style: const TextStyle(
-                        color: Colors.deepPurple,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  )),
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -103,31 +108,57 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     const Text(
                       'Select a travel date:',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepPurple),
                     ),
-                    DropdownButton(
-                        items: _buildDateDownList(),
-                        value: selectedDate,
-                        icon: const Icon(Icons.date_range),
-                        hint: const Text("Dates"),
-                        //hint: Text("Room Type"),
-                        onChanged: (dynamic value) {
-                          setState(() {
-                            selectedDate = value;
-                          });
-                        }),
+                    const SizedBox(height: 15),
+                    SizedBox(
+                        width: 135,
+                        child: DropdownButton(
+                            items: _buildDateDownList(),
+                            isExpanded: true,
+                            value: selectedDate,
+                            icon: const Icon(Icons.date_range),
+                            hint: const Text("Dates"),
+                            //hint: Text("Room Type"),
+                            onChanged: (dynamic value) {
+                              setState(() {
+                                selectedDate = value;
+                              });
+                            })),
                     const SizedBox(height: 35.0),
                     Column(
-                       children: [
+                      children: [
                         buildInputField(_firstNameController, 'First Name'),
                         const SizedBox(height: 20),
                         buildInputField(_lastNameController, 'Last Name'),
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Column(
-                      children: _buildAddServices(),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.deepPurple,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: SizedBox(
+                        width: 365,
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Choose additional services",
+                              style: TextStyle(
+                                color: Colors.deepPurple,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            ..._buildAddServices(),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 20),
                     Container(
@@ -136,7 +167,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           gradient: const LinearGradient(
-                              colors: [Colors.cyan, Colors.blue])),
+                              colors: [Colors.red, Colors.deepPurple])),
                       child: InkWell(
                         onTap: () async {
                           await makePayment(calculateAmount(_data!.price!));
@@ -144,10 +175,13 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         child: const Center(child: Text("Reserve travel")),
                       ),
                     ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
             ],
+                      ),
+
           ),
         ),
       ),

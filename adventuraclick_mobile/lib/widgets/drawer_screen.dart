@@ -19,10 +19,10 @@ class DrawerMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('Reservation - temp'),
+            title: const Text('TBC'),
             onTap: () {
               Navigator.popAndPushNamed(
-                  context, ReservationScreen.routeName);
+                  context, LoginScreen.routeName);
             },
           ),
           ListTile(
