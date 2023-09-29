@@ -206,9 +206,9 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                 },
                                 child: const Center(
                                     child: Text(
-                              "Reserve your travel!",
-                              style: TextStyle(color: Colors.white),
-                            ))),
+                                  "Reserve your travel!",
+                                  style: TextStyle(color: Colors.white),
+                                ))),
                           ),
                         ],
                       ),

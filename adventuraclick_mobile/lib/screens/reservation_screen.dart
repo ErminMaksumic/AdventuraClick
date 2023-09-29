@@ -7,6 +7,7 @@ import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -45,8 +46,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
     _travelProvider = context.read<TravelProvider>();
     _reservationProvider = context.read<ReservationProvider>();
     _additionalServiceProvider = context.read<AdditionalServiceProvider>();
-    Stripe.publishableKey =
-        "pk_test_51LYvFoDcMolufBl1C62vG2kBj4cwnEI4ZCqxnYDr321H8jJXCW0PkOpVdR7HOBiotcUCtKAVShIpJDIAugULk84H00c5JG5CcC";
+    Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
     setState(() {});
     loadData();
   }
@@ -303,7 +303,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
           body: body,
           headers: {
             'Authorization':
-                'Bearer sk_test_51LYvFoDcMolufBl1uKvRlAoWHLj0jASSB4GN33lYWbm1ivdZHXykGJvEsxrXVQgPJsLg9ayg5vzLYfzaiGcYonTw00aCnZElga',
+                'Bearer ${dotenv.env['STRIPE_SECRET_KEY']!}',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       return jsonDecode(response.body);
