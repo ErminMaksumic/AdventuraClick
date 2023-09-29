@@ -34,7 +34,7 @@ class IconResolver extends StatelessWidget {
       }
     }
 
-    IconData iconData = field != null ? iconMap[field!] ?? Icons.error : Icons.error; // Default icon if not found
+    IconData iconData = field != null ? iconMap[field] ?? Icons.error : Icons.error; // Default icon if not found
     return Icon(iconData);
   }
 }
