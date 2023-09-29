@@ -68,17 +68,16 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
         child: SafeArea(
           child: Stack(
             children: <Widget>[
-              SizedBox(
-                height: 350,
-                child: Image.memory(dataFromBase64String(data.image!),
-                    fit: BoxFit.cover),
-              ),
               SingleChildScrollView(
                 padding: const EdgeInsets.only(top: 16.0, bottom: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(height: 250),
+                    SizedBox(
+                      height: 350,
+                      child: Image.memory(dataFromBase64String(data.image!),
+                          fit: BoxFit.cover),
+                    ),
                     Row(
                       children: <Widget>[
                         const SizedBox(width: 16.0),
