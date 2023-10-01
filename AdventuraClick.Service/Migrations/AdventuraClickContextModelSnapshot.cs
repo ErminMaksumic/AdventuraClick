@@ -294,8 +294,9 @@ namespace AdventuraClick.Service.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)")
                         .HasColumnName("image");
 
                     b.Property<int?>("LocationId")
