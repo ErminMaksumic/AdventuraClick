@@ -4,6 +4,7 @@ import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/providers/additional_service_provider.dart';
 import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
+import 'package:adventuraclick_mobile/screens/travel_details.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
@@ -73,7 +74,10 @@ class _ReservationScreenState extends State<ReservationScreen> {
         SizedBox(
           height: 50,
         ),
-        Center(child: Text("Loading travel")),
+       Center(
+        child: CircularProgressIndicator(
+          color: Colors.black,
+        )),
       ],
     );
    }
@@ -267,16 +271,16 @@ class _ReservationScreenState extends State<ReservationScreen> {
       if (!mounted) return;
       showDialog(
           context: context,
-          builder: (_) => const AlertDialog(
-                title: Text("Payment"),
-                content: Text("Your reservation is completed"),
-                // actions: [
-                //   TextButton(
-                //     onPressed: () async => await Navigator.pushNamed(
-                //         context, ReservationListScreen.routeName),
-                //     child: const Text("Ok"),
-                //   ),
-                // ],
+          builder: (_) => AlertDialog(
+                title: const Text("Payment"),
+                content: const Text("Your reservation is completed"),
+                actions: [
+                  TextButton(
+                    onPressed: () async => await Navigator.pushNamed(
+                        context, TravelDetailsScreen.routeName),
+                    child: const Text("Ok"),
+                  ),
+                ],
               ));
     } on Exception {
       showDialog(

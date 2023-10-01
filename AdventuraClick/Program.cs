@@ -35,6 +35,7 @@ builder.Services.AddSwaggerGen(opts =>
     });
 });
 builder.Services.AddScoped<IBaseService<AdventuraClick.Model.Role, BaseSearchObject>, RoleService>();
+builder.Services.AddScoped<IBaseService<AdventuraClick.Model.TravelType, BaseSearchObject>, TravelTypeService>();
 builder.Services.AddTransient<ITravelService, TravelService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IReservationService, ReservationService>();
