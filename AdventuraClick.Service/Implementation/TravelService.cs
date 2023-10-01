@@ -30,14 +30,35 @@ namespace AdventuraClick.Service.Implementation
             return includedQuery;
         }
 
+        public override IQueryable<Travel> AddFilter(IQueryable<Travel> query, TravelSearchObject search = null)
+        {
+            var filteredQuery = base.AddFilter(query, search);
+            var price = search.Price;
+
+            if (search.Price > 0)
+            {
+                filteredQuery = filteredQuery.Where(x => x.Price < price);
+            }
+            if (!string.IsNullOrEmpty(search.Name))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.Name.ToLower()));
+            }
+          
+            if (search.TravelTypeId > 0)
+            {
+                filteredQuery = filteredQuery.Where(x => x.TravelTypeId == search.TravelTypeId);
+            }
+            return filteredQuery;
+        }
+
         public override Model.Travel GetById(int id)
         {
             var entity = _context.Travels.
                 Include("Location").
                 Include("TravelType").
-                Include(x=> x.TravelInformations).
-                Include(x=> x.IncludedItemTravels).
-                ThenInclude(x=> x.IncludedItem).
+                Include(x => x.TravelInformations).
+                Include(x => x.IncludedItemTravels).
+                ThenInclude(x => x.IncludedItem).
                 FirstOrDefault(x => x.TravelId == id);
 
             return _mapper.Map<Model.Travel>(entity);

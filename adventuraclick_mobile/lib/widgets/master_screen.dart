@@ -1,6 +1,7 @@
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
 import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
 import 'package:adventuraclick_mobile/screens/travel_details.dart';
+import 'package:adventuraclick_mobile/screens/travel_list.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -24,11 +25,6 @@ class MasterScreenWidget extends StatelessWidget {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          // temporary navigation
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.rate_review),
-          //   label: 'Rate',
-          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_accessibility),
             label: 'Edit profile',
@@ -44,7 +40,7 @@ class MasterScreenWidget extends StatelessWidget {
         onTap: (index) {
           switch (index) {
             case 0:
-              Navigator.pushNamed(context, LoginScreen.routeName);
+              Navigator.pushNamed(context, TravelListScreen.routeName);
               break;
             case 1:
               Navigator.pushNamed(context, ProfileScreen.routeName);

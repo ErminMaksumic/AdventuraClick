@@ -1,0 +1,307 @@
+import 'package:adventuraclick_mobile/model/travel.dart';
+import 'package:adventuraclick_mobile/model/travel_type.dart';
+import 'package:adventuraclick_mobile/providers/travel_provider.dart';
+import 'package:adventuraclick_mobile/providers/travel_type_provider.dart';
+import 'package:adventuraclick_mobile/screens/travel_details.dart';
+import 'package:adventuraclick_mobile/utils/format_number.dart';
+import 'package:adventuraclick_mobile/utils/image_util.dart';
+import 'package:adventuraclick_mobile/widgets/master_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class TravelListScreen extends StatefulWidget {
+  static const String routeName = "/travelList";
+
+  const TravelListScreen({Key? key}) : super(key: key);
+
+  @override
+  State<TravelListScreen> createState() => _TravelListScreenState();
+}
+
+class _TravelListScreenState extends State<TravelListScreen> {
+  TravelProvider? _travelProvider;
+  List<Travel>? data;
+  List<TravelType> travelTypes = [];
+  final TextEditingController _nameSearchController = TextEditingController();
+  final TextEditingController _priceSearchController = TextEditingController();
+  int? selectedTravelTypeValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _travelProvider = context.read<TravelProvider>();
+    loadData();
+  }
+
+  Future loadData() async {
+    var search = {
+      "name": _nameSearchController.text,
+      "price":
+          _priceSearchController.text.isEmpty ? 0 : _priceSearchController.text,
+      "roomTypeId": selectedTravelTypeValue ?? 0,
+      "IncludeTravelType": "true",
+    };
+    var tempData = await _travelProvider?.get(search);
+    setState(() {
+      data = tempData!;
+    });
+  }
+
+    List<Widget> _buildSearchAndCards() {
+    List<Widget> list = <Widget>[];
+    list.add(_buildRoomSearch());
+    list.addAll(_buildRoomCardList());
+    return list;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MasterScreenWidget(
+        index: 0,
+        child: SafeArea(
+            child: SingleChildScrollView(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _buildSearchAndCards()),
+        )));
+  }
+
+  Widget _buildRoomSearch() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: TextField(
+                    controller: _nameSearchController,
+                    decoration: const InputDecoration(
+                      hintText: "Name",
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                    onSubmitted: (value) async {
+                      var tmpData = await _travelProvider?.get({
+                        "name": value,
+                        "IncludeTravelType": "true",
+                      });
+                      setState(() {
+                        data = tmpData!;
+                      });
+                    },
+                  )),
+            ),
+            Expanded(
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: TextField(
+                    controller: _priceSearchController,
+                    decoration: const InputDecoration(
+                      hintText: "Price",
+                      prefixIcon: Icon(Icons.money),
+                    ),
+                    keyboardType: TextInputType.number,
+                  )),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () async {
+                    _nameSearchController.text = "";
+                    _priceSearchController.text = "";
+                    setState(() {
+                      selectedTravelTypeValue = -1;
+                    });
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: IconButton(
+                  icon: const Icon(Icons.filter_list_alt),
+                  onPressed: () async {
+                    var tmpData = await _travelProvider?.get({
+                      "name": _nameSearchController.text,
+                      "price": _priceSearchController.text.isEmpty
+                          ? 0
+                          : _priceSearchController.text,
+                      "travelTypeId": selectedTravelTypeValue ?? 0,
+                      "IncludeTravelType": "true"
+                    });
+                    setState(() {
+                      data = tmpData!;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+        Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: const Center(
+        child: Text(
+        "Search Travels",
+        style: TextStyle(
+            color: Colors.deepPurple,
+            fontSize: 20,
+            fontWeight: FontWeight.bold),
+      ),
+      )
+    ),
+      ],
+    );
+  }
+
+  List<Widget> _buildRoomCardList() {
+    if (data == null) {
+      return [
+        const Center(
+          child: CircularProgressIndicator(
+            color: Colors.black,
+          ),
+        )
+      ];
+    }
+
+    if (data!.isEmpty) {
+      return [
+        const Center(
+          child: Text(
+            "No travels available.",
+          ),
+        )
+      ];
+    }
+
+    List<Widget> list = data!
+        .map((x) => SizedBox(
+              height: 230,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Card(
+                  color: const Color.fromARGB(255, 151, 75, 75),
+                  child: ClipRRect(
+                    child: Stack(children: [
+                      Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () => Navigator.pushNamed(context,
+                                "${TravelDetailsScreen.routeName}/${x.travelId}"),
+                            child: SizedBox(
+                              height: 115,
+                              width: 500,
+                              child: Image.memory(
+                                imageFromBase64String(x.image!),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8,
+                                          bottom: 8,
+                                          right: 8,
+                                          left: 16),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () => Navigator.pushNamed(
+                                                    context,
+                                                    "${TravelDetailsScreen.routeName}/${x.travelId}"),
+                                                child: Text(
+                                                  x.name!,
+                                                  textAlign: TextAlign.left,
+                                                  style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                         Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "- Price: ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                Text("${formatNumber(x.price)} \$",
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.deepOrange,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15))
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                        "${TravelDetailsScreen.routeName}/${x.travelId}");
+                                  },
+                                  child: const Text(
+                                    "More info",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                ),
+                                        ],
+                                      ),
+                              ],
+                                      )
+                                      ),
+                              ),
+                            ],
+                          )
+                        ],
+                      )
+                    ]),
+                  ),
+                ),
+              ),
+            ))
+        .cast<Widget>()
+        .toList();
+
+    return list;
+  }
+}

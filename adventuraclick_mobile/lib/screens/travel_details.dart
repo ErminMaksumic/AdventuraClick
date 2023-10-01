@@ -87,7 +87,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                             horizontal: 16.0,
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: Colors.deepPurple,
                               borderRadius: BorderRadius.circular(20.0)),
                           child: Text(
                             data.travelType?.name ?? 'Unknown',

@@ -3,6 +3,7 @@ import 'package:adventuraclick_mobile/providers/payment_provider.dart';
 import 'package:adventuraclick_mobile/providers/rating_provider.dart';
 import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
+import 'package:adventuraclick_mobile/providers/travel_type_provider.dart';
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
 import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
@@ -10,6 +11,7 @@ import 'package:adventuraclick_mobile/screens/rating_screen.dart';
 import 'package:adventuraclick_mobile/screens/register_screen.dart';
 import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
 import 'package:adventuraclick_mobile/screens/travel_details.dart';
+import 'package:adventuraclick_mobile/screens/travel_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,7 @@ Future<void> main() async {
     ChangeNotifierProvider(create: (_) => PaymentProvider()),
     ChangeNotifierProvider(create: (_) => ReservationProvider()),
     ChangeNotifierProvider(create: (_) => AdditionalServiceProvider()),
+    ChangeNotifierProvider(create: (_) => TravelTypeProvider()),
   ], child: const MyApp()));
 }
 
@@ -51,11 +54,13 @@ class MyApp extends StatelessWidget {
         if (settings.name == ProfileScreen.routeName) {
           return MaterialPageRoute(builder: (context) => const ProfileScreen());
         }
+        if (settings.name == TravelListScreen.routeName) {
+          return MaterialPageRoute(builder: (context) => const TravelListScreen());
+        }
 
         // dynamic uri for sending url with id
         var uri = Uri.parse(settings.name!);
-        // temporary solution
-        var id = '1'; //uri.pathSegments[1];
+        var id = uri.pathSegments[1];
         if ("/${uri.pathSegments.first}" == RatingScreen.routeName) {
           return MaterialPageRoute(builder: (context) => RatingScreen(id));
         }
@@ -63,7 +68,6 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(
               builder: (context) => TravelDetailsScreen(id));
         }
-        // temporary
         if ("/${uri.pathSegments.first}" ==
               ReservationScreen.routeName) {
             return MaterialPageRoute(
