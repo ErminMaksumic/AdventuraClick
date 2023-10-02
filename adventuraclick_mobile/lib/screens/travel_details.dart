@@ -73,29 +73,36 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(
-                      height: 350,
-                      child: Image.memory(dataFromBase64String(data.image!),
-                          fit: BoxFit.cover),
-                    ),
-                    Row(
+                    Stack(
                       children: <Widget>[
-                        const SizedBox(width: 16.0),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 10.0,
-                            horizontal: 16.0,
-                          ),
-                          decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(20.0)),
-                          child: Text(
-                            data.travelType?.name ?? 'Unknown',
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 15.0),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Image.memory(
+                            dataFromBase64String(data.image!),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        const Spacer(),
+                        Positioned(
+                          bottom: 15,
+                          left: 20,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 16.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: Text(
+                              data.travelType?.name ?? 'Unknown',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15.0,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     Container(
@@ -177,7 +184,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                           Column(
                             children: _buildIncludedItems(),
                           ),
-                          const SizedBox(height: 10.0),
+                          const SizedBox(height: 13.0),
                           Text(
                             "Description".toUpperCase(),
                             style: const TextStyle(
@@ -246,7 +253,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(bottom: 10, top: 10),
               child: Text(
                 "Included: ".toUpperCase(),
                 style: const TextStyle(

@@ -47,7 +47,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
     });
   }
 
-    List<Widget> _buildSearchAndCards() {
+  List<Widget> _buildSearchAndCards() {
     List<Widget> list = <Widget>[];
     list.add(_buildRoomSearch());
     list.addAll(_buildRoomCardList());
@@ -115,22 +115,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 child: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () async {
-                    _nameSearchController.text = "";
-                    _priceSearchController.text = "";
-                    setState(() {
-                      selectedTravelTypeValue = -1;
-                    });
-                  },
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: IconButton(
-                  icon: const Icon(Icons.filter_list_alt),
+                  icon: const Icon(Icons.filter_list),
                   onPressed: () async {
                     var tmpData = await _travelProvider?.get({
                       "name": _nameSearchController.text,
@@ -147,20 +132,34 @@ class _TravelListScreenState extends State<TravelListScreen> {
                 ),
               ),
             ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: IconButton(
+                  icon: const Icon(Icons.delete_outline),
+                  onPressed: () async {
+                    _nameSearchController.text = "";
+                    _priceSearchController.text = "";
+                    setState(() {
+                      selectedTravelTypeValue = -1;
+                    });
+                  },
+                ),
+              ),
+            ),
           ],
         ),
         Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: const Center(
-        child: Text(
-        "Search Travels",
-        style: TextStyle(
-            color: Colors.deepPurple,
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-      ),
-      )
-    ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: const Center(
+              child: Text(
+                "Search Travels",
+                style: TextStyle(
+                    color: Colors.deepPurple,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            )),
       ],
     );
   }
@@ -188,11 +187,11 @@ class _TravelListScreenState extends State<TravelListScreen> {
 
     List<Widget> list = data!
         .map((x) => SizedBox(
-              height: 230,
+              height: 270,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Card(
-                  color: const Color.fromARGB(255, 151, 75, 75),
+                  color: const Color.fromARGB(255, 187, 144, 198),
                   child: ClipRRect(
                     child: Stack(children: [
                       Column(
@@ -204,7 +203,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
                               height: 115,
                               width: 500,
                               child: Image.memory(
-                                imageFromBase64String(x.image!),
+                                dataFromBase64String(x.image!),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -215,81 +214,128 @@ class _TravelListScreenState extends State<TravelListScreen> {
                             children: [
                               Expanded(
                                   child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 8,
-                                          bottom: 8,
-                                          right: 8,
-                                          left: 16),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () => Navigator.pushNamed(
-                                                    context,
-                                                    "${TravelDetailsScreen.routeName}/${x.travelId}"),
-                                                child: Text(
-                                                  x.name!,
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                            ],
+                                padding: const EdgeInsets.only(
+                                    top: 8, bottom: 8, right: 8, left: 16),
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => Navigator.pushNamed(
+                                        context,
+                                        "${TravelDetailsScreen.routeName}/${x.travelId}",
+                                      ),
+                                      child: Text(
+                                        x.name!,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "- Price: ",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
                                           ),
-                                         Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "- Price: ",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
+                                        ),
+                                        Text(
+                                          "${formatNumber(x.price)} \$",
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "- Nights: ",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        Text(
+                                          x.numberOfNights.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "- Travel Type: ",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        Text(
+                                          x.travelType!.name!,
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              "${TravelDetailsScreen.routeName}/${x.travelId}",
+                                            );
+                                          },
+                                          child: const Text(
+                                            "More info",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                Text("${formatNumber(x.price)} \$",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        color: Colors.deepOrange,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15))
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(context,
-                                        "${TravelDetailsScreen.routeName}/${x.travelId}");
-                                  },
-                                  child: const Text(
-                                    "More info",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                                        ],
-                                      ),
-                              ],
-                                      )
-                                      ),
-                              ),
+                              )),
                             ],
                           )
                         ],

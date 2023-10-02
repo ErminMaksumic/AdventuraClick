@@ -37,7 +37,7 @@ namespace AdventuraClick.Service.Implementation
 
             if (search.Price > 0)
             {
-                filteredQuery = filteredQuery.Where(x => x.Price < price);
+                filteredQuery = filteredQuery.Where(x => x.Price <= price);
             }
             if (!string.IsNullOrEmpty(search.Name))
             {
