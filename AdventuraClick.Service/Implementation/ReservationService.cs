@@ -4,11 +4,6 @@ using AdventuraClick.Service.Database;
 using AdventuraClick.Service.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventuraClick.Service.Implementation
 {
@@ -44,6 +39,12 @@ namespace AdventuraClick.Service.Implementation
             }
 
             return includedQuery;
+        }
+
+        public override Model.Reservation Insert(ReservationInsertRequest request)
+        {
+
+            return base.Insert(request);
         }
     }
 }

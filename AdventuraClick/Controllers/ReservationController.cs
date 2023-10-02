@@ -1,4 +1,5 @@
-﻿using AdventuraClick.Model.Requests;
+﻿using AdventuraClick.Helpers;
+using AdventuraClick.Model.Requests;
 using AdventuraClick.Model.SearchObjects;
 using AdventuraClick.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,18 @@ namespace AdventuraClick.Controllers
     public class ReservationController : CRUDController<Model.Reservation, ReservationSearchObject, ReservationInsertRequest,
         ReservationUpdateRequest>
     {
-        public ReservationController(IReservationService service) : base(service)
-        { }
+        EmailSenderService _emailService;
+        private IConfiguration _configuration;
+
+        public ReservationController(IReservationService service, EmailSenderService emailService, IConfiguration configuration) : base(service)
+        {
+            _emailService = emailService;
+            _configuration = configuration;
+        }
+        [HttpPost("sendConfirmationEmail")]
+        public void SendConfirmationEmail([FromBody] EmailSenderObject request)
+        {
+            _ = _emailService.SendEmail(_configuration, request.FullName, request.Email, request.Subject, request.Body);
+        }
     }
 }
