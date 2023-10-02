@@ -101,12 +101,12 @@ namespace AdventuraClick.Service.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     date = table.Column<DateTime>(type: "datetime", nullable: false),
-                    image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     price = table.Column<float>(type: "real", nullable: false),
                     status = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
                     travelTypeId = table.Column<int>(type: "int", nullable: true),
-                    locationId = table.Column<int>(type: "int", nullable: true)
+                    locationId = table.Column<int>(type: "int", nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {

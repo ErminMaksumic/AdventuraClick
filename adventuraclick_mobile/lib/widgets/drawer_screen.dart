@@ -1,4 +1,5 @@
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
+import 'package:adventuraclick_mobile/screens/travel_list.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -10,9 +11,9 @@ class DrawerMenu extends StatelessWidget {
       child: ListView(
         children: [
           ListTile(
-            title: const Text('TBC'),
+            title: const Text('Home'),
             onTap: () {
-              Navigator.pushNamed(context, LoginScreen.routeName);
+              Navigator.pushNamed(context, TravelListScreen.routeName);
             },
           ),
           ListTile(
