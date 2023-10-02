@@ -7,6 +7,7 @@ using AdventuraClick.Service.Mapper;
 using Microsoft.OpenApi.Models;
 using AdventuraClick.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using AdventuraClick;
 
 var builder = WebApplication.CreateBuilder(args);
 
