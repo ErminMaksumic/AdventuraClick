@@ -14,7 +14,7 @@ class Reservation {
   Travel? travel;
   List<AdditionalServices>? additionalServices;
 
-  Reservation() {}
+  Reservation();
 
   factory Reservation.fromJson(Map<String, dynamic> json) =>
       _$ReservationFromJson(json);
