@@ -20,6 +20,7 @@ class TravelListScreen extends StatefulWidget {
 
 class _TravelListScreenState extends State<TravelListScreen> {
   TravelProvider? _travelProvider;
+  TravelTypeProvider? _travelTypeProvider;
   List<Travel>? data;
   List<TravelType> travelTypes = [];
   final TextEditingController _nameSearchController = TextEditingController();
@@ -30,6 +31,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
   void initState() {
     super.initState();
     _travelProvider = context.read<TravelProvider>();
+    _travelTypeProvider = context.read<TravelTypeProvider>();
     loadData();
   }
 
@@ -38,19 +40,43 @@ class _TravelListScreenState extends State<TravelListScreen> {
       "name": _nameSearchController.text,
       "price":
           _priceSearchController.text.isEmpty ? 0 : _priceSearchController.text,
-      "roomTypeId": selectedTravelTypeValue ?? 0,
-      "IncludeTravelType": "true",
+      "travelTypeId": selectedTravelTypeValue ?? 0,
+      "IncludeTravelType": true,
     };
     var tempData = await _travelProvider?.get(search);
+    var travelTypesData = await _travelTypeProvider?.get();
     setState(() {
       data = tempData!;
+      travelTypes = travelTypesData!;
     });
   }
 
   List<Widget> _buildSearchAndCards() {
     List<Widget> list = <Widget>[];
-    list.add(_buildRoomSearch());
-    list.addAll(_buildRoomCardList());
+    list.add(_buildSearch());
+    list.addAll(_buildCards());
+    return list;
+  }
+
+  List<DropdownMenuItem> _buildTypes() {
+    if (travelTypes.isEmpty) {
+      return [];
+    }
+    List<DropdownMenuItem> list = <DropdownMenuItem>[];
+
+    list.add(const DropdownMenuItem(
+      enabled: false,
+      value: -1,
+      child: Text("Travel Type", style: TextStyle(color: Colors.black)),
+    ));
+
+    list.addAll(travelTypes
+        .map((x) => DropdownMenuItem(
+              value: x.travelTypeId,
+              child: Text(x.name!, style: const TextStyle(color: Colors.black)),
+            ))
+        .toList());
+
     return list;
   }
 
@@ -66,105 +92,125 @@ class _TravelListScreenState extends State<TravelListScreen> {
         )));
   }
 
-  Widget _buildRoomSearch() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: TextField(
-                    controller: _nameSearchController,
-                    decoration: const InputDecoration(
-                      hintText: "Name",
-                      prefixIcon: Icon(Icons.search),
-                    ),
-                    onSubmitted: (value) async {
-                      var tmpData = await _travelProvider?.get({
-                        "name": value,
-                        "IncludeTravelType": "true",
-                      });
-                      setState(() {
-                        data = tmpData!;
-                      });
-                    },
-                  )),
-            ),
-            Expanded(
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: TextField(
-                    controller: _priceSearchController,
-                    decoration: const InputDecoration(
-                      hintText: "Price",
-                      prefixIcon: Icon(Icons.money),
-                    ),
-                    keyboardType: TextInputType.number,
-                  )),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: IconButton(
-                  icon: const Icon(Icons.filter_list),
-                  onPressed: () async {
-                    var tmpData = await _travelProvider?.get({
-                      "name": _nameSearchController.text,
-                      "price": _priceSearchController.text.isEmpty
-                          ? 0
-                          : _priceSearchController.text,
-                      "travelTypeId": selectedTravelTypeValue ?? 0,
-                      "IncludeTravelType": "true"
-                    });
-                    setState(() {
-                      data = tmpData!;
-                    });
-                  },
+  Widget _buildSearch() {
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextField(
+                controller: _nameSearchController,
+                decoration: const InputDecoration(
+                  hintText: "Name",
+                  prefixIcon: Icon(Icons.search),
                 ),
+                onSubmitted: (value) async {
+                  var tmpData = await _travelProvider?.get({
+                    "name": value,
+                    "IncludeTravelType": "true",
+                  });
+                  setState(() {
+                    data = tmpData!;
+                  });
+                },
               ),
             ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: IconButton(
-                  icon: const Icon(Icons.delete_outline),
-                  onPressed: () async {
-                    _nameSearchController.text = "";
-                    _priceSearchController.text = "";
-                    setState(() {
-                      selectedTravelTypeValue = -1;
-                    });
-                  },
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextField(
+                controller: _priceSearchController,
+                decoration: const InputDecoration(
+                  hintText: "Price",
+                  prefixIcon: Icon(Icons.money),
                 ),
+                keyboardType: TextInputType.number,
               ),
             ),
-          ],
-        ),
-        Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: const Center(
-              child: Text(
-                "Search Travels",
-                style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+      Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.3,
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: DropdownButton(
+              iconSize: 1,
+              items: _buildTypes(),
+              value: selectedTravelTypeValue,
+              onChanged: (dynamic value) {
+                setState(() {
+                  selectedTravelTypeValue = value;
+                  loadData();
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              child: IconButton(
+                icon: const Icon(Icons.filter_list),
+                onPressed: () async {
+                  var tmpData = await _travelProvider?.get({
+                    "name": _nameSearchController.text,
+                    "price": _priceSearchController.text.isEmpty ? 0 : _priceSearchController.text,
+                    "travelTypeId": selectedTravelTypeValue ?? 0,
+                    "IncludeTravelType": "true"
+                  });
+                  setState(() {
+                    data = tmpData!;
+                  });
+                },
               ),
-            )),
-      ],
-    );
-  }
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              child: IconButton(
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () async {
+                  _nameSearchController.text = "";
+                  _priceSearchController.text = "";
+                  setState(() {
+                    selectedTravelTypeValue = -1;
+                  });
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: const Center(
+          child: Text(
+            "Search Travels",
+            style: TextStyle(
+              color: Colors.deepPurple,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
 
-  List<Widget> _buildRoomCardList() {
+
+  List<Widget> _buildCards() {
     if (data == null) {
       return [
         const Center(
@@ -259,7 +305,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
                                         ),
                                       ],
                                     ),
-                                     Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       crossAxisAlignment:
