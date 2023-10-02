@@ -135,7 +135,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
                               value: selectedDate,
                               icon: const Icon(Icons.date_range),
                               hint: const Text("Dates"),
-                              //hint: Text("Room Type"),
                               onChanged: (dynamic value) {
                                 setState(() {
                                   selectedDate = value;
