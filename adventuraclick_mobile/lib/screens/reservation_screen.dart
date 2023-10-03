@@ -4,7 +4,6 @@ import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/providers/additional_service_provider.dart';
 import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
-import 'package:adventuraclick_mobile/screens/travel_details.dart';
 import 'package:adventuraclick_mobile/screens/travel_list.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';

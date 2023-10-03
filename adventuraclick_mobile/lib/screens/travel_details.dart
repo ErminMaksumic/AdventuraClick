@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:adventuraclick_mobile/model/travel.dart';
+import 'package:adventuraclick_mobile/model/travel_information.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/screens/rating_screen.dart';
 import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
+import 'package:adventuraclick_mobile/utils/format_date.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
 import 'package:adventuraclick_mobile/widgets/master_screen.dart';
@@ -157,7 +159,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                     fontWeight: FontWeight.w300,
                                     fontSize: 14.0),
                               ),
-                              const SizedBox(height: 10.0),
+                              const SizedBox(height: 15.0),
                               Text(
                                 "Location".toUpperCase(),
                                 style: const TextStyle(
@@ -172,26 +174,22 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                     fontWeight: FontWeight.w300,
                                     fontSize: 14.0),
                               ),
-                              const SizedBox(height: 10.0),
+                              const SizedBox(height: 15.0),
                               Text(
-                                "Date".toUpperCase(),
+                                "Date(s)".toUpperCase(),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14.0),
                               ),
                               const SizedBox(height: 10.0),
-                              Text(
-                                data.date.toString(),
-                                textAlign: TextAlign.justify,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 14.0),
+                              Column(
+                                children: getAllDatesAsWidgets(
+                                    data.travelInformations!),
                               ),
-                              const SizedBox(height: 10),
                               Column(
                                 children: _buildIncludedItems(),
                               ),
-                              const SizedBox(height: 13.0),
+                              const SizedBox(height: 15.0),
                               Text(
                                 "Description".toUpperCase(),
                                 style: const TextStyle(
@@ -230,7 +228,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                           style: TextStyle(color: Colors.white),
                                         ))),
                                   ),
-                                   Container(
+                                  Container(
                                     width: 150,
                                     height: 50,
                                     decoration: BoxDecoration(
@@ -299,4 +297,20 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
 
     return list;
   }
+
+  List<Widget> getAllDatesAsWidgets(List<TravelInformation> travelInformations) {
+  return travelInformations.map((info) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Text(
+        formatDate(info.departureTime.toString()),
+        textAlign: TextAlign.justify,
+        style: const TextStyle(
+          fontWeight: FontWeight.w300,
+          fontSize: 14.0,
+        ),
+      ),
+    );
+  }).toList();
+}
 }
