@@ -12,6 +12,7 @@ import 'package:adventuraclick_mobile/screens/register_screen.dart';
 import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
 import 'package:adventuraclick_mobile/screens/travel_details.dart';
 import 'package:adventuraclick_mobile/screens/travel_list.dart';
+import 'package:adventuraclick_mobile/screens/user_reservation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -57,8 +58,11 @@ class MyApp extends StatelessWidget {
         if (settings.name == TravelListScreen.routeName) {
           return MaterialPageRoute(builder: (context) => const TravelListScreen());
         }
+        if (settings.name == UserReservationListScreen.routeName) {
+          return MaterialPageRoute(builder: (context) => const UserReservationListScreen());
+        }
 
-        // dynamic uri for sending url with id
+        // dynamic paths
         var uri = Uri.parse(settings.name!);
         var id = uri.pathSegments[1];
         if ("/${uri.pathSegments.first}" == RatingScreen.routeName) {

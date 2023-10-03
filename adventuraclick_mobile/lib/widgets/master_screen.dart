@@ -1,7 +1,9 @@
 import 'package:adventuraclick_mobile/screens/login_screen.dart';
 import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
+import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
 import 'package:adventuraclick_mobile/screens/travel_details.dart';
 import 'package:adventuraclick_mobile/screens/travel_list.dart';
+import 'package:adventuraclick_mobile/screens/user_reservation_list.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -31,8 +33,8 @@ class MasterScreenWidget extends StatelessWidget {
           ),
           // temporary travel screen
           BottomNavigationBarItem(
-            icon: Icon(Icons.travel_explore),
-            label: 'Travel',
+            icon: Icon(Icons.list),
+            label: 'Reservations',
           ),
         ],
         currentIndex: index!,
@@ -46,7 +48,7 @@ class MasterScreenWidget extends StatelessWidget {
               Navigator.pushNamed(context, ProfileScreen.routeName);
               break;
             case 2:
-              Navigator.pushNamed(context, TravelDetailsScreen.routeName);
+              Navigator.pushNamed(context, UserReservationListScreen.routeName);
               break;
           }
         },
