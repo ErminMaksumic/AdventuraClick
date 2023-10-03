@@ -5,6 +5,7 @@ import 'package:adventuraclick_mobile/providers/additional_service_provider.dart
 import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/screens/travel_details.dart';
+import 'package:adventuraclick_mobile/screens/travel_list.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
@@ -66,141 +67,139 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
   @override
   Widget build(BuildContext context) {
-      Widget content;
+    Widget content;
 
-   if (_data == null) {
-    content = const Column(
-      children: [
-        SizedBox(
-          height: 50,
-        ),
-       Center(
-        child: CircularProgressIndicator(
-          color: Colors.black,
-        )),
-      ],
-    );
-   }
-   else
-   {
-   content = Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Card(
-            elevation: 5,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 300,
-                  width: 500,
-                  child: Image.memory(dataFromBase64String(_data!.image!),
-                      fit: BoxFit.cover),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  padding: const EdgeInsets.all(20),
-                  decoration: const BoxDecoration(
-                    color: Colors.deepPurple,
+    if (_data == null) {
+      content = const Column(
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+          Center(
+              child: CircularProgressIndicator(
+            color: Colors.black,
+          )),
+        ],
+      );
+    } else {
+      content = Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Card(
+              elevation: 5,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 300,
+                    width: 500,
+                    child: Image.memory(dataFromBase64String(_data!.image!),
+                        fit: BoxFit.cover),
                   ),
-                  child: Center(
-                    child: Text(
-                      _data!.name!,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                      color: Colors.deepPurple,
+                    ),
+                    child: Center(
+                      child: Text(
+                        _data!.name!,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Form(
-                  key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 15),
-                      const Text(
-                        'Select a travel date:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepPurple),
-                      ),
-                      const SizedBox(height: 15),
-                      SizedBox(
-                          width: 135,
-                          child: DropdownButton(
-                              items: _buildDateDownList(),
-                              isExpanded: true,
-                              value: selectedDate,
-                              icon: const Icon(Icons.date_range),
-                              hint: const Text("Dates"),
-                              onChanged: (dynamic value) {
-                                setState(() {
-                                  selectedDate = value;
-                                });
-                              })),
-                      const SizedBox(height: 35.0),
-                      Column(
-                        children: [
-                          buildInputField(_firstNameController, 'First Name'),
-                          const SizedBox(height: 20),
-                          buildInputField(_lastNameController, 'Last Name'),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.deepPurple,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
+                  const SizedBox(height: 20),
+                  Form(
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 15),
+                        const Text(
+                          'Select a travel date:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepPurple),
                         ),
-                        child: SizedBox(
-                          width: 365,
-                          child: Column(
-                            children: [
-                              const Text(
-                                "Choose additional services",
-                                style: TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              ..._buildAddServices(),
-                            ],
-                          ),
+                        const SizedBox(height: 15),
+                        SizedBox(
+                            width: 135,
+                            child: DropdownButton(
+                                items: _buildDateDownList(),
+                                isExpanded: true,
+                                value: selectedDate,
+                                icon: const Icon(Icons.date_range),
+                                hint: const Text("Dates"),
+                                onChanged: (dynamic value) {
+                                  setState(() {
+                                    selectedDate = value;
+                                  });
+                                })),
+                        const SizedBox(height: 35.0),
+                        Column(
+                          children: [
+                            buildInputField(_firstNameController, 'First Name'),
+                            const SizedBox(height: 20),
+                            buildInputField(_lastNameController, 'Last Name'),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      Container(
-                        height: 50,
-                        margin: const EdgeInsets.fromLTRB(50, 20, 50, 0),
-                        decoration: BoxDecoration(
+                        const SizedBox(height: 20),
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.deepPurple,
+                            ),
                             borderRadius: BorderRadius.circular(10),
-                            gradient: const LinearGradient(
-                                colors: [Colors.red, Colors.deepPurple])),
-                        child: InkWell(
-                          onTap: () async {
-                            await makePayment(calculateAmount(_data!.price!));
-                          },
-                          child: const Center(child: Text("Reserve travel")),
+                          ),
+                          child: SizedBox(
+                            width: 365,
+                            child: Column(
+                              children: [
+                                const Text(
+                                  "Choose additional services",
+                                  style: TextStyle(
+                                    color: Colors.deepPurple,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                ..._buildAddServices(),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
+                        const SizedBox(height: 20),
+                        Container(
+                          height: 50,
+                          margin: const EdgeInsets.fromLTRB(50, 20, 50, 0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: const LinearGradient(
+                                  colors: [Colors.red, Colors.deepPurple])),
+                          child: InkWell(
+                            onTap: () async {
+                              await makePayment(calculateAmount(_data!.price!));
+                            },
+                            child: const Center(child: Text("Reserve travel")),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
-   }
-   return content;
+      );
+    }
+    return content;
   }
 
   List<DropdownMenuItem> _buildDateDownList() {
@@ -276,7 +275,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 actions: [
                   TextButton(
                     onPressed: () async => await Navigator.pushNamed(
-                        context, TravelDetailsScreen.routeName),
+                        context, TravelListScreen.routeName),
                     child: const Text("Ok"),
                   ),
                 ],
@@ -305,8 +304,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
           Uri.parse('https://api.stripe.com/v1/payment_intents'),
           body: body,
           headers: {
-            'Authorization':
-                'Bearer ${dotenv.env['STRIPE_SECRET_KEY']!}',
+            'Authorization': 'Bearer ${dotenv.env['STRIPE_SECRET_KEY']!}',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       return jsonDecode(response.body);
@@ -327,7 +325,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
               title: Text("${x.name!}" "(${x.price!}\$)"),
               secondary: const Icon(Icons.plus_one),
               autofocus: false,
-              // isThreeLine: true,
               activeColor: Colors.green,
               checkColor: Colors.white,
               value: valuesIds.contains(x.addServiceId!) ? true : false,
@@ -367,6 +364,12 @@ class _ReservationScreenState extends State<ReservationScreen> {
           'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
           'fullName': "${_firstNameController.text} ${_lastNameController.text}"
         }
+      });
+      await _reservationProvider.sendConfirmationEmail({
+        "fullName":
+            '${Authorization.user!.firstName} ${Authorization.user!.lastName}',
+        "email": Authorization.user!.email,
+        "travelName": _data!.name!,
       });
     } catch (e) {
       if (!mounted) return;

@@ -1,5 +1,7 @@
 import 'package:adventuraclick_mobile/providers/rating_provider.dart';
 import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
+import 'package:adventuraclick_mobile/screens/travel_list.dart';
+import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -111,8 +113,8 @@ class _RatingScreenState extends State<RatingScreen> {
                     await _ratingProvider.insert({
                       'rate': rating.round(),
                       'comment': _reviewController.text,
-                      'travelId': 1 /*widget.id*/,
-                      'userId': 2 /*Authorization.user!.userId*/,
+                      'travelId': widget.id,
+                      'userId': Authorization.user!.userId,
                     });
                     if (!mounted) return;
                     showDialog(
@@ -123,9 +125,8 @@ class _RatingScreenState extends State<RatingScreen> {
                         actions: [
                           TextButton(
                             onPressed: () async =>
-                                // temporary navigation
                                 await Navigator.pushNamed(
-                                    context, ProfileScreen.routeName),
+                                    context, TravelListScreen.routeName),
                             child: const Text("Ok"),
                           )
                         ],

@@ -84,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                       Authorization.user = await _userProvider.login();
                       if (!context.mounted) return;
                       Navigator.popAndPushNamed(
-                          context, ProfileScreen.routeName);
+                          context, TravelListScreen.routeName);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(

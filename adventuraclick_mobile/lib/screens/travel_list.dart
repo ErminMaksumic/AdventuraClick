@@ -25,7 +25,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
   List<TravelType> travelTypes = [];
   final TextEditingController _nameSearchController = TextEditingController();
   final TextEditingController _priceSearchController = TextEditingController();
-  int? selectedTravelTypeValue;
+  int? selectedTravelTypeValue = 99;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
       "name": _nameSearchController.text,
       "price":
           _priceSearchController.text.isEmpty ? 0 : _priceSearchController.text,
-      "travelTypeId": selectedTravelTypeValue ?? 0,
+      "travelTypeId": selectedTravelTypeValue == 99 ? 0 : selectedTravelTypeValue,
       "IncludeTravelType": true,
     };
     var tempData = await _travelProvider?.get(search);
@@ -66,7 +66,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
 
     list.add(const DropdownMenuItem(
       enabled: false,
-      value: -1,
+      value: 99,
       child: Text("Travel Type", style: TextStyle(color: Colors.black)),
     ));
 
@@ -165,7 +165,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
                   var tmpData = await _travelProvider?.get({
                     "name": _nameSearchController.text,
                     "price": _priceSearchController.text.isEmpty ? 0 : _priceSearchController.text,
-                    "travelTypeId": selectedTravelTypeValue ?? 0,
+                    "travelTypeId": selectedTravelTypeValue == 99 ? 0 : selectedTravelTypeValue,
                     "IncludeTravelType": "true"
                   });
                   setState(() {
@@ -184,7 +184,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
                   _nameSearchController.text = "";
                   _priceSearchController.text = "";
                   setState(() {
-                    selectedTravelTypeValue = -1;
+                    selectedTravelTypeValue = 99;
                   });
                 },
               ),

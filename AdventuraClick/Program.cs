@@ -7,6 +7,7 @@ using AdventuraClick.Service.Mapper;
 using Microsoft.OpenApi.Models;
 using AdventuraClick.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using AdventuraClick;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,7 @@ builder.Services.AddTransient<IIncludedItem, IncludedItemService>();
 builder.Services.AddTransient<IPaymentService, PaymentService>();
 builder.Services.AddTransient<ITravelInformationService, TravelInformationService>();
 builder.Services.AddTransient<IAdditionalService, AdventuraClick.Service.Implementation.AdditionalService>();
+builder.Services.AddSingleton<EmailSenderService>();
 // 
 builder.Services.AddAutoMapper(typeof(Mapper).Assembly);
 builder.Services.AddAuthentication("BasicAuthentication")

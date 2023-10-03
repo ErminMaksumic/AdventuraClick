@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
+import 'package:adventuraclick_mobile/screens/rating_screen.dart';
 import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
@@ -106,119 +107,152 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                       ],
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(32, 20, 32, 32),
-                      color: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Center(
-                            child: Text(
-                              data.name!,
-                              style: const TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontSize: 28.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        padding: const EdgeInsets.fromLTRB(32, 20, 32, 32),
+                        color: Colors.white,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
+                              Center(
+                                child: Text(
+                                  data.name!,
+                                  style: const TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontSize: 28.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    "${data.price}",
+                                    style: const TextStyle(
+                                        color: Colors.deepPurple,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22.0),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text(
+                                    "/€",
+                                    style: TextStyle(
+                                        fontSize: 14.0, color: Colors.red),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 10.0),
                               Text(
-                                "${data.price}",
+                                "Nights: ".toUpperCase(),
                                 style: const TextStyle(
-                                    color: Colors.deepPurple,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22.0),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.0),
                               ),
-                              const SizedBox(
-                                width: 5,
+                              const SizedBox(height: 10.0),
+                              Text(
+                                data.numberOfNights.toString(),
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 14.0),
                               ),
-                              const Text(
-                                "/€",
-                                style: TextStyle(
-                                    fontSize: 14.0, color: Colors.red),
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            "Nights: ".toUpperCase(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 14.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            data.numberOfNights.toString(),
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w300, fontSize: 14.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            "Location".toUpperCase(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 14.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            '${data.location?.cityName}, ${data.location?.countryName}',
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w300, fontSize: 14.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            "Date".toUpperCase(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 14.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            data.date.toString(),
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w300, fontSize: 14.0),
-                          ),
-                          const SizedBox(height: 10),
-                          Column(
-                            children: _buildIncludedItems(),
-                          ),
-                          const SizedBox(height: 13.0),
-                          Text(
-                            "Description".toUpperCase(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 14.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            data.description ?? '',
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w300, fontSize: 14.0),
-                          ),
-                          const SizedBox(height: 20),
-                          Container(
-                            height: 50,
-                            width: 400,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                gradient: const LinearGradient(
-                                    colors: [Colors.deepPurple, Colors.red])),
-                            child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(context,
-                                      "${ReservationScreen.routeName}/${data.travelId}");
-                                },
-                                child: const Center(
-                                    child: Text(
-                                  "Reserve your travel!",
-                                  style: TextStyle(color: Colors.white),
-                                ))),
-                          ),
-                        ],
-                      ),
-                    ),
+                              const SizedBox(height: 10.0),
+                              Text(
+                                "Location".toUpperCase(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.0),
+                              ),
+                              const SizedBox(height: 10.0),
+                              Text(
+                                '${data.location?.cityName}, ${data.location?.countryName}',
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 14.0),
+                              ),
+                              const SizedBox(height: 10.0),
+                              Text(
+                                "Date".toUpperCase(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.0),
+                              ),
+                              const SizedBox(height: 10.0),
+                              Text(
+                                data.date.toString(),
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 14.0),
+                              ),
+                              const SizedBox(height: 10),
+                              Column(
+                                children: _buildIncludedItems(),
+                              ),
+                              const SizedBox(height: 13.0),
+                              Text(
+                                "Description".toUpperCase(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.0),
+                              ),
+                              const SizedBox(height: 10.0),
+                              Text(
+                                data.description ?? '',
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 14.0),
+                              ),
+                              const SizedBox(height: 30),
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 30),
+                                    width: 150,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        gradient: const LinearGradient(colors: [
+                                          Colors.deepPurple,
+                                          Colors.red
+                                        ])),
+                                    child: InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(context,
+                                              "${ReservationScreen.routeName}/${data.travelId}");
+                                        },
+                                        child: const Center(
+                                            child: Text(
+                                          "Reserve this travel",
+                                          style: TextStyle(color: Colors.white),
+                                        ))),
+                                  ),
+                                   Container(
+                                    width: 150,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        gradient: const LinearGradient(colors: [
+                                          Colors.red,
+                                          Colors.deepPurple
+                                        ])),
+                                    child: InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(context,
+                                              "${RatingScreen.routeName}/${data.travelId}");
+                                        },
+                                        child: const Center(
+                                            child: Text(
+                                          "Rate this travel",
+                                          style: TextStyle(color: Colors.white),
+                                        ))),
+                                  ),
+                                ],
+                              ),
+                            ])),
                   ],
                 ),
               ),
