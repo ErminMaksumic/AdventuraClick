@@ -369,9 +369,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
         "fullName":
             '${Authorization.user!.firstName} ${Authorization.user!.lastName}',
         "email": Authorization.user!.email,
-        "subject": "AdventuraClick reservation",
-        "body":
-            'Dear ${Authorization.user!.firstName}, your reservation has been completed!'
+        "travelName": _data!.name!,
       });
     } catch (e) {
       if (!mounted) return;

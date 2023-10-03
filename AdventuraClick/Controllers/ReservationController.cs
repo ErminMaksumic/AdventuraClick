@@ -20,7 +20,25 @@ namespace AdventuraClick.Controllers
         [HttpPost("sendConfirmationEmail")]
         public void SendConfirmationEmail([FromBody] EmailSenderRequest request)
         {
-            _ = _emailService.SendEmail(_configuration, request.FullName, request.Email, request.Subject, request.Body);
+            var messageBody = $@"
+Dear {request.FullName},
+
+Thank you for booking your trip with AdventuraClick.
+
+Reservation Details:
+- Destination: {request.TravelName}
+
+Please review the details above and ensure everything is correct. Should you have any questions or need to make changes to your reservation, please contact us at info@adventuraclick.com.
+
+We're excited to be a part of your journey and are committed to ensuring you have a wonderful travel experience.
+
+Safe travels!
+
+Warm regards,
+AdventuraClick Team
+";
+
+            _ = _emailService.SendEmail(_configuration, request.FullName, request.Email, "Travel Reservation Confirmation", messageBody);
         }
     }
 }
