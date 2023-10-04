@@ -1,5 +1,5 @@
-import 'package:adventuraclick_mobile/screens/login_screen.dart';
-import 'package:adventuraclick_mobile/screens/travel_list.dart';
+import 'package:adventuraclick_mobile/screens/user_screens/login_screen.dart';
+import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {

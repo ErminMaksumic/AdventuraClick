@@ -1,7 +1,7 @@
 import 'package:adventuraclick_mobile/providers/user_provider.dart';
-import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
-import 'package:adventuraclick_mobile/screens/register_screen.dart';
-import 'package:adventuraclick_mobile/screens/travel_list.dart';
+import 'package:adventuraclick_mobile/screens/user_screens/profile_edit_screen.dart';
+import 'package:adventuraclick_mobile/screens/user_screens/register_screen.dart';
+import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:flutter/material.dart';

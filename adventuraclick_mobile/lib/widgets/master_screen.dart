@@ -1,9 +1,9 @@
-import 'package:adventuraclick_mobile/screens/login_screen.dart';
-import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
-import 'package:adventuraclick_mobile/screens/reservation_screen.dart';
-import 'package:adventuraclick_mobile/screens/travel_details.dart';
-import 'package:adventuraclick_mobile/screens/travel_list.dart';
-import 'package:adventuraclick_mobile/screens/user_reservation_list.dart';
+import 'package:adventuraclick_mobile/screens/user_screens/login_screen.dart';
+import 'package:adventuraclick_mobile/screens/user_screens/profile_edit_screen.dart';
+import 'package:adventuraclick_mobile/screens/reservation_screens/reservation_screen.dart';
+import 'package:adventuraclick_mobile/screens/travel_screens/travel_details.dart';
+import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
+import 'package:adventuraclick_mobile/screens/reservation_screens/user_reservation_list.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
 
 import 'package:flutter/material.dart';

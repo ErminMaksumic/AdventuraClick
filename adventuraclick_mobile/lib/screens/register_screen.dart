@@ -121,6 +121,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             children: [
               Container(
                 height: 200,
+                margin: const EdgeInsets.only(bottom: 20),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/background.jpg'),

@@ -2,7 +2,7 @@ import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/model/travel_type.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_type_provider.dart';
-import 'package:adventuraclick_mobile/screens/travel_details.dart';
+import 'package:adventuraclick_mobile/screens/travel_screens/travel_details.dart';
 import 'package:adventuraclick_mobile/utils/format_number.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import 'package:adventuraclick_mobile/widgets/master_screen.dart';

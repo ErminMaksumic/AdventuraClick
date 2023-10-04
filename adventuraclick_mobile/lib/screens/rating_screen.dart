@@ -1,6 +1,6 @@
 import 'package:adventuraclick_mobile/providers/rating_provider.dart';
-import 'package:adventuraclick_mobile/screens/profile_edit_screen.dart';
-import 'package:adventuraclick_mobile/screens/travel_list.dart';
+import 'package:adventuraclick_mobile/screens/user_screens/profile_edit_screen.dart';
+import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';

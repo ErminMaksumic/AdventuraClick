@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:adventuraclick_mobile/model/user.dart';
-import 'package:adventuraclick_mobile/screens/login_screen.dart';
+import 'package:adventuraclick_mobile/screens/user_screens/login_screen.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
@@ -9,7 +9,7 @@ import 'package:adventuraclick_mobile/widgets/master_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import '../../providers/user_provider.dart';
+import '../../../providers/user_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String routeName = "/profile";

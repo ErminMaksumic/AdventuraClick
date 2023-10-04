@@ -3,8 +3,8 @@ import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/format_number.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../model/reservation.dart';
-import '../../widgets/master_screen.dart';
+import '../../../model/reservation.dart';
+import '../../../widgets/master_screen.dart';
 
 class UserReservationListScreen extends StatefulWidget {
   static const String routeName = "/userReservationList";
