@@ -67,7 +67,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
     }
 
     return MasterScreenWidget(
-        index: 2,
+        index: 0,
         child: SafeArea(
           child: Stack(
             children: <Widget>[
