@@ -4,10 +4,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:adventuraclick_mobile/model/user_insert_request.dart';
-import 'package:adventuraclick_mobile/screens/login_screen.dart';
+import 'package:adventuraclick_mobile/screens/user_screens/login_screen.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
-import '../../providers/user_provider.dart';
-import '../utils/buildInputFields.dart';
+import '../../../providers/user_provider.dart';
+import '../../utils/buildInputFields.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String routeName = "/register";
