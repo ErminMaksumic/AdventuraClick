@@ -308,7 +308,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
           });
       return jsonDecode(response.body);
     } catch (err) {
-      print('Error: ${err.toString()}');
     }
   }
 

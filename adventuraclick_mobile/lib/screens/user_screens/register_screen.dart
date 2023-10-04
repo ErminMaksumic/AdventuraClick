@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
-import 'package:adventuraclick_mobile/model/user_insert_request.dart';
-import 'package:adventuraclick_mobile/screens/user_screens/login_screen.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import '../../../providers/user_provider.dart';
 import '../../utils/buildInputFields.dart';
@@ -61,21 +59,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   Future<void> register() async {
     try {
-      final request = UserInsertRequest();
-
-      request.firstName = _firstNameController.text;
-      request.lastName = _lastNameController.text;
-      request.userName = _userNameController.text;
-      request.email = _emailController.text;
-      request.password = _passwordController.text;
-      request.passwordConfirmation = _passwordConfirmationController.text;
-      request.image = imageString;
-      var user = await _userProvider.register(request);
-
+      var user = await _userProvider.register({
+        'firstName': _firstNameController.text,
+        'lastName': _lastNameController.text,
+        'username': _userNameController.text,
+        'email': _emailController.text,
+        'password': _passwordController.text,
+        'passwordConfirmation': _passwordConfirmationController.text,
+        'image': imageString,
+      });
       if (!mounted) return;
       // Login the user
-      Authorization.username = request.userName;
-      Authorization.password = request.password;
+      Authorization.username = user?.username;
+      Authorization.password = _passwordController.text;
       Authorization.user = user;
       showDialog(
         context: context,
@@ -213,16 +209,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 child: InkWell(
                   onTap: () async {
-                    if (_formKey.currentState!.validate() && imageString != null) {
+                    if (_formKey.currentState!.validate() &&
+                        imageString != null) {
                       register();
-                    }
-                    else
-                    {
+                    } else {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                                 title: const Text("Registration failed"),
-                                content: const Text("Check field inputs and/or select the image!"),
+                                content: const Text(
+                                    "Check field inputs and/or select the image!"),
                                 actions: [
                                   TextButton(
                                     child: const Text("Ok"),
