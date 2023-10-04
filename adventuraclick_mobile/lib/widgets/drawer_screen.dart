@@ -17,13 +17,6 @@ class DrawerMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('TBC'),
-            onTap: () {
-              Navigator.popAndPushNamed(
-                  context, LoginScreen.routeName);
-            },
-          ),
-          ListTile(
             title: const Text('Logout'),
             onTap: () {
               Navigator.popAndPushNamed(context, LoginScreen.routeName);

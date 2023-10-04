@@ -85,19 +85,6 @@ class LoginScreen extends StatelessWidget {
                       if (!context.mounted) return;
                       Navigator.popAndPushNamed(
                           context, TravelListScreen.routeName);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text("Login success"),
-                          content: const Text("Success login"),
-                          actions: [
-                            TextButton(
-                              child: const Text("Ok"),
-                              onPressed: () => Navigator.pop(context),
-                            )
-                          ],
-                        ),
-                      );
                     }
                   } on Exception {
                     if (!context.mounted) return;

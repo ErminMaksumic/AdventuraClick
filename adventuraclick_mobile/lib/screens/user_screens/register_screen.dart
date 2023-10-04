@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
+import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -40,11 +42,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Future<void> pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-      debugPrint(image.toString());
-
       if (image == null) return;
-
       final imageTemp = File(image.path);
       final bytes = await image.readAsBytes();
       ByteData.view(bytes.buffer);
@@ -72,9 +70,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       request.password = _passwordController.text;
       request.passwordConfirmation = _passwordConfirmationController.text;
       request.image = imageString;
-      await _userProvider.register(request);
+      var user = await _userProvider.register(request);
 
       if (!mounted) return;
+      // Login the user
+      Authorization.username = request.userName;
+      Authorization.password = request.password;
+      Authorization.user = user;
       showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -84,7 +86,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             TextButton(
               onPressed: () async => await Navigator.popAndPushNamed(
                 context,
-                LoginScreen.routeName,
+                TravelListScreen.routeName,
               ),
               child: const Text("Ok"),
             ),
@@ -211,8 +213,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 child: InkWell(
                   onTap: () async {
-                    if (_formKey.currentState!.validate()) {
+                    if (_formKey.currentState!.validate() && imageString != null) {
                       register();
+                    }
+                    else
+                    {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                                title: const Text("Registration failed"),
+                                content: const Text("Check field inputs and/or select the image!"),
+                                actions: [
+                                  TextButton(
+                                    child: const Text("Ok"),
+                                    onPressed: () => Navigator.pop(context),
+                                  )
+                                ],
+                              ));
                     }
                   },
                   child: const Center(
