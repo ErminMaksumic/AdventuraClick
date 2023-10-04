@@ -317,9 +317,15 @@ class _ReservationScreenState extends State<ReservationScreen> {
     } on Exception {
       showDialog(
           context: context,
-          builder: (_) => const AlertDialog(
-                title: Text("Error ocurred"),
-                content: Text("Payment canceled!"),
+          builder: (_) => AlertDialog(
+                title: const Text("Error ocurred"),
+                content: const Text("Payment canceled!"),
+                actions: [
+                          TextButton(
+                            child: const Text("Ok"),
+                            onPressed: () => Navigator.pop(context),
+                            )
+                        ],
               ));
     } catch (e) {
       print('$e');
