@@ -7,6 +7,7 @@ import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
+import 'package:adventuraclick_mobile/utils/icons.enum.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
@@ -37,6 +38,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
   List<AdditionalServices>? valuesObjects = [];
   double amount = 0;
   int selectedDate = 99;
+  int selectedPassengers = 1; // Početno postavljanje na 1 putnik
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -144,6 +146,39 @@ class _ReservationScreenState extends State<ReservationScreen> {
                             buildInputField(_firstNameController, 'First Name'),
                             const SizedBox(height: 20),
                             buildInputField(_lastNameController, 'Last Name'),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: DropdownButtonFormField<int>(
+                                value: selectedPassengers,
+                                onChanged: (int? value) {
+                                  setState(() {
+                                    selectedPassengers = value!;
+                                  });
+                                },
+                                items: List.generate(10, (index) => index + 1)
+                                    .map((int value) {
+                                  return DropdownMenuItem<int>(
+                                    value: value,
+                                    child: Text("$value passengers"),
+                                  );
+                                }).toList(),
+                                decoration: const InputDecoration(
+                                  prefixIcon: IconResolver(
+                                    fieldText: 'passengers',
+                                  ),
+                                  prefixIconColor: Colors.deepPurple,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.deepPurple),
+                                  ),
+                                  labelText: 'Passengers',
+                                  labelStyle:
+                                      TextStyle(color: Colors.deepPurple),
+                                  errorStyle:
+                                      TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 20),
@@ -308,6 +343,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
           });
       return jsonDecode(response.body);
     } catch (err) {
+      print('Error: ${err.toString()}');
     }
   }
 
@@ -350,6 +386,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
       await _reservationProvider.insert({
         'userId': Authorization.user!.userId,
         'travelId': _data!.travelId,
+        'numberOfPassengers': selectedPassengers,
         'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
         'status': "Active",
         'additionalServices': valuesIds,
@@ -358,7 +395,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
             : _data!.travelInformations![selectedDate].travelInformationId,
         'payment': {
           'transactionNumber': paymentIntentData!['id'],
-          'amount': calculateAmount(_data!.price!),
+          'amount': calculateAmount(_data!.price!) * selectedPassengers,
           'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
           'fullName': "${_firstNameController.text} ${_lastNameController.text}"
         }

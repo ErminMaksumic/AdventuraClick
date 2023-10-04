@@ -7,6 +7,7 @@ enum FieldIcon {
   username,
   password,
   passwordconfirmation,
+  passengers
 }
 
 Map<FieldIcon, IconData> iconMap = {
@@ -16,6 +17,7 @@ Map<FieldIcon, IconData> iconMap = {
   FieldIcon.username: Icons.account_circle,
   FieldIcon.password: Icons.lock,
   FieldIcon.passwordconfirmation: Icons.lock,
+  FieldIcon.passengers: Icons.people
 };
 
 class IconResolver extends StatelessWidget {
