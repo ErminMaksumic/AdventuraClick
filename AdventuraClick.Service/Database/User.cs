@@ -6,7 +6,6 @@ public partial class User
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
     public string Email { get; set; }
-    public DateTime? DateOfBirth { get; set; }
     public byte[] Image { get; set; } = null!;
     public string? CreatedAt { get; set; }
     public string? PasswordHash { get; set; }

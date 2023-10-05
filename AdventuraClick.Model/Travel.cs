@@ -4,7 +4,6 @@
     {
         public int TravelId { get; set; }
         public string Name { get; set; } = null!;
-        public DateTime Date { get; set; }
         public byte[]? Image { get; set; }
         public int NumberOfNights { get; set; }
         public string? Description { get; set; }

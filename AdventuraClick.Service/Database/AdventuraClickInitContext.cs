@@ -132,9 +132,6 @@ namespace AdventuraClick.Service.Database
                 entity.ToTable("Travel");
 
                 entity.Property(e => e.TravelId).HasColumnName("travelId");
-                entity.Property(e => e.Date)
-                    .HasColumnType("datetime")
-                    .HasColumnName("date");
                 entity.Property(e => e.Description).HasColumnName("description");
                 entity.Property(e => e.Image).HasColumnName("image");
                 entity.Property(e => e.LocationId).HasColumnName("locationId");
@@ -190,9 +187,6 @@ namespace AdventuraClick.Service.Database
                 entity.Property(e => e.CreatedAt)
                     .HasMaxLength(40)
                     .HasColumnName("createdAt");
-                entity.Property(e => e.DateOfBirth)
-                    .HasColumnType("datetime")
-                    .HasColumnName("dateOfBirth");
                 entity.Property(e => e.FirstName)
                     .HasMaxLength(40)
                     .HasColumnName("firstName");
