@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -111,7 +112,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     _userProvider = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: const Color.fromARGB(156, 126, 97, 101),
           title: const Text("AdventuraClick")),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -140,7 +141,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         gradient: const LinearGradient(
-                          colors: [Colors.red, Colors.deepPurple],
+                  colors: AppColors.selectPictureButton,
                         ),
                       ),
                       child: InkWell(
@@ -204,7 +205,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   gradient: const LinearGradient(
-                    colors: [Colors.deepPurple, Colors.red],
+                  colors: [Color.fromRGBO(175, 113, 122, 0.612), Color.fromARGB(255, 94, 151, 170)],
                   ),
                 ),
                 child: InkWell(

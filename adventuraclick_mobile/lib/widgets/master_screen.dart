@@ -4,6 +4,7 @@ import 'package:adventuraclick_mobile/screens/reservation_screens/reservation_sc
 import 'package:adventuraclick_mobile/screens/travel_screens/travel_details.dart';
 import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
 import 'package:adventuraclick_mobile/screens/reservation_screens/user_reservation_list.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -20,8 +21,8 @@ class MasterScreenWidget extends StatelessWidget {
       drawer: const DrawerMenu(),
       body: SafeArea(child: child!),
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Colors.red,
-        unselectedItemColor: Colors.white,
+        fixedColor: Colors.white,
+        unselectedItemColor: Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -38,7 +39,7 @@ class MasterScreenWidget extends StatelessWidget {
           ),
         ],
         currentIndex: index!,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.primaryHeader,
         onTap: (index) {
           switch (index) {
             case 0:
@@ -58,7 +59,7 @@ class MasterScreenWidget extends StatelessWidget {
 
   _buildAppBar() {
     return AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.primaryHeader,
         title: const Text("AdventuraClick"),
         );
   }

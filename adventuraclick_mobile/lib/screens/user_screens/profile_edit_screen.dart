@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:adventuraclick_mobile/model/user.dart';
 import 'package:adventuraclick_mobile/screens/user_screens/login_screen.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
@@ -51,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Text(
                     "Edit your profile",
                     style: TextStyle(
-                      color: Colors.deepPurple,
+                      color: AppColors.text,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -89,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   gradient: const LinearGradient(
-                      colors: [Colors.red, Colors.deepPurple])),
+                      colors: AppColors.selectPictureButton)),
               child: InkWell(
                 onTap: () async {
                   pickImage();
@@ -141,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     gradient: const LinearGradient(
-                        colors: [Colors.deepPurple, Colors.red])),
+                        colors: AppColors.submitButton)),
                 child: InkWell(
                   onTap: () async {
                     User? result;

@@ -1,5 +1,6 @@
 import 'package:adventuraclick_mobile/providers/rating_provider.dart';
 import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -48,14 +49,14 @@ class _RatingScreenState extends State<RatingScreen> {
               child: const Text(
                 "Rate the travel",
                 style: TextStyle(
-                  color: Colors.deepPurple,
+                  color: AppColors.text,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             const Divider(
-              color: Colors.deepPurple,
+              color: AppColors.primaryHeader,
             ),
             const SizedBox(
               height: 30,
@@ -88,7 +89,7 @@ class _RatingScreenState extends State<RatingScreen> {
                     decoration: const InputDecoration.collapsed(
                       hintText: "Enter your review here",
                       hintStyle: TextStyle(
-                        color: Colors.deepPurple,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -104,7 +105,7 @@ class _RatingScreenState extends State<RatingScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 gradient:
-                    const LinearGradient(colors: [Colors.deepPurple, Colors.red]),
+                    const LinearGradient(colors: AppColors.submitButton),
               ),
               child: InkWell(
                 onTap: () async {
