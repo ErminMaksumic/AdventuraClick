@@ -28,7 +28,18 @@ namespace AdventuraClick.Service.Implementation
 
         public override IQueryable<Rating> AddInclude(IQueryable<Rating> query, RatingSearchObject search = null)
         {
-            return query.Include("User").Include("Travel");
+            var includedQuery = base.AddInclude(query, search);
+
+            if (search.IncludeTravel)
+            {
+                includedQuery = includedQuery.Include("Travel");
+            }
+            if (search.IncludeUser)
+            {
+                includedQuery = includedQuery.Include("User");
+            }
+
+            return includedQuery;
         }
     }
 }
