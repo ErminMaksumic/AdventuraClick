@@ -1,4 +1,5 @@
 import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/format_date.dart';
 import 'package:adventuraclick_mobile/utils/format_number.dart';
@@ -62,7 +63,7 @@ class _ReservationListScreenScreenState
       child: Text(
         "My Travels",
         style: TextStyle(
-            color: Colors.deepPurple,
+            color: AppColors.text,
             fontWeight: FontWeight.bold,
             fontSize: 40),
       ),
@@ -80,11 +81,12 @@ class _ReservationListScreenScreenState
             decoration: const InputDecoration(
               hintText: "Search by travel name",
               hintStyle: TextStyle(
-                color: Colors.deepPurple
+                color: AppColors.text,
+                fontWeight: FontWeight.bold
               ),
               prefixIcon: Icon(Icons.search),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.deepPurple),
+                borderSide: BorderSide(color: AppColors.borders),
               ),
             ),
           ),
@@ -116,7 +118,7 @@ class _ReservationListScreenScreenState
     return data!
         .map((x) => Card(
               margin: const EdgeInsets.all(10.0),
-              color: const Color.fromARGB(255, 187, 144, 198),
+              color: AppColors.card,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(

@@ -5,6 +5,7 @@ import 'package:adventuraclick_mobile/providers/additional_service_provider.dart
 import 'package:adventuraclick_mobile/providers/reservation_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:adventuraclick_mobile/utils/icons.enum.dart';
@@ -100,13 +101,13 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.all(20),
                     decoration: const BoxDecoration(
-                      color: Colors.deepPurple,
+                      color: AppColors.primaryHeader,
                     ),
                     child: Center(
                       child: Text(
                         _data!.name!,
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
@@ -124,7 +125,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           'Select a travel date:',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple),
+                              color: AppColors.text),
                         ),
                         const SizedBox(height: 15),
                         SizedBox(
@@ -166,10 +167,10 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                   prefixIcon: IconResolver(
                                     fieldText: 'passengers',
                                   ),
-                                  prefixIconColor: Colors.deepPurple,
+                                  prefixIconColor: Colors.black,
                                   enabledBorder: OutlineInputBorder(
                                     borderSide:
-                                        BorderSide(color: Colors.deepPurple),
+                                        BorderSide(color: AppColors.borders),
                                   ),
                                   labelText: 'Passengers',
                                   labelStyle:
@@ -186,7 +187,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.deepPurple,
+                              color: AppColors.borders,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -197,7 +198,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                 const Text(
                                   "Choose additional services",
                                   style: TextStyle(
-                                    color: Colors.deepPurple,
+                                    color: AppColors.text,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -214,7 +215,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               gradient: const LinearGradient(
-                                  colors: [Colors.red, Colors.deepPurple])),
+                                  colors: AppColors.submitButton)),
                           child: InkWell(
                             onTap: () async {
                               await makePayment(calculateAmount(_data!.price!));

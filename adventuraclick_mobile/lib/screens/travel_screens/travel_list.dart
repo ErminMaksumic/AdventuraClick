@@ -3,6 +3,7 @@ import 'package:adventuraclick_mobile/model/travel_type.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/providers/travel_type_provider.dart';
 import 'package:adventuraclick_mobile/screens/travel_screens/travel_details.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/utils/format_number.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import 'package:adventuraclick_mobile/widgets/master_screen.dart';
@@ -65,7 +66,6 @@ class _TravelListScreenState extends State<TravelListScreen> {
     List<DropdownMenuItem> list = <DropdownMenuItem>[];
 
     list.add(const DropdownMenuItem(
-      enabled: false,
       value: 99,
       child: Text("Travel Type", style: TextStyle(color: Colors.black)),
     ));
@@ -198,7 +198,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
           child: Text(
             "Search Travels",
             style: TextStyle(
-              color: Colors.deepPurple,
+              color: AppColors.text,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -237,7 +237,7 @@ class _TravelListScreenState extends State<TravelListScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Card(
-                  color: const Color.fromARGB(255, 187, 144, 198),
+                  color: AppColors.card,
                   child: ClipRRect(
                     child: Stack(children: [
                       Column(

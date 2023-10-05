@@ -2,6 +2,7 @@ import 'package:adventuraclick_mobile/providers/user_provider.dart';
 import 'package:adventuraclick_mobile/screens/user_screens/profile_edit_screen.dart';
 import 'package:adventuraclick_mobile/screens/user_screens/register_screen.dart';
 import 'package:adventuraclick_mobile/screens/travel_screens/travel_list.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/utils/auth_helper.dart';
 import 'package:adventuraclick_mobile/utils/buildInputFields.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: const Color.fromARGB(156, 126, 97, 101),
           title: const Text("AdventuraClick")),
       body: SingleChildScrollView(
         child: Column(
@@ -72,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
                 gradient: const LinearGradient(
-                  colors: [Colors.red, Colors.deepPurple],
+                  colors: AppColors.submitButton,
                 ),
               ),
               child: InkWell(
@@ -124,7 +125,7 @@ class LoginScreen extends StatelessWidget {
               child: const Text(
                 "Not Registered? Click here!",
                 style: TextStyle(
-                  color: Colors.deepPurple,
+                  color: Color.fromARGB(255, 23, 43, 24),
                   decoration: TextDecoration.underline,
                 ),
               ),

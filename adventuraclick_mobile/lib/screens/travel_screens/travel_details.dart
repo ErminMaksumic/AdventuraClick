@@ -5,6 +5,7 @@ import 'package:adventuraclick_mobile/model/travel_information.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
 import 'package:adventuraclick_mobile/screens/travel_screens/rating_screen.dart';
 import 'package:adventuraclick_mobile/screens/reservation_screens/reservation_screen.dart';
+import 'package:adventuraclick_mobile/utils/app_colors.dart';
 import 'package:adventuraclick_mobile/utils/format_date.dart';
 import 'package:adventuraclick_mobile/utils/image_util.dart';
 import 'package:adventuraclick_mobile/widgets/drawer_screen.dart';
@@ -39,9 +40,6 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
   }
 
   Future loadData() async {
-    //debug
-    //inspect(mockedData);
-
     var tempData = await _travelProvider?.getById(int.parse(id));
     inspect(tempData);
     setState(() {
@@ -94,14 +92,15 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                               horizontal: 16.0,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.deepPurple,
+                              color: AppColors.card,
                               borderRadius: BorderRadius.circular(20.0),
                             ),
                             child: Text(
                               data.travelType?.name ?? 'Unknown',
                               style: const TextStyle(
-                                color: Colors.white,
+                                color: Color.fromARGB(255, 48, 46, 46),
                                 fontSize: 15.0,
+                                fontWeight: FontWeight.bold
                               ),
                             ),
                           ),
@@ -119,8 +118,8 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                 child: Text(
                                   data.name!,
                                   style: const TextStyle(
-                                      color: Colors.deepPurple,
-                                      fontSize: 28.0,
+                                      color: AppColors.text,
+                                      fontSize: 30.0,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -130,9 +129,8 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                   Text(
                                     "${data.price}",
                                     style: const TextStyle(
-                                        color: Colors.deepPurple,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22.0),
+                                        color: Color.fromARGB(156, 23, 32, 160),
+                                        fontSize: 18.0),
                                   ),
                                   const SizedBox(
                                     width: 5,
@@ -213,10 +211,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                     height: 50,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
-                                        gradient: const LinearGradient(colors: [
-                                          Colors.deepPurple,
-                                          Colors.red
-                                        ])),
+                                        gradient: const LinearGradient(colors: AppColors.submitButton)),
                                     child: InkWell(
                                         onTap: () {
                                           Navigator.pushNamed(context,
@@ -233,10 +228,8 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                     height: 50,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
-                                        gradient: const LinearGradient(colors: [
-                                          Colors.red,
-                                          Colors.deepPurple
-                                        ])),
+                                        gradient: const LinearGradient(
+                                            colors: AppColors.submitButton)),
                                     child: InkWell(
                                         onTap: () {
                                           Navigator.pushNamed(context,
@@ -298,19 +291,20 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
     return list;
   }
 
-  List<Widget> getAllDatesAsWidgets(List<TravelInformation> travelInformations) {
-  return travelInformations.map((info) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text(
-        formatDate(info.departureTime.toString()),
-        textAlign: TextAlign.justify,
-        style: const TextStyle(
-          fontWeight: FontWeight.w300,
-          fontSize: 14.0,
+  List<Widget> getAllDatesAsWidgets(
+      List<TravelInformation> travelInformations) {
+    return travelInformations.map((info) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          formatDate(info.departureTime.toString()),
+          textAlign: TextAlign.justify,
+          style: const TextStyle(
+            fontWeight: FontWeight.w300,
+            fontSize: 14.0,
+          ),
         ),
-      ),
-    );
-  }).toList();
-}
+      );
+    }).toList();
+  }
 }
