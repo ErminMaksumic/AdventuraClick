@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgParticlesModule } from "ng-particles";
 import { AppComponent } from './app.component';
 import { LoginComponent } from './security/login/login.component';
 import { AppRoutingModule } from './app.routing.module';
+import { ParticlesComponent } from './security/login/particles/particles.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ParticlesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgParticlesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
