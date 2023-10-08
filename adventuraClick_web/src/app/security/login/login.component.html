@@ -1,1 +1,37 @@
-<app-particles></app-particles>
+<div class="login-page" [style]="{ height: '900px' }">
+  <app-particles></app-particles>
+  <div class="login-container">
+    <p-card header="Please login to proceed">
+      <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
+        <div class="buttonFields">
+          <div class="p-field">
+            <input
+              id="username"
+              type="text"
+              pInputText
+              formControlName="username"
+              placeholder="Username"
+            />
+          </div>
+
+          <div class="p-field">
+            <input
+              id="password"
+              type="password"
+              pInputText
+              formControlName="password"
+              placeholder="Password"
+            />
+          </div>
+
+          <p-button
+            type="submit"
+            label="LOGIN"
+            styleClass="p-button-info"
+            [disabled]="!loginForm.valid"
+          ></p-button>
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>
