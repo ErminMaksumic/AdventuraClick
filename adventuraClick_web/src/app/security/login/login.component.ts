@@ -8,8 +8,8 @@ import { User, UserService } from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
   constructor(private service: UserService) {
-    this.service.getAll().subscribe({
-      next: (data: User[]) => {
+    this.service.login().subscribe({
+      next: (data: User) => {
         console.log('data', data);
       },
       error: (error) => {

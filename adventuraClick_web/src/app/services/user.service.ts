@@ -19,4 +19,8 @@ export class UserService extends BaseService<User> {
   constructor(protected override http: HttpClient) {
     super(http, 'user');
   }
+
+  login() {
+    return this.http.get<User>(`${this.url}/${this.endpoint}/login`);
+  }
 }
