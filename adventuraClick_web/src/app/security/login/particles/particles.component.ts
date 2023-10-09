@@ -51,10 +51,10 @@ export class ParticlesComponent {
     },
     particles: {
       color: {
-        value: '#ffffff',
+        value: '#9D6868',
       },
       links: {
-        color: '#ffffff',
+        color: '#E39797',
         distance: 150,
         enable: true,
         opacity: 0.5,

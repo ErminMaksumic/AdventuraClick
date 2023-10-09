@@ -1,37 +1,61 @@
-<div class="login-page" [style]="{ height: '900px' }">
-  <app-particles></app-particles>
-  <div class="login-container">
-    <p-card header="Please login to proceed">
-      <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
-        <div class="buttonFields">
-          <div class="p-field">
-            <input
-              id="username"
-              type="text"
-              pInputText
-              formControlName="username"
-              placeholder="Username"
-            />
-          </div>
-
-          <div class="p-field">
-            <input
-              id="password"
-              type="password"
-              pInputText
-              formControlName="password"
-              placeholder="Password"
-            />
-          </div>
-
-          <p-button
-            type="submit"
-            label="LOGIN"
-            styleClass="p-button-info"
-            [disabled]="!loginForm.valid"
-          ></p-button>
-        </div>
-      </form>
-    </p-card>
+<app-particles></app-particles>
+<div class="login-container">
+  <div class="branding">
+    <h1><i class="fas fa-globe-americas"></i> AdventuraClick</h1>
+    <p>Adventure is just a click away</p>
   </div>
+  <p-card class="login-card" header="Please login to proceed">
+    <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
+      <div class="buttonFields">
+        <div class="p-field">
+          <input
+            id="username"
+            type="text"
+            pInputText
+            formControlName="username"
+            placeholder="Username"
+            [ngClass]="
+              !loginForm.get('username')?.valid &&
+              loginForm.get('username')?.touched
+                ? 'border-danger'
+                : ''
+            "
+          />
+          <small
+            id="username-help"
+            class="form-label text-danger"
+            *ngIf="
+              !loginForm.get('username')?.valid &&
+              loginForm.get('username')?.touched
+            "
+            >Username field is required!.
+          </small>
+        </div>
+
+        <div class="p-field">
+          <p-password
+            class="password-field"
+            formControlName="password"
+            placeholder="Password"
+          ></p-password>
+
+          <small
+            id="password-help"
+            class="form-label text-danger"
+            *ngIf="
+              !loginForm.get('password')?.valid &&
+              loginForm.get('password')?.touched
+            "
+            >Username field is required!.
+          </small>
+        </div>
+        <p-button
+          type="submit"
+          label="LOGIN"
+          styleClass="p-button-lg"
+          [disabled]="!loginForm.valid"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
 </div>

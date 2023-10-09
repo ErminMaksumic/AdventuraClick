@@ -10,6 +10,7 @@ import { AuthInterceptor } from './utils/auth.interceptor';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
+import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { InputTextModule } from 'primeng/inputtext';
     FormsModule,
     CardModule,
     InputTextModule,
+    PasswordModule,
   ],
   providers: [
     {

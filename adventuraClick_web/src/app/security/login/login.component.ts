@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { User, UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Authorization } from 'src/app/utils/auth.interceptor';
@@ -7,6 +7,7 @@ import { Authorization } from 'src/app/utils/auth.interceptor';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -23,19 +24,18 @@ export class LoginComponent implements OnInit {
     if (this.loginForm?.valid) {
       const username = this.loginForm.get('username')?.value;
       const password = this.loginForm.get('password')?.value;
-      console.log('password', password);
       Authorization.username = username;
       Authorization.password = password;
-      this.login();
+      this.login(username, password);
     }
   }
 
-  login() {
-    this.service.login().subscribe({
+  login(username: string, password: string) {
+    return this.service.login(username, password).subscribe({
       next: (data: User) => {
         console.log('data', data);
       },
-      error: (error) => {
+      error: (error: Error) => {
         console.error('Error', error);
       },
     });
