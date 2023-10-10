@@ -20,7 +20,20 @@ export class UserService extends BaseService<User> {
     super(http, 'user');
   }
 
-  login() {
-    return this.http.get<User>(`${this.url}/${this.endpoint}/login`);
+  login(username: string, password: string) {
+    let result;
+    try {
+      const encodedCredentials = 'Basic ' + btoa(`${username}:${password}`);
+      result = this.http.get<User>(`${this.url}/${this.endpoint}/login`, {
+        headers: { Authorization: encodedCredentials },
+      });
+      localStorage.setItem('user', JSON.stringify(encodedCredentials));
+      return result;
+    } catch (error) {
+      throw {
+        status: 500,
+        message: error,
+      };
+    }
   }
 }

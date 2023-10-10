@@ -1,5 +1,4 @@
 ﻿using AdventuraClick.Service.Interfaces;
-using Azure.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;

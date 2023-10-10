@@ -1,0 +1,80 @@
+.login-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  padding: 2rem;
+  font-family: "Arial", sans-serif;
+}
+
+.login-container p-card {
+  z-index: 1;
+  padding: 3rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.p-field {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 0.7rem 1.2rem;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  background-color: rgb(241, 221, 234);
+  color: black;
+}
+
+.buttonFields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttonFields p-button {
+  margin-top: 15px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+}
+
+.border-danger {
+  border: 1px solid red;
+}
+
+.text-danger {
+  color: red;
+}
+
+.login-card {
+  text-align: center;
+}
+
+.branding {
+  position: absolute;
+  font-family: "Montserrat", sans-serif;
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.branding h1 {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.branding p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+p-card .p-card-body {
+  background-color: #c6afc8;
+}
