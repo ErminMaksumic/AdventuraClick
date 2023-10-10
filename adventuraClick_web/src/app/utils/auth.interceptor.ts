@@ -8,7 +8,8 @@ import {
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const encodedCredentials = btoa('x:x');
+    const encodedCredentials = localStorage.getItem('userInfo');
+    console.log('encoded', encodedCredentials);
     if (encodedCredentials) {
       req = req.clone({
         setHeaders: {
@@ -19,4 +20,9 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     return next.handle(req);
   }
+}
+
+export class Authorization {
+  static password: string;
+  static username: string;
 }

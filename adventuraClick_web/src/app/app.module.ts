@@ -7,6 +7,11 @@ import { AppRoutingModule } from './app.routing.module';
 import { ParticlesComponent } from './security/login/particles/particles.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './utils/auth.interceptor';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, ParticlesComponent],
@@ -15,6 +20,12 @@ import { AuthInterceptor } from './utils/auth.interceptor';
     AppRoutingModule,
     NgParticlesModule,
     HttpClientModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CardModule,
+    InputTextModule,
+    PasswordModule,
   ],
   providers: [
     {
