@@ -71,9 +71,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       });
       if (!mounted) return;
       // Login the user
-      Authorization.username = user?.username;
-      Authorization.password = _passwordController.text;
+      Authorization.user = await _userProvider.login(_userNameController.text, _passwordController.text);
       Authorization.user = user;
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(

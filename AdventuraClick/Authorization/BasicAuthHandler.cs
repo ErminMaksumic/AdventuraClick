@@ -1,21 +1,24 @@
-﻿using AdventuraClick.Service.Interfaces;
-using Azure.Core;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Encodings.Web;
 
 namespace AdventuraClick.Authorization
 {
     public class BasicAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        private readonly IUserService userService;
 
-        public BasicAuthHandler(IUserService userService, IOptionsMonitor<AuthenticationSchemeOptions> options,
-            ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
+        private readonly IConfiguration _configuration;
+
+        public BasicAuthHandler(IOptionsMonitor<AuthenticationSchemeOptions> options,
+            ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, IConfiguration configuration)
             : base(options, logger, encoder, clock)
         {
-            this.userService = userService;
+            this._configuration = configuration;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -25,32 +28,36 @@ namespace AdventuraClick.Authorization
                 return AuthenticateResult.Fail("Missing auth header!");
             }
 
-            var credentials = CredentialsHelper.extractCredentials(Request);
+            var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+            var token = authHeader.Parameter;
 
-            var user = userService.Login(credentials.Username, credentials.Password);
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["keyjwt"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            if (user == null)
+            try
             {
-                return AuthenticateResult.Fail("Incorrect username or password!");
+                var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = _configuration["keyjwt"],
+                    ValidAudience = _configuration["keyjwt"],
+                    IssuerSigningKey = key
+                }, out SecurityToken validatedToken);
+
+                var claimsIdentity = new ClaimsIdentity(principal.Claims, Scheme.Name);
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                var authenticationTicket = new AuthenticationTicket(claimsPrincipal, Scheme.Name);
+
+                return AuthenticateResult.Success(authenticationTicket);
             }
-
-            var claims = new List<Claim>()
+            catch
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Username),
-                new Claim(ClaimTypes.Name, user.FirstName+" "+user.LastName),
-            };
-
-            //foreach (var role in user.UserRoles)
-            //{
-            //    claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
-            //}
-
-            var identity = new ClaimsIdentity(claims, Scheme.Name);
-            var principal = new ClaimsPrincipal(identity);
-
-            var ticket = new AuthenticationTicket(principal, Scheme.Name);
-
-            return AuthenticateResult.Success(ticket);
+                return AuthenticateResult.Fail("Invalid token!");
+            }
         }
     }
 }

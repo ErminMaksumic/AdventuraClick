@@ -1,10 +1,8 @@
-﻿using AdventuraClick.Authorization;
-using AdventuraClick.Model;
+﻿using AdventuraClick.Model;
 using AdventuraClick.Model.Requests;
 using AdventuraClick.Model.SearchObjects;
 using AdventuraClick.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdventuraClick.Controllers
@@ -15,17 +13,26 @@ namespace AdventuraClick.Controllers
       UserUpdateRequest>
     {
         private readonly IUserService _service;
-        public UserController(IUserService service) : base(service)
+
+        private readonly IConfiguration _configuration;
+        public UserController(IUserService service, IConfiguration configuration) : base(service)
         {
             _service = service;
+            _configuration = configuration;
         }
 
         [HttpGet("login")]
-        public Model.User Login()
+        [AllowAnonymous]
+        public IActionResult Login(string username, string password)
         {
-            var credentials = CredentialsHelper.extractCredentials(Request);
+            var user = _service.Login(username, password);
+            if (user == null)
+            {
+                return BadRequest("Not valid credentials!");
+            }
 
-            return _service.Login(credentials.Username, credentials.Password);
+            var token = _service.GenerateToken(user);
+            return Ok(new { token = token });
         }
 
         [AllowAnonymous]

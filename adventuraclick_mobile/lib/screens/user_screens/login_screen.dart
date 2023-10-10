@@ -80,9 +80,7 @@ class LoginScreen extends StatelessWidget {
                 onTap: () async {
                   try {
                     if (_formKey.currentState!.validate()) {
-                      Authorization.username = _usernameController.text;
-                      Authorization.password = _passwordController.text;
-                      Authorization.user = await _userProvider.login();
+                      Authorization.user = await _userProvider.login(_usernameController.text, _passwordController.text);
                       if (!context.mounted) return;
                       Navigator.popAndPushNamed(
                           context, TravelListScreen.routeName);

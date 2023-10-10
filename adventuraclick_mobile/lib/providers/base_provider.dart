@@ -101,10 +101,12 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Map<String, String> createHeaders() {
-    String basicAuth =
-        "Basic ${base64Encode(utf8.encode('${Authorization.username}:${Authorization.password}'))}";
+    String jwtToken = Authorization.jwt!.token ?? '';
 
-    return {"Content-Type": "application/json", "Authorization": basicAuth};
+    return {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $jwtToken"
+    };
   }
 
   T fromJson(data) {

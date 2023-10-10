@@ -12,16 +12,22 @@ class UserProvider extends BaseProvider<User> {
     return User.fromJson(data);
   }
 
-  Future<User> login() async {
-    var url = Uri.parse("$fullUrl/login");
+  Future<User> login(String username, String password) async {
+    var url = "$fullUrl/login";
+    String queryString =
+        getQueryString({'username': username, 'password': password});
+    url = "$url?$queryString";
+    var uri = Uri.parse(url);
 
-    Map<String, String> headers = createHeaders();
-
-    var response = await http!.get(url, headers: headers);
+    var response = await http!.get(uri);
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      return fromJson(data);
+      Authorization.jwt = JWT()..token = data['token'];
+      var user = await get({
+        "userName": username,
+      });
+      return user[0];
     } else {
       throw Exception("An error occured!");
     }
