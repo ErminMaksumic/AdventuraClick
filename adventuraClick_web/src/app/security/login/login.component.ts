@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit {
   login(username: string, password: string) {
     this.service.login(username, password).subscribe({
       next: (result: Authorization) => {
-        this.messageNotifications.showSuccess("Login success", "You'are logged in!")     
+        this.messageNotifications.showSuccess("Login success", "You'are logged in")     
        },
       error: (error) => {
-        console.error('Login error:', error);
+        this.messageNotifications.showError("Login failed", "Please check your username and password")     
       }
     });
 }

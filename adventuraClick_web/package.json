@@ -20,7 +20,7 @@
     "@angular/router": "^16.2.9",
     "ng-particles": "^3.12.0",
     "primeicons": "^6.0.1",
-    "primeng": "^16.4.1",
+    "primeng": "^16.5.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "tsparticles-engine": "^2.12.0",
