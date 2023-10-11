@@ -102,7 +102,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   Map<String, String> createHeaders() {
     String jwtToken = Authorization.jwt!.token ?? '';
-
     return {
       "Content-Type": "application/json",
       "Authorization": "Bearer $jwtToken"
