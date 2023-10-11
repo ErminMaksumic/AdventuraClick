@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { devEnvironment } from 'src/environments/devEnvironment.dev';
-import { createHttpHeaders } from '../utils/http.headers';
 
 export abstract class BaseService<T> {
   protected constructor(
@@ -9,7 +8,6 @@ export abstract class BaseService<T> {
     protected endpoint: string
   ) {}
   url = `${devEnvironment.baseUrl}/api`;
-  headers = createHttpHeaders();
 
   getAll(): Observable<T[]> {
     return this.http.get<T[]>(`${this.url}/${this.endpoint}`);

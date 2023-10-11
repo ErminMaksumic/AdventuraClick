@@ -14,7 +14,6 @@ export interface Authorization
 export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const encodedCredentials = localStorage.getItem('JWT');
-    console.log('encoded', encodedCredentials);
     if (encodedCredentials) {
       req = req.clone({
         setHeaders: {

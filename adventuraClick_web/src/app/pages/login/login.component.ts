@@ -1,21 +1,27 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Authorization } from 'src/app/utils/auth.interceptor';
 import { MessageService } from 'primeng/api';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
+import { Router } from '@angular/router';
+import { SecurityService } from 'src/app/services/security.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private service: UserService, private formBuilder: FormBuilder, private messageService: MessageService, private messageNotifications: MessageNotifications) {}
+  constructor(
+    private securityService: SecurityService,
+    private formBuilder: FormBuilder,
+    private messageNotifications: MessageNotifications,
+    private router: Router
+  ) {}
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -32,13 +38,20 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string, password: string) {
-    this.service.login(username, password).subscribe({
+    this.securityService.login(username, password).subscribe({
       next: (result: Authorization) => {
-        this.messageNotifications.showSuccess("Login success", "You'are logged in")     
-       },
-      error: (error) => {
-        this.messageNotifications.showError("Login failed", "Please check your username and password")     
-      }
+        this.messageNotifications.showSuccess(
+          'Login success',
+          "You'are logged in"
+        );
+        this.router.navigate(['home']);
+      },
+      error: () => {
+        this.messageNotifications.showError(
+          'Login failed',
+          'Please check your username and password'
+        );
+      },
     });
-}
+  }
 }
