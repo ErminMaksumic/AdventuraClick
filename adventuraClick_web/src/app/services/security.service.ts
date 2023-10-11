@@ -3,17 +3,8 @@ import { Injectable } from '@angular/core';
 import { getQueryString } from '../utils/queryString';
 import { BaseService } from './base.service';
 import { Observable, catchError, tap } from 'rxjs';
-import { Authorization } from '../utils/auth.interceptor';
-
-export interface User {
-  userId: number;
-  firstName: string;
-  lastName: string;
-  username: string;
-  image: string;
-  fullName: string;
-  price: number;
-}
+import { AuthResponse, LoginCredentials, User } from '../models/user.model';
+import { AuthorizationResponse } from '../models/auth-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,15 +42,15 @@ export class SecurityService extends BaseService<User> {
     return dataToken[field];
   }
 
-  login(username: string, password: string): Observable<Authorization> {
+  login(loginCredentials: LoginCredentials): Observable<AuthorizationResponse> {
     const queryString = getQueryString({
-      username: username,
-      password: password,
+      username: loginCredentials.username,
+      password: loginCredentials.password,
     });
     const url = `${this.url}/${this.endpoint}/login`;
     const uri = `${url}?${queryString}`;
 
-    return this.http.get<Authorization>(uri).pipe(
+    return this.http.get<AuthorizationResponse>(uri).pipe(
       tap((result) => {
         localStorage.setItem('JWT', JSON.stringify(result));
       }),

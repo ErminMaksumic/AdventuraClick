@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Authorization } from 'src/app/utils/auth.interceptor';
 import { MessageService } from 'primeng/api';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
 import { Router } from '@angular/router';
 import { SecurityService } from 'src/app/services/security.service';
+import { AuthorizationResponse } from 'src/app/models/auth-response.model';
 
 @Component({
   selector: 'app-login',
@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string, password: string) {
-    this.securityService.login(username, password).subscribe({
-      next: (result: Authorization) => {
+    this.securityService.login({ username, password }).subscribe({
+      next: (result: AuthorizationResponse) => {
         this.messageNotifications.showSuccess(
           'Login success',
           "You'are logged in"

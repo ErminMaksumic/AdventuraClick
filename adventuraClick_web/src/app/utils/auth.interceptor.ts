@@ -5,11 +5,6 @@ import {
   HttpHandler,
 } from '@angular/common/http';
 
-export interface Authorization
-{
-  JWT: string;
-}
-
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
