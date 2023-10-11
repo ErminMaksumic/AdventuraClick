@@ -19,21 +19,31 @@ builder.Services.AddEndpointsApiExplorer();
 // Authorization
 builder.Services.AddSwaggerGen(opts =>
 {
-    opts.AddSecurityDefinition("basicAuth", new OpenApiSecurityScheme
+    opts.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Type = SecuritySchemeType.Http,
-        Scheme = "basic"
+        In = ParameterLocation.Header,
+        Description = "Bearer token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
     });
     opts.AddSecurityRequirement(new OpenApiSecurityRequirement
+{
     {
+        new OpenApiSecurityScheme
         {
-            new OpenApiSecurityScheme
+            Reference = new OpenApiReference
             {
-                Reference = new OpenApiReference{Type=ReferenceType.SecurityScheme,Id="basicAuth"}
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
             },
-            new string[]{}
-        }
-    });
+            Scheme = "Bearer",
+            Name = "Bearer",
+            In = ParameterLocation.Header,
+        },
+        new List<string>()
+    }
+});
 });
 builder.Services.AddScoped<IBaseService<AdventuraClick.Model.Role, BaseSearchObject>, RoleService>();
 builder.Services.AddScoped<IBaseService<AdventuraClick.Model.TravelType, BaseSearchObject>, TravelTypeService>();
@@ -44,6 +54,7 @@ builder.Services.AddTransient<IRatingService, RatingService>();
 builder.Services.AddTransient<IIncludedItem, IncludedItemService>();
 builder.Services.AddTransient<IPaymentService, PaymentService>();
 builder.Services.AddTransient<ITravelInformationService, TravelInformationService>();
+builder.Services.AddTransient<IJWTService, JwtService>();
 builder.Services.AddTransient<IAdditionalService, AdventuraClick.Service.Implementation.AdditionalService>();
 builder.Services.AddSingleton<EmailSenderService>();
 // 

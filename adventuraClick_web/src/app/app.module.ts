@@ -12,6 +12,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
+import { MessageNotifications } from './utils/messageNotifications';
+import { ToastModule } from 'primeng/toast';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, ParticlesComponent],
@@ -26,6 +30,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CardModule,
     InputTextModule,
     PasswordModule,
+    ToastModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
@@ -33,6 +39,8 @@ import { InputTextModule } from 'primeng/inputtext';
       useClass: AuthInterceptor,
       multi: true,
     },
+    MessageService,
+    MessageNotifications,
   ],
   bootstrap: [AppComponent],
 })

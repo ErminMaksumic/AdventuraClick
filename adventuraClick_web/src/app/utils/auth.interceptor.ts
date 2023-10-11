@@ -5,24 +5,24 @@ import {
   HttpHandler,
 } from '@angular/common/http';
 
+export interface Authorization
+{
+  JWT: string;
+}
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const encodedCredentials = localStorage.getItem('userInfo');
+    const encodedCredentials = localStorage.getItem('JWT');
     console.log('encoded', encodedCredentials);
     if (encodedCredentials) {
       req = req.clone({
         setHeaders: {
-          Authorization: 'Basic ' + encodedCredentials,
+          Authorization: 'Bearer ' + encodedCredentials,
           'Content-Type': 'application/json',
         },
       });
     }
     return next.handle(req);
   }
-}
-
-export class Authorization {
-  static password: string;
-  static username: string;
 }

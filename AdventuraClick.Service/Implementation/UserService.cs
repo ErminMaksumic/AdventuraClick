@@ -13,8 +13,11 @@ namespace AdventuraClick.Service.Implementation
     public class UserService : CRUDService<Model.User, UserSearchObject, Database.User, UserInsertRequest, UserUpdateRequest>,
        IUserService
     {
-        public UserService(AdventuraClickInitContext context, IMapper mapper) : base(context, mapper)
-        { }
+        IJWTService _jwtService;
+        public UserService(AdventuraClickInitContext context, IMapper mapper, IJWTService jwtService) : base(context, mapper)
+        {
+            _jwtService = jwtService;
+        }
 
         public override Model.User Insert(UserInsertRequest request)
         {
@@ -138,5 +141,9 @@ namespace AdventuraClick.Service.Implementation
             return _mapper.Map<Model.User>(entity);
         }
 
+        public string GenerateToken(Model.User user)
+        {
+            return _jwtService.GenerateToken(user);
+        }
     }
 }

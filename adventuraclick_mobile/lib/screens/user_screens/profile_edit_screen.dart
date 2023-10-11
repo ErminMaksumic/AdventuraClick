@@ -156,7 +156,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         'image': imageString,
                       });
                       if (result != null) {
-                        Authorization.password = _newPasswordController.text;
                         if (!mounted) return;
                         showDialog(
                             context: context,
