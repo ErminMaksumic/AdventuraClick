@@ -43,14 +43,6 @@ input {
   font-size: 1rem;
 }
 
-.border-danger {
-  border: 1px solid red;
-}
-
-.text-danger {
-  color: red;
-}
-
 .login-card {
   text-align: center;
 }

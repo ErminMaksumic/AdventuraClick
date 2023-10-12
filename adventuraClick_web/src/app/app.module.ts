@@ -6,12 +6,14 @@ import { MessageNotifications } from './utils/messageNotifications';
 import { LoginModule } from './pages/login/login.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './utils/shared.module';
+import { TravelsModule } from './pages/travels/travels.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     LoginModule,
-    SharedModule
+    SharedModule,
+    TravelsModule
   ],
   providers: [
     {

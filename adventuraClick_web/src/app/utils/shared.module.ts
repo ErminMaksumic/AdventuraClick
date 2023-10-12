@@ -11,10 +11,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from '../pages/sidebar/sidebar.component';
+import { SidebarModule } from 'primeng/sidebar';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [],
-  imports: [],
+  declarations: [SidebarComponent],
+  imports: [SidebarModule, ButtonModule, CommonModule, RouterModule],
   exports: [
     PasswordModule,
     BrowserModule,
@@ -28,6 +31,9 @@ import { CommonModule } from '@angular/common';
     ToastModule,
     BrowserAnimationsModule,
     CommonModule,
+    SidebarModule,
+    SidebarComponent,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],

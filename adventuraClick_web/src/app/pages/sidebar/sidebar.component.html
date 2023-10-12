@@ -1,0 +1,39 @@
+<div class="sidebar">
+  <p-sidebar
+    [visible]="true"
+    [modal]="false"
+    [transitionOptions]="'0ms'"
+    [showCloseIcon]="false"
+  >
+    <ng-template pTemplate="header"
+      ><p style="font-weight: bold">AdventuraClick</p></ng-template
+    >
+    <ng-template pTemplate="content">
+      <div class="list-group">
+        <div
+          routerLink="travels"
+          routerLinkActive="link-info"
+          class="list-group-item list-group-item-action p-2 mb-3 custom-list-item"
+          aria-current="true"
+          *ngFor="let navBarItem of navBarItems"
+        >
+          <a
+            class="d-flex w-100 justify-content-between"
+            [routerLink]="navBarItem.link" 
+
+          >
+            <h5 class="mb-1">
+              <i [class]="navBarItem.icon"></i> {{ navBarItem.name }}
+            </h5>
+          </a>
+          <p class="mb-1">{{ navBarItem.description }}</p>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <div class="logout-container">
+        <p-button label="Logout" [rounded]="true" severity="danger"></p-button>
+      </div>
+    </ng-template>
+  </p-sidebar>
+</div>

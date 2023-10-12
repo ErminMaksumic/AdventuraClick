@@ -14,12 +14,6 @@
             pInputText
             formControlName="username"
             placeholder="Username"
-            [ngClass]="
-              !loginForm.get('username')?.valid &&
-              loginForm.get('username')?.touched
-                ? 'border-danger'
-                : ''
-            "
           />
           <small
             id="username-help"
@@ -28,7 +22,7 @@
               !loginForm.get('username')?.valid &&
               loginForm.get('username')?.touched
             "
-            >Username field is required!.
+            >Username field is required!
           </small>
         </div>
 
@@ -46,7 +40,7 @@
               !loginForm.get('password')?.valid &&
               loginForm.get('password')?.touched
             "
-            >Username field is required!.
+            >Username field is required!
           </small>
         </div>
         <p-button
