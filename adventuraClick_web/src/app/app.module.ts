@@ -7,9 +7,11 @@ import { LoginModule } from './pages/login/login.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './utils/shared.module';
 import { TravelsModule } from './pages/travels/travels.module';
+import { FooterComponent } from './pages/footer/footer.component';
+import { HeaderComponent } from './pages/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FooterComponent, HeaderComponent],
   imports: [
     LoginModule,
     SharedModule,

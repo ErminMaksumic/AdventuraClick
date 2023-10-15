@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { canActivateChild } from './guards/auth-guard';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate: [canActivateChild] },
 ];
 

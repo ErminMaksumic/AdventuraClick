@@ -1,0 +1,9 @@
+.site-header{
+  height: 30px;
+  width: 100%;
+  background: linear-gradient(to right, #D9AAF2, #E0BFF0, rgb(117, 88, 150));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+}

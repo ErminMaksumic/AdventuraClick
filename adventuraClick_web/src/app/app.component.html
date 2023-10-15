@@ -1,3 +1,16 @@
-<router-outlet></router-outlet>
-<p-toast></p-toast>
-<app-sidebar *ngIf="showSidebar"></app-sidebar>
+<app-header *ngIf="showSidebar"></app-header>
+<div class="container" *ngIf="showSidebar">
+  <div class="main-content">
+    <div class="left">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="right">
+      <p-toast></p-toast>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<app-footer *ngIf="showSidebar"></app-footer>
+
+<p-toast *ngIf="!showSidebar"></p-toast>
+<router-outlet *ngIf="!showSidebar"></router-outlet>
