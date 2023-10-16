@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { getQueryString } from '../utils/queryString';
 import { BaseService } from './base.service';
 import { Observable, catchError, tap } from 'rxjs';
-import { AuthResponse, LoginCredentials, User } from '../models/user.model';
+import { LoginCredentials, User } from '../models/user.model';
 import { AuthorizationResponse } from '../models/auth-response.model';
 
 @Injectable({

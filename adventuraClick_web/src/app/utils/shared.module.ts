@@ -13,6 +13,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../pages/sidebar/sidebar.component';
 import { SidebarModule } from 'primeng/sidebar';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -33,7 +38,12 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     SidebarModule,
     SidebarComponent,
-    RouterModule
+    RouterModule,
+    TableModule,
+    TagModule,
+    ToolbarModule,
+    DialogModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

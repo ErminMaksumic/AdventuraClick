@@ -26,6 +26,10 @@ namespace AdventuraClick.Service.Implementation
             {
                 includedQuery = includedQuery.Include("TravelType");
             }
+            if (searchObject.IncludeTravelInformation)
+            {
+                includedQuery = includedQuery.Include("TravelInformations");
+            }
 
             return includedQuery;
         }

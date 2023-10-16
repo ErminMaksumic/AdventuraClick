@@ -7,12 +7,11 @@
 
 .np-menubar {
   background-color: #525262 !important;
-  height: calc(100% - 30px);
   overflow: auto;
   border: none !important;
   padding: 0px !important;
-  margin-top: 30px;
-  width: 250px;
+  width: 220px;
+  flex: 0 0 250px;
 }
 
 .np-sub-menu {

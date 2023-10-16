@@ -6,6 +6,7 @@
         public string? Comparator { get; set; }
         public bool IncludeLocation { get; set; }
         public bool IncludeTravelType { get; set; }
+        public bool IncludeTravelInformation { get; set; }
         public int? TravelTypeId { get; set; }
 
     }

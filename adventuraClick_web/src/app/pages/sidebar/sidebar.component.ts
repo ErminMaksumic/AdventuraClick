@@ -73,7 +73,6 @@ export class SidebarComponent implements OnInit {
       this.logout();
       return;
     }
-    console.log('heereee');
     // if child are available then open child
     if (menu.Childs != undefined || menu.Childs != null) {
       this.toggleSubMenu(menu);

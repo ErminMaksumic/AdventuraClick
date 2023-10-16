@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-.main-content {
+.main-content{
   display: flex;
   flex: 1;
   width: 100%;
@@ -15,6 +15,6 @@
 }
 
 .right {
-  flex: 1;
-  margin-left: 150px;
+  margin-top: 40px;
+  margin-left: 180px;
 }

@@ -4,7 +4,7 @@
   font-size: 15px;
   line-height: 24px;
   color: #737373;
-  margin-left: 245px;
+  margin-left: 220px;
 }
 .site-footer hr {
   border-top-color: #bbb;
@@ -71,7 +71,7 @@
     padding-bottom: 0;
   }
   .site-footer .copyright-text,
-  .site-footer .social-icons {
+  .site-footer {
     text-align: center;
   }
 }
