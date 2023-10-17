@@ -9,6 +9,7 @@ import { filter } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
+  currentRoutePath: string = '';
   title = 'adventuraClick_web';
   showSidebar: boolean = true;
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
@@ -21,6 +22,7 @@ export class AppComponent {
       if (activeRoute.snapshot.children.length) {
         const routeSnapshot = activeRoute.snapshot.children[0];
         this.showSidebar = routeSnapshot.routeConfig?.path !== 'login';
+        this.currentRoutePath = `ADVENTURACLICK / ${(routeSnapshot.routeConfig?.path)?.toUpperCase()}`;
       }
     });
   }

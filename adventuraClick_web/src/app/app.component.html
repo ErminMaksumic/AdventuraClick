@@ -1,4 +1,4 @@
-<app-header *ngIf="showSidebar"></app-header>
+<app-header *ngIf="showSidebar" [currentRoute]="currentRoutePath"></app-header>
 <div class="container" *ngIf="showSidebar">
   <div class="main-content">
     <div class="left">
@@ -10,7 +10,7 @@
     </div>
   </div>
 </div>
-<app-footer *ngIf="showSidebar"></app-footer>
+<!-- <app-footer *ngIf="showSidebar"></app-footer> -->
 
 <p-toast *ngIf="!showSidebar"></p-toast>
 <router-outlet *ngIf="!showSidebar"></router-outlet>

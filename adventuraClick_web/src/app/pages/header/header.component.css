@@ -1,8 +1,17 @@
 .site-header{
-  height: 30px;
+  height: 50px;
   width: 100%;
-  background: linear-gradient(to right, #D9AAF2, #E0BFF0, rgb(117, 88, 150));
+  margin-left: 160px;
+  background: linear-gradient(to right, #a29c9c, #cfc8c8, #E8EBF4);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'AdventuraFont';
+}
+
+.route-display {
+  color: rgb(255, 255, 255);
+  font-size: larger;
+  margin-left: 105px;
+  flex: 1;
 }

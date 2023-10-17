@@ -9,7 +9,6 @@ import { TravelService } from 'src/app/services/travel.service';
   templateUrl: 'travels.component.html',
   styleUrls: ['travels.component.css'],
   providers: [MessageService, ConfirmationService],
-  encapsulation: ViewEncapsulation.None,
 })
 export class TravelsComponent implements OnInit {
   travelDialog: boolean = false;

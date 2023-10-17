@@ -6,11 +6,11 @@
 }
 
 .np-menubar {
-  background-color: #525262 !important;
+  background-color: #E8EBF4 !important;
   overflow: auto;
   border: none !important;
   padding: 0px !important;
-  width: 220px;
+  width: 240px;
   flex: 0 0 250px;
 }
 
@@ -22,19 +22,20 @@
 }
 
 .np-menu {
+  margin-top: 40px;
   padding: 5px;
   cursor: pointer;
 }
 
 .np-menu li a:hover,
 .np-menu .active {
-  color: #919191;
+  color: #000000;
   cursor: pointer;
 }
 
 .np-menu li{
   padding: 7px;
-  color: #f5f5f5;
+  color: #a29c9c;
   display: block;
   text-decoration: none !important;
   position: relative;
