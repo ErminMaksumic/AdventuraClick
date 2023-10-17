@@ -1,0 +1,83 @@
+<p-dialog
+  [visible]="true"
+  [style]="{ width: '700px', height: '700px' }"
+  header="Product Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form [formGroup]="groupData">
+      <img
+        [src]="'data:image/jpeg;base64,' + travel.image"
+        [alt]="travel.image"
+        class="block m-auto pb-3"
+        *ngIf="travel.image"
+        width="200px"
+        height="200px"
+      />
+      <div class="field">
+        <label>Name</label>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          formControlName="name"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="submitted && !travel.name"
+          >Name is required.</small
+        >
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label>Price</label>
+          <p-inputNumber
+            id="price"
+            formControlName="price"
+            mode="currency"
+            currency="USD"
+            locale="en-US"
+          ></p-inputNumber>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label>Number of nights</label>
+          <p-inputNumber
+          formControlName="numberOfNights"
+          [showButtons]="true"
+            buttonLayout="horizontal"
+            inputId="horizontal"
+            spinnerMode="horizontal"
+            [step]="1"
+            decrementButtonClass="p-button-danger"
+            incrementButtonClass="p-button-success"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          ></p-inputNumber>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [disabled]="!groupData.valid"
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveProduct()"
+    ></button>
+  </ng-template>
+</p-dialog>

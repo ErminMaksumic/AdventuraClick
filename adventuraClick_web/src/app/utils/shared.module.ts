@@ -17,6 +17,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RouterModule } from '@angular/router';
 
@@ -43,7 +44,9 @@ import { RouterModule } from '@angular/router';
     TagModule,
     ToolbarModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    InputNumberModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

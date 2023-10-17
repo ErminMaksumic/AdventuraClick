@@ -8,8 +8,8 @@ using Travel = AdventuraClick.Service.Database.Travel;
 
 namespace AdventuraClick.Service.Implementation
 {
-    public class TravelService : CRUDService<Model.Travel, TravelSearchObject, Database.Travel, TravelUpsertRequest,
-        TravelUpsertRequest>, ITravelService
+    public class TravelService : CRUDService<Model.Travel, TravelSearchObject, Database.Travel, TravelInsertRequest,
+        TravelUpdateRequest>, ITravelService
     {
         public TravelService(AdventuraClickInitContext context, IMapper mapper) : base(context, mapper)
         { }
@@ -66,6 +66,23 @@ namespace AdventuraClick.Service.Implementation
                 FirstOrDefault(x => x.TravelId == id);
 
             return _mapper.Map<Model.Travel>(entity);
+        }
+
+        public override void BeforeDelete(Travel entity)
+        {
+            var travelInormation = _context.TravelInformations.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList(); 
+            var reservations = _context.Reservations.Include("TravelInformation").Where(x => x.TravelId == entity.TravelId).ToList();
+            var payments = _context.Payments.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
+            var ratings = _context.Ratings.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
+            var includeItemTravels = _context.IncludedItemTravels.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
+            foreach (var item in includeItemTravels)
+            {
+                _context.IncludedItemTravels.RemoveRange(item);
+            }
+            _context.TravelInformations.RemoveRange(travelInormation);
+            _context.Payments.RemoveRange(payments);
+            _context.Ratings.RemoveRange(ratings);
+            _context.SaveChanges();
         }
 
     }

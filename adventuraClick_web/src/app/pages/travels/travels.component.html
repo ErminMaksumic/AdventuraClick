@@ -49,6 +49,7 @@
           Price <p-sortIcon field="price"></p-sortIcon>
         </th>
         <th pSortableColumn="type" style="min-width: 10rem">Type</th>
+        <th pSortableColumn="type" style="min-width: 10rem">Number of Nights</th>
         <th pSortableColumn="date" style="min-width: 10rem">Dates</th>
         <th pSortableColumn="action">Actions</th>
         <th></th>
@@ -67,7 +68,8 @@
         </td>
         <td>{{ travel.price | currency : "USD" }}</td>
         <td>{{ travel.travelType.name }}</td>
-        <td>{{ displayDates(travel.travelInformations) }}</td>
+        <td>{{ travel.numberOfNights }}</td>
+        <td>{{ displayDatesWrapper(travel.travelInformations) }}</td>
 
         <td>
           <button
@@ -77,93 +79,11 @@
             class="p-button-rounded p-button-success mr-2"
             (click)="editProduct(travel)"
           ></button>
-          <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button> -->
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteTravel(travel.travelId)"></button>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
-<p-dialog
-  [(visible)]="travelDialog"
-  [style]="{ width: '450px' }"
-  header="Product Details"
-  [modal]="true"
-  styleClass="p-fluid"
->
-  <ng-template pTemplate="content">
-    <img
-      [src]="'data:image/jpeg;base64,' + travel.image"
-      [alt]="travel.name"
-      [alt]="travel.image"
-      class="block m-auto pb-3"
-      *ngIf="travel.image"
-    />
-    <div class="field">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="travel.name"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !travel.name"
-        >Name is required.</small
-      >
-    </div>
-    <div class="field">
-      <label for="description">Description</label>
-      <textarea
-        id="description"
-        pInputTextarea
-        [(ngModel)]="travel.description"
-        required
-        rows="3"
-        cols="20"
-      ></textarea>
-    </div>
-    <div class="formgrid grid">
-      <div class="field col">
-        <label for="price">Price</label>
-        <p-inputNumber
-          id="price"
-          [(ngModel)]="travel.price"
-          mode="currency"
-          currency="USD"
-          locale="en-US"
-        ></p-inputNumber>
-      </div>
-      <div class="field col">
-        i
-        <label for="price">Type</label>
-        <p-inputNumber
-          id="type"
-          [(ngModel)]="travel.travelType!.name"
-          mode="currency"
-          currency="USD"
-          locale="en-US"
-        ></p-inputNumber>
-      </div>
-    </div>
-  </ng-template>
 
-  <ng-template pTemplate="footer">
-    <button
-      pButton
-      pRipple
-      label="Cancel"
-      icon="pi pi-times"
-      class="p-button-text"
-      (click)="hideDialog()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      label="Save"
-      icon="pi pi-check"
-      class="p-button-text"
-      (click)="saveProduct()"
-    ></button>
-  </ng-template>
-</p-dialog>
+<app-travel-modal *ngIf="travelDialog" [travel]="travel" (onClose)="travelDialog=false" (onSave)="saveTravel($event)"></app-travel-modal>
