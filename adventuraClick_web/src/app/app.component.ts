@@ -15,15 +15,17 @@ export class AppComponent {
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      const activeRoute = this.activatedRoute.root;
-      if (activeRoute.snapshot.children.length) {
-        const routeSnapshot = activeRoute.snapshot.children[0];
-        this.showSidebar = routeSnapshot.routeConfig?.path !== 'login';
-        this.currentRoutePath = `ADVENTURACLICK / ${(routeSnapshot.routeConfig?.path)?.toUpperCase()}`;
-      }
-    });
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const activeRoute = this.activatedRoute.root;
+        if (activeRoute.snapshot.children.length) {
+          const routeSnapshot = activeRoute.snapshot.children[0];
+          this.showSidebar = routeSnapshot.routeConfig?.path !== 'login';
+          this.currentRoutePath = `ADVENTURACLICK / ${routeSnapshot.routeConfig?.path
+            ?.replace('/', ' / ')
+            ?.toUpperCase()}`;
+        }
+      });
   }
 }

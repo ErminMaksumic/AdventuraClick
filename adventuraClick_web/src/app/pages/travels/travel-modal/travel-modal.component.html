@@ -4,6 +4,7 @@
   header="Travel Details"
   [modal]="true"
   styleClass="p-fluid"
+  [closable]="false"
 >
   <ng-template pTemplate="content">
     <form [formGroup]="groupData">
@@ -45,8 +46,8 @@
         <div class="field col">
           <label>Number of nights</label>
           <p-inputNumber
-          formControlName="numberOfNights"
-          [showButtons]="true"
+            formControlName="numberOfNights"
+            [showButtons]="true"
             buttonLayout="horizontal"
             inputId="horizontal"
             spinnerMode="horizontal"
@@ -57,6 +58,16 @@
             decrementButtonIcon="pi pi-minus"
           ></p-inputNumber>
         </div>
+      </div>
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          pInputTextarea
+          formControlName="description"
+          rows="3"
+          cols="20"
+        ></textarea>
       </div>
     </form>
   </ng-template>

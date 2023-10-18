@@ -16,8 +16,11 @@ import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToolbarModule } from 'primeng/toolbar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { StepsModule } from 'primeng/steps';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RouterModule } from '@angular/router';
 
@@ -47,6 +50,9 @@ import { RouterModule } from '@angular/router';
     ConfirmDialogModule,
     InputNumberModule,
     ReactiveFormsModule,
+    InputTextareaModule,
+    DropdownModule,
+    StepsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

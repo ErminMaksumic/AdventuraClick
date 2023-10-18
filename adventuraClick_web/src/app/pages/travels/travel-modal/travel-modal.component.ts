@@ -26,6 +26,7 @@ export class TravelModalComponent {
       ],
       price: [0, { validators: [Validators.required] }],
       numberOfNights: [0, { validators: [Validators.required] }],
+      description: ['', { validators: [Validators.max(250)]}],
     });
 
     this.fillInputs(this.travel);
@@ -47,9 +48,10 @@ export class TravelModalComponent {
     this.groupData.get('name')?.patchValue(value.name);
     this.groupData.get('price')?.patchValue(value.price);
     this.groupData.get('numberOfNights')?.patchValue(value.numberOfNights);
+    this.groupData.get('description')?.patchValue(value.description);
   }
 
-  transformImageWrapper(image: string){
+  transformImageWrapper(image: string) {
     return transformImage(image);
   }
 }

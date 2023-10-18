@@ -17,6 +17,7 @@ export class TravelsComponent implements OnInit {
   travel!: Travel;
   submitted: boolean = false;
   joinedDates: string = '';
+  searchQuery: string = '';
 
   constructor(
     private travelService: TravelService,
@@ -81,9 +82,9 @@ export class TravelsComponent implements OnInit {
     this.travel = {};
   }
 
-  loadTravels() {
+  loadTravels(search: string = '') {
     this.travelService
-      .getAll({ IncludeTravelType: true, IncludeTravelInformation: true })
+      .getAll({ IncludeTravelType: true, IncludeTravelInformation: true, 'Name': search })
       .subscribe({
         next: (result: Travel[]) => {
           this.travels = result;
@@ -100,5 +101,10 @@ export class TravelsComponent implements OnInit {
 
   transformImageWrapper(image: string){
     return transformImage(image);
+  }
+
+  search(input: string)
+  {
+    this.loadTravels(input);
   }
 }

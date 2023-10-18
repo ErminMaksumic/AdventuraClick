@@ -23,7 +23,9 @@ export class CustomMenuItem {
  * menu data service
  */
 export class MenuDataService {
-  public toggleMenuBar: BehaviorSubject<any> = new BehaviorSubject<any>('initial-value');
+  public toggleMenuBar: BehaviorSubject<any> = new BehaviorSubject<any>(
+    'initial-value'
+  );
 
   getMenuList(): CustomMenuItem[] {
     console.log('toggle', this.toggleMenuBar);
@@ -39,7 +41,20 @@ export class MenuDataService {
         Label: 'Travels',
         Icon: 'fa-home',
         RouterLink: '/travels',
-        Childs: null,
+        Childs: [
+          {
+            Label: 'View Travels',
+            RouterLink: '/travels',
+            Childs: null,
+            IsChildVisible: true,
+          },
+          {
+            Label: 'Create Travel',
+            RouterLink: '/travels/create',
+            Childs: null,
+            IsChildVisible: true,
+          },
+        ],
         IsChildVisible: false,
       },
       {
