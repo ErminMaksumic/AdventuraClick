@@ -24,7 +24,6 @@
       'status'
     ]"
     [tableStyle]="{ 'min-width': '75rem' }"
-    [(selection)]="selectedProducts"
     [rowHover]="true"
     dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -60,7 +59,7 @@
         <td>{{ travel.name }}</td>
         <td>
           <img
-            [src]="'data:image/jpeg;base64,' + travel.image"
+            [src]="transformImageWrapper(travel.image)"
             [alt]="travel.name"
             width="50"
             class="shadow-4"
@@ -77,7 +76,7 @@
             pRipple
             icon="pi pi-pencil"
             class="p-button-rounded p-button-success mr-2"
-            (click)="editProduct(travel)"
+            (click)="editTravel(travel)"
           ></button>
           <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteTravel(travel.travelId)"></button>
         </td>

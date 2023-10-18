@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Travel } from 'src/app/models/travel.model';
+import { transformImage } from 'src/app/utils/transformImage';
 
 @Component({
   selector: 'app-travel-modal',
@@ -30,7 +31,7 @@ export class TravelModalComponent {
     this.fillInputs(this.travel);
   }
 
-  saveProduct() {
+  save() {
     console.log('hej', this.groupData.value);
     if (this.groupData.valid) {
       this.submitted = true;
@@ -46,5 +47,9 @@ export class TravelModalComponent {
     this.groupData.get('name')?.patchValue(value.name);
     this.groupData.get('price')?.patchValue(value.price);
     this.groupData.get('numberOfNights')?.patchValue(value.numberOfNights);
+  }
+
+  transformImageWrapper(image: string){
+    return transformImage(image);
   }
 }

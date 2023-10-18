@@ -4,9 +4,9 @@ import { Travel } from 'src/app/models/travel.model';
 import { TravelService } from 'src/app/services/travel.service';
 import { displayDates } from 'src/app/utils/displayDates';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
+import { transformImage } from 'src/app/utils/transformImage';
 
 @Component({
-  selector: 'table-products-demo',
   templateUrl: 'travels.component.html',
   styleUrls: ['travels.component.css'],
   providers: [MessageService, ConfirmationService],
@@ -15,7 +15,6 @@ export class TravelsComponent implements OnInit {
   travelDialog: boolean = false;
   travels!: Travel[];
   travel!: Travel;
-  selectedProducts!: Travel[] | null;
   submitted: boolean = false;
   joinedDates: string = '';
 
@@ -34,8 +33,8 @@ export class TravelsComponent implements OnInit {
     this.travelDialog = true;
   }
 
-  editProduct(product: Travel) {
-    this.travel = { ...product };
+  editTravel(travel: Travel) {
+    this.travel = { ...travel };
     this.travelDialog = true;
   }
 
@@ -95,11 +94,11 @@ export class TravelsComponent implements OnInit {
       });
   }
 
-  transformImage(image: string) {
-    return 'data:image/jpeg;base64,' + image;
-  }
-
   displayDatesWrapper(travelInformations: any) {
     return displayDates(travelInformations);
+  }
+
+  transformImageWrapper(image: string){
+    return transformImage(image);
   }
 }
