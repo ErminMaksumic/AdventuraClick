@@ -8,11 +8,12 @@ import {
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const encodedCredentials = localStorage.getItem('JWT');
-    if (encodedCredentials) {
+    const tokenData = JSON.parse(localStorage.getItem('JWT') || '{}');
+    const tokenValue = tokenData.token;
+    if (tokenValue) {
       req = req.clone({
         setHeaders: {
-          Authorization: 'Bearer ' + encodedCredentials,
+          Authorization: 'Bearer ' + tokenValue,
           'Content-Type': 'application/json',
         },
       });

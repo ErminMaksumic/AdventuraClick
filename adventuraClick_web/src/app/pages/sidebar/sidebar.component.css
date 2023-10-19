@@ -1,0 +1,124 @@
+.icon {
+  line-height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.np-menubar {
+  background-color: #E8EBF4 !important;
+  overflow: auto;
+  border: none !important;
+  padding: 0px !important;
+  width: 240px;
+  flex: 0 0 250px;
+}
+
+.np-sub-menu {
+  padding: 0px;
+  width: 100%;
+  list-style: none;
+  position: relative;
+}
+
+.np-menu {
+  margin-top: 40px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.np-menu li a:hover,
+.np-menu .active {
+  color: #000000;
+  cursor: pointer;
+}
+
+.np-menu li{
+  padding: 7px;
+  color: #a29c9c;
+  display: block;
+  text-decoration: none !important;
+  position: relative;
+}
+
+.np-menu .fa {
+  width: 25px;
+  text-align: center;
+}
+
+.np-menu li ul {
+  display: block;
+}
+
+.np-menu li ul::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #f5f5f5;
+}
+
+.np-menubar {
+  box-shadow: none !important;
+}
+
+a {
+  cursor: pointer;
+}
+
+.ui-messages ul {
+  display: inline-block !important;
+}
+
+/* Extra large devices (large laptops and desktops, 1200px or more) */
+
+@media only screen and (min-width: 1200px) {
+}
+
+/* Large devices (laptops/desktops, 1200px or less) */
+
+@media only screen and (max-width: 1200px) {
+}
+
+/* Medium devices (landscape tablets, 992px or less) */
+
+@media only screen and (max-width: 992px) {
+  .logo-large {
+    display: none;
+  }
+  .logo-small {
+    display: block;
+    height: 50px;
+    width: 50px;
+  }
+  .user-name {
+    display: none;
+  }
+  .ng-content {
+    padding-left: 10px;
+  }
+  .ng-header-left {
+    width: 100px;
+  }
+}
+
+.error-box {
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100%;
+  overflow: auto;
+  color: red;
+}
+
+/* Small devices (portrait tablets and large phones, 768px or less) */
+
+@media only screen and (max-width: 768px) {
+}
+
+/* Extra small devices (phones, 600px or less) */
+
+@media only screen and (max-width: 600px) {
+}

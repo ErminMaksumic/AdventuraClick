@@ -1,4 +1,5 @@
-﻿using AdventuraClick.Model.Requests;
+﻿using AdventuraClick.Model;
+using AdventuraClick.Model.Requests;
 using AutoMapper;
 
 namespace AdventuraClick.Service.Mapper
@@ -39,7 +40,10 @@ namespace AdventuraClick.Service.Mapper
             // Travel Information
             CreateMap<Database.TravelInformation, Model.TravelInformation>().ReverseMap();
             CreateMap<Database.TravelInformation, TravelInformationUpsertRequest>().ReverseMap();
-
+            // Travel
+            CreateMap<Database.Travel, Model.Travel>().ReverseMap();
+            CreateMap<Database.Travel, TravelInsertRequest>().ReverseMap();
+            CreateMap<Database.Travel, TravelUpdateRequest>().ReverseMap();
         }
     }
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { devEnvironment } from 'src/environments/devEnvironment.dev';
+import { getQueryString } from '../utils/queryString';
 
 export abstract class BaseService<T> {
   protected constructor(
@@ -9,8 +10,13 @@ export abstract class BaseService<T> {
   ) {}
   url = `${devEnvironment.baseUrl}/api`;
 
-  getAll(): Observable<T[]> {
-    return this.http.get<T[]>(`${this.url}/${this.endpoint}`);
+  getAll(search = {}): Observable<T[]> {
+    console.log("srcc", search)
+    const queryString = getQueryString(search);
+    const url = `${this.url}/${this.endpoint}`;
+    const uri = `${url}?${queryString}`;
+
+    return this.http.get<T[]>(`${uri}`);
   }
 
   getById(id: number): Observable<T> {

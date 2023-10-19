@@ -19,7 +19,7 @@ export class ParticlesComponent {
   particlesOptions = {
     background: {
       color: {
-        value: '#DCC0DE',
+        value: '#DCE0EF',
       },
     },
     fpsLimit: 120,

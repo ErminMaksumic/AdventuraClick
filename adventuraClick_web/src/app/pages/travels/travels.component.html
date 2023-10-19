@@ -1,0 +1,105 @@
+<div class="card">
+  <p-table
+    #dt
+    [value]="travels"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="[
+      'name',
+      'country.name',
+      'representative.name',
+      'status'
+    ]"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Travels</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Search..." [(ngModel)]="searchQuery" />
+            <button
+            pButton
+            pRipple
+            label="Search"
+            icon="pi pi-search"
+            class="p-button ml-3"
+            (click)="search(searchQuery)"
+          ></button>
+        </span>
+        <button
+            pButton
+            pRipple
+            label="New"
+            icon="pi pi-plus"
+            class="p-button p-mr-5"
+            routerLink="create"
+          ></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name" style="min-width: 15rem">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th>Image</th>
+        <th pSortableColumn="price">
+          Price <p-sortIcon field="price"></p-sortIcon>
+        </th>
+        <th pSortableColumn="type" style="min-width: 10rem">Type</th>
+        <th pSortableColumn="type" style="min-width: 10rem">
+          Number of Nights
+        </th>
+        <th pSortableColumn="date" style="min-width: 10rem">Dates</th>
+        <th pSortableColumn="action">Actions</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-travel>
+      <tr>
+        <td>{{ travel.name }}</td>
+        <td>
+          <img
+            [src]="transformImageWrapper(travel.image)"
+            [alt]="travel.name"
+            width="50px"
+            height="50px"
+            class="shadow-4"
+          />
+        </td>
+        <td>{{ travel.price | currency : "USD" }}</td>
+        <td>{{ travel.travelType.name }}</td>
+        <td>{{ travel.numberOfNights }}</td>
+        <td>{{ displayDatesWrapper(travel.travelInformations) }}</td>
+
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+            (click)="editTravel(travel)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+            (click)="deleteTravel(travel.travelId)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<app-travel-modal
+  *ngIf="travelDialog"
+  [travel]="travel"
+  (onClose)="travelDialog = false"
+  (onSave)="saveTravel($event)"
+></app-travel-modal>

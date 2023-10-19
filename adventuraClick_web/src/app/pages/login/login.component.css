@@ -27,7 +27,7 @@ input {
   padding: 0.7rem 1.2rem;
   border-radius: 4px;
   font-size: 1.2rem;
-  background-color: rgb(241, 221, 234);
+  background-color: rgb(255, 253, 254);
   color: black;
 }
 
@@ -41,14 +41,6 @@ input {
   margin-top: 15px;
   padding: 0.7rem 1.5rem;
   font-size: 1rem;
-}
-
-.border-danger {
-  border: 1px solid red;
-}
-
-.text-danger {
-  color: red;
 }
 
 .login-card {
@@ -76,5 +68,5 @@ input {
 }
 
 p-card .p-card-body {
-  background-color: #c6afc8;
+  background-color: #E8EBF4;
 }

@@ -11,10 +11,23 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from '../pages/sidebar/sidebar.component';
+import { SidebarModule } from 'primeng/sidebar';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToolbarModule } from 'primeng/toolbar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DialogModule } from 'primeng/dialog';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { StepsModule } from 'primeng/steps';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [],
-  imports: [],
+  declarations: [SidebarComponent],
+  imports: [SidebarModule, ButtonModule, CommonModule, RouterModule],
   exports: [
     PasswordModule,
     BrowserModule,
@@ -28,6 +41,20 @@ import { CommonModule } from '@angular/common';
     ToastModule,
     BrowserAnimationsModule,
     CommonModule,
+    SidebarModule,
+    SidebarComponent,
+    RouterModule,
+    TableModule,
+    TagModule,
+    ToolbarModule,
+    DialogModule,
+    ConfirmDialogModule,
+    InputNumberModule,
+    ReactiveFormsModule,
+    InputTextareaModule,
+    DropdownModule,
+    StepsModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent],
