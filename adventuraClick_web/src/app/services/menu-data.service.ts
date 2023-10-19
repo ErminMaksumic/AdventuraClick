@@ -65,16 +65,9 @@ export class MenuDataService {
         IsChildVisible: false,
       },
       {
-        Label: 'Included Services',
+        Label: 'Additional Services',
         Icon: 'fa-plus',
-        RouterLink: '/includedServices',
-        Childs: null,
-        IsChildVisible: false,
-      },
-      {
-        Label: 'AboutUs',
-        Icon: 'fa-info-circle',
-        RouterLink: '/aboutus',
+        RouterLink: '/additionalServices',
         Childs: null,
         IsChildVisible: false,
       },

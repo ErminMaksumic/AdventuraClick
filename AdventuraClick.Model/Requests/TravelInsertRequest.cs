@@ -3,7 +3,8 @@
     public class TravelInsertRequest
     {
         public string Name { get; set; } = null!;
-        public string? Image { get; set; }
+        public byte[]? Image { get; set; } = null!;
+        public string ImageString { get; set; } = null!;
         public int NumberOfNights {  get; set; }
         public string? Description { get; set; }
         public float Price { get; set; }

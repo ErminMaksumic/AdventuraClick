@@ -85,5 +85,11 @@ namespace AdventuraClick.Service.Implementation
             _context.SaveChanges();
         }
 
+        public override Model.Travel Insert(TravelInsertRequest request)
+        {
+            byte[] imageBytes = Convert.FromBase64String(request.ImageString);
+            request.Image = imageBytes;
+            return base.Insert(request);
+        }
     }
 }

@@ -1,4 +1,4 @@
-<form class="card" [formGroup]="groupData" (ngSubmit)="save()">
+<form class="card ml-5" [formGroup]="groupData">
   <p-steps
     [model]="items"
     [readonly]="false"
@@ -7,33 +7,83 @@
   >
   </p-steps>
 
-  <div *ngIf="activeIndex === 0" class="flex justify-content-center m-5">
-    <div class="field">
-      <label class="mr-3">Name:</label>
+  <div *ngIf="activeIndex === 0" class="m-5">
+    <div class="flex flex-column gap-2">
+      <label for="name">Name</label>
       <input
-        type="text"
         pInputText
         id="name"
         formControlName="name"
-        required
-        autofocus
+        [style]="{ width: '50%' }"
       />
     </div>
-    <div class="formgrid grid">
-        <div class="field col">
-          <label class="mr-5 ml-3">Price</label>
-          <p-inputNumber
-            id="price"
-            formControlName="price"
-            mode="currency"
-            currency="USD"
-            locale="en-US"
-          ></p-inputNumber>
-        </div>
-      </div>
+    <div class="flex flex-column gap-2 mt-3">
+      <label for="price">Price</label>
+      <p-inputNumber
+        id="price"
+        formControlName="price"
+        mode="currency"
+        currency="USD"
+        locale="en-US"
+        [style]="{ width: '50%' }"
+      ></p-inputNumber>
+    </div>
+    <div class="flex flex-column gap-2 mt-3">
+      <label for="price">Number of Nights</label>
+      <p-inputNumber
+        formControlName="numberOfNights"
+        [showButtons]="true"
+        buttonLayout="horizontal"
+        inputId="horizontal"
+        spinnerMode="horizontal"
+        [max]="30"
+        [min]="1"
+        [step]="1"
+        decrementButtonClass="p-button-danger"
+        incrementButtonClass="p-button-success"
+        incrementButtonIcon="pi pi-plus"
+        decrementButtonIcon="pi pi-minus"
+        [style]="{ width: '50%' }"
+      ></p-inputNumber>
+    </div>
+    <div class="flex flex-column gap-2 mt-3">
+      <label for="price">Description</label>
+      <textarea
+        id="description"
+        pInputTextarea
+        formControlName="description"
+        rows="5"
+        cols="20"
+      ></textarea>
+    </div>
+    <div class="flex justify-content-center m-5">
+      <button
+        pButton
+        pRipple
+        [disabled]="!groupData.valid"
+        label="Next ->"
+        (click)="incrementActiveIndex()"
+        class="p-button-text"
+      ></button>
+    </div>
   </div>
 
-  <div *ngIf="activeIndex === 1" class="flex justify-content-center"></div>
+  <div *ngIf="activeIndex === 1" class="flex justify-content-center mt-5">
+    <p-fileUpload
+      name="myfile[]"
+      [customUpload]="true"
+      (uploadHandler)="onUpload($event)"
+    ></p-fileUpload>
+    <button
+      pButton
+      pRipple
+      [disabled]="!groupData.valid"
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="submit()"
+    ></button>
+  </div>
 
   <div *ngIf="activeIndex === 2" class="flex justify-content-center"></div>
 
