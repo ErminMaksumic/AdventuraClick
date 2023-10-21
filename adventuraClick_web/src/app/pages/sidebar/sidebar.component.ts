@@ -24,7 +24,6 @@ export class CustomMenuItem {
   selector: 'app-sidebar',
   templateUrl: 'sidebar.component.html',
   styleUrls: ['sidebar.component.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent implements OnInit {
   items: CustomMenuItem[];
