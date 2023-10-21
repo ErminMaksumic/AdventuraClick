@@ -1,16 +1,17 @@
 export const getSteps = () => {
-    return [
-        {
-            label: 'Base informations',
-        },
-        {
-            label: 'Image',
-        },
-        {
-            label: 'Location',
-        },
-        {
-            label: 'Included services',
-        }
-    ];
-}
+  return [
+    {
+      label: 'Base informations',
+    },
+
+    {
+      label: 'Location',
+    },
+    {
+      label: 'Image',
+    },
+    {
+      label: 'Included services',
+    },
+  ];
+};

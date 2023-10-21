@@ -76,24 +76,7 @@
     </div>
   </div>
 
-  <div *ngIf="activeIndex === 1" class="flex justify-content-center mt-5">
-    <p-fileUpload
-      name="myfile[]"
-      [customUpload]="true"
-      (uploadHandler)="onUpload($event)"
-    ></p-fileUpload>
-    <div class="flex justify-content-center m-5">
-      <button
-        pButton
-        pRipple
-        label="Next ->"
-        (click)="incrementActiveIndex()"
-        class="p-button-text"
-      ></button>
-    </div>
-  </div>
-
-  <div *ngIf="activeIndex === 2" class="mt-5" formGroupName="location">
+  <div *ngIf="activeIndex === 1" class="mt-5" formGroupName="location">
     <div class="flex flex-column gap-2">
       <label for="cityName">City name</label>
       <input
@@ -112,6 +95,32 @@
         [style]="{ width: '50%' }"
       />
     </div>
+    <br>
+    <HR />
+    <div class="flex flex-column gap-2 mt-3" [formGroup]="groupData">
+      <label for="countryName">Dates</label>
+      <p-calendar
+        selectionMode="multiple"
+        [readonlyInput]="true"
+        formControlName="travelInformations"
+      ></p-calendar>
+    </div>
+    <div class="flex justify-content-center m-5">
+      <button
+        pButton
+        pRipple
+        label="Next ->"
+        (click)="incrementActiveIndex()"
+        class="p-button-text"
+      ></button>
+    </div>
+  </div>
+  <div *ngIf="activeIndex === 2" class="flex justify-content-center mt-5">
+    <p-fileUpload
+      name="myfile[]"
+      [customUpload]="true"
+      (uploadHandler)="onUpload($event)"
+    ></p-fileUpload>
     <div class="flex justify-content-center m-5">
       <button
         pButton

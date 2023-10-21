@@ -14,5 +14,7 @@ namespace AdventuraClick.Model
         public int[]? IncludedItemIds { get; set; }
         public int? TravelTypeId { get; set; }
         public LocationUpsertRequest Location { get; set; }
+        public List<TravelInformationUpsertRequest> TravelInformations { get; set; }
+
     }
 }

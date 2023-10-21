@@ -60,6 +60,7 @@ export class TravelsCreateComponent implements OnInit {
       }),
       includedItemIds: [[]],
       travelTypeId: [{}, { validators: [Validators.required] }],
+      travelInformations: [[], { validators: [Validators.required] }],
     });
 
     this.getIncludedItems();
@@ -71,7 +72,16 @@ export class TravelsCreateComponent implements OnInit {
     const includedItemIds = this.targetItems.map((item) => item.includedItemId);
     this.groupData.value.includedItemIds = includedItemIds;
     // Set Travel Type IDs
-    this.groupData.value.travelTypeId = this.groupData.value.travelTypeId.travelTypeId;
+    this.groupData.value.travelTypeId =
+      this.groupData.value.travelTypeId.travelTypeId;
+    // Set dates
+    this.groupData.value.travelInformations =
+      this.groupData.value.travelInformations.map((x: string) => {
+        return {
+          departureTime: new Date(x),
+          createdBy: 'Admin',
+        };
+      });
     console.log('dataaa', this.groupData.value);
     this.travelService.create(this.groupData.value).subscribe({
       next: (result: Travel) => {

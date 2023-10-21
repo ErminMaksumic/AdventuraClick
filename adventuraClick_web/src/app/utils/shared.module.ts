@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../pages/sidebar/sidebar.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
+import { CalendarModule } from 'primeng/calendar';
 import { TagModule } from 'primeng/tag';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -56,7 +57,8 @@ import { RouterModule } from '@angular/router';
     DropdownModule,
     StepsModule,
     FileUploadModule,
-    PickListModule
+    PickListModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
