@@ -12,6 +12,7 @@ namespace AdventuraClick.Model
         public float Price { get; set; }
         public string? Status { get; set; }
         public int[]? IncludedItemIds { get; set; }
+        public int? TravelTypeId { get; set; }
         public LocationUpsertRequest Location { get; set; }
     }
 }

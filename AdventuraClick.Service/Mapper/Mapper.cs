@@ -10,7 +10,10 @@ namespace AdventuraClick.Service.Mapper
         {
             // Travel Type
             CreateMap<Database.TravelType, Model.TravelType>().ReverseMap();
+            // Travel
             CreateMap<Database.Travel, Model.Travel>().ForMember(x => x.IncludedItems, opts => opts.MapFrom(x => x.IncludedItemTravels.Select(x => x.IncludedItem).ToList()));
+            CreateMap<Database.Travel, TravelInsertRequest>().ReverseMap();
+            CreateMap<Database.Travel, TravelUpdateRequest>().ReverseMap();
             // User
             CreateMap<Database.User, Model.User>().ReverseMap();
             CreateMap<Database.User, UserInsertRequest>().ReverseMap();
@@ -40,9 +43,6 @@ namespace AdventuraClick.Service.Mapper
             // Travel Information
             CreateMap<Database.TravelInformation, Model.TravelInformation>().ReverseMap();
             CreateMap<Database.TravelInformation, TravelInformationUpsertRequest>().ReverseMap();
-            // Travel
-            CreateMap<Database.Travel, TravelInsertRequest>().ReverseMap();
-            CreateMap<Database.Travel, TravelUpdateRequest>().ReverseMap();
             // Location
             CreateMap<Database.Location, Model.Location>().ReverseMap();
             CreateMap<Database.Location, LocationUpsertRequest>().ReverseMap();

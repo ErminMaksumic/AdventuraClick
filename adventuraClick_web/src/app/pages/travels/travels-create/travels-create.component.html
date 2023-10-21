@@ -29,6 +29,15 @@
       ></p-inputNumber>
     </div>
     <div class="flex flex-column gap-2 mt-3">
+      <label for="price">Travel Type</label>
+      <p-dropdown
+        formControlName="travelTypeId"
+        placeholder="Select"
+        [options]="travelTypes"
+        optionLabel="name"
+      ></p-dropdown>
+    </div>
+    <div class="flex flex-column gap-2 mt-3">
       <label for="price">Number of Nights</label>
       <p-inputNumber
         formControlName="numberOfNights"
