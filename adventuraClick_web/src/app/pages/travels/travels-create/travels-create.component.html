@@ -60,7 +60,6 @@
       <button
         pButton
         pRipple
-        [disabled]="!groupData.valid"
         label="Next ->"
         (click)="incrementActiveIndex()"
         class="p-button-text"
@@ -78,7 +77,6 @@
       <button
         pButton
         pRipple
-        [disabled]="!groupData.valid"
         label="Next ->"
         (click)="incrementActiveIndex()"
         class="p-button-text"
@@ -109,7 +107,6 @@
       <button
         pButton
         pRipple
-        [disabled]="!groupData.valid"
         label="Next ->"
         (click)="incrementActiveIndex()"
         class="p-button-text"
@@ -117,7 +114,29 @@
     </div>
   </div>
 
-  <div *ngIf="activeIndex === 3" class="flex justify-content-center">
+  <div *ngIf="activeIndex === 3" class="flex justify-content-center mt-5">
+    <p-pickList
+      [source]="sourceItems"
+      [target]="targetItems"
+      sourceHeader="Available"
+      targetHeader="Selected"
+      [dragdrop]="true"
+      [responsive]="true"
+      [sourceStyle]="{ height: '30rem' }"
+      [targetStyle]="{ height: '30rem' }"
+      filterBy="name"
+      sourceFilterPlaceholder="Search by name"
+      targetFilterPlaceholder="Search by name"
+      breakpoint="1400px"
+    >
+      <ng-template let-includedItem pTemplate="item">
+        <div class="flex flex-wrap p-2 align-items-center gap-3">
+          <div class="flex-1 flex flex-column gap-2">
+            <span class="font-bold">{{ includedItem.name }}</span>
+          </div>
+        </div>
+      </ng-template>
+    </p-pickList>
     <button
       pButton
       pRipple

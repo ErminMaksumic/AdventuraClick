@@ -41,7 +41,6 @@ namespace AdventuraClick.Service.Mapper
             CreateMap<Database.TravelInformation, Model.TravelInformation>().ReverseMap();
             CreateMap<Database.TravelInformation, TravelInformationUpsertRequest>().ReverseMap();
             // Travel
-            CreateMap<Database.Travel, Model.Travel>().ReverseMap();
             CreateMap<Database.Travel, TravelInsertRequest>().ReverseMap();
             CreateMap<Database.Travel, TravelUpdateRequest>().ReverseMap();
             // Location

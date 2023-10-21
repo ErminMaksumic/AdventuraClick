@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
+import { IncludedItem } from 'src/app/models/included-item.model';
 import { Travel } from 'src/app/models/travel.model';
+import { IncludedItemService } from 'src/app/services/includedItems.service';
 import { TravelService } from 'src/app/services/travel.service';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
 import { getSteps } from 'src/app/utils/steps';
@@ -18,11 +20,15 @@ export class TravelsCreateComponent implements OnInit {
   formData = new FormData();
   activeIndex: number = 0;
   uploadedImage: any;
+  sourceItems!: IncludedItem[];
+  targetItems: IncludedItem[] = [];
 
   constructor(
     private builder: FormBuilder,
     private travelService: TravelService,
-    private messageNotifications: MessageNotifications
+    private includedItemService: IncludedItemService,
+    private messageNotifications: MessageNotifications,
+    private cdr: ChangeDetectorRef
   ) {}
 
   onActiveIndexChange(event: number) {
@@ -48,11 +54,15 @@ export class TravelsCreateComponent implements OnInit {
         cityName: ['', { validators: [Validators.required] }],
         countryName: ['', { validators: [Validators.required] }],
       }),
+      includedItemIds: [[]],
     });
+
+    this.getIncludedItems();
   }
 
   submit() {
-    console.log(this.groupData.value);
+    const includedItemIds = this.targetItems.map(item => item.includedItemId);
+    this.groupData.value.includedItemIds = includedItemIds;
     this.travelService.create(this.groupData.value).subscribe({
       next: (result: Travel) => {
         this.messageNotifications.showSuccess(
@@ -65,6 +75,8 @@ export class TravelsCreateComponent implements OnInit {
         console.log('error', error);
       },
     });
+
+    console.log("testiram target", this.targetItems);
   }
 
   incrementActiveIndex() {
@@ -79,5 +91,19 @@ export class TravelsCreateComponent implements OnInit {
       String.fromCharCode(...new Uint8Array(byteArray))
     );
     this.groupData.patchValue({ imageString: base64EncodedImage });
+  }
+
+  async getIncludedItems(){
+    this.includedItemService
+    .getAll()
+    .subscribe({
+      next: (result: IncludedItem[]) => {
+        this.sourceItems = result;
+        this.cdr.markForCheck();
+      },
+      error: (error: any) => {
+        console.log('error', error);
+      },
+    });
   }
 }

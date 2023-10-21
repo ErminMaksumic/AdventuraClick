@@ -21,6 +21,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { StepsModule } from 'primeng/steps';
+import { PickListModule } from 'primeng/picklist';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RouterModule } from '@angular/router';
@@ -54,7 +55,8 @@ import { RouterModule } from '@angular/router';
     InputTextareaModule,
     DropdownModule,
     StepsModule,
-    FileUploadModule
+    FileUploadModule,
+    PickListModule
   ],
   providers: [],
   bootstrap: [AppComponent],

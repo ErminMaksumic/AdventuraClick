@@ -7,6 +7,7 @@
         public bool IncludeLocation { get; set; }
         public bool IncludeTravelType { get; set; }
         public bool IncludeTravelInformation { get; set; }
+        public bool IncludeIncludedItems { get; set; }
         public int? TravelTypeId { get; set; }
 
     }
