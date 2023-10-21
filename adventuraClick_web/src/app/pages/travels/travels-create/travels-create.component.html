@@ -74,18 +74,48 @@
       [customUpload]="true"
       (uploadHandler)="onUpload($event)"
     ></p-fileUpload>
-    <button
-      pButton
-      pRipple
-      [disabled]="!groupData.valid"
-      label="Save"
-      icon="pi pi-check"
-      class="p-button-text"
-      (click)="submit()"
-    ></button>
+    <div class="flex justify-content-center m-5">
+      <button
+        pButton
+        pRipple
+        [disabled]="!groupData.valid"
+        label="Next ->"
+        (click)="incrementActiveIndex()"
+        class="p-button-text"
+      ></button>
+    </div>
   </div>
 
-  <div *ngIf="activeIndex === 2" class="flex justify-content-center"></div>
+  <div *ngIf="activeIndex === 2" class="mt-5" formGroupName="location">
+    <div class="flex flex-column gap-2">
+      <label for="cityName">City name</label>
+      <input
+        pInputText
+        id="cityName"
+        formControlName="cityName"
+        [style]="{ width: '50%' }"
+      />
+    </div>
+    <div class="flex flex-column gap-2 mt-3">
+      <label for="countryName">Country name</label>
+      <input
+        pInputText
+        id="countryName"
+        formControlName="countryName"
+        [style]="{ width: '50%' }"
+      />
+    </div>
+    <div class="flex justify-content-center m-5">
+      <button
+        pButton
+        pRipple
+        [disabled]="!groupData.valid"
+        label="Next ->"
+        (click)="incrementActiveIndex()"
+        class="p-button-text"
+      ></button>
+    </div>
+  </div>
 
   <div *ngIf="activeIndex === 3" class="flex justify-content-center">
     <button
@@ -95,6 +125,7 @@
       label="Save"
       icon="pi pi-check"
       class="p-button-text"
+      (click)="submit()"
     ></button>
   </div>
 </form>

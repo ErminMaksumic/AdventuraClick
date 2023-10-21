@@ -44,6 +44,10 @@ export class TravelsCreateComponent implements OnInit {
       ],
       description: ['', { validators: [Validators.maxLength(250)] }],
       imageString: [''],
+      location: this.builder.group({
+        cityName: ['', { validators: [Validators.required] }],
+        countryName: ['', { validators: [Validators.required] }],
+      }),
     });
   }
 

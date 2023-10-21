@@ -10,7 +10,7 @@ export const getSteps = () => {
             label: 'Location',
         },
         {
-            label: 'Additional services',
+            label: 'Included services',
         }
     ];
 }
