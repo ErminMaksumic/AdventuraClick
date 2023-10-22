@@ -56,7 +56,6 @@ export class RouteStateService {
     routeState.path = path;
     routeState.data = data;
 
-    console.log('routestates', routeState);
     routeStates.push(routeState);
     this.saveToStorage(routeStates);
     this.navigate(routeState.path);
@@ -108,7 +107,6 @@ export class RouteStateService {
   }
 
   private getFromStorage() {
-    console.log('localstorage', localStorage);
     var routeStates = JSON.parse(localStorage.getItem('routeState') || '[]');
     return routeStates === undefined || routeStates === null || routeStates === Array ? [] : routeStates;
   }

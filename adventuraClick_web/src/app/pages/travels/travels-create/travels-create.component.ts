@@ -95,8 +95,6 @@ export class TravelsCreateComponent implements OnInit {
         console.log('error', error);
       },
     });
-
-    console.log('testiram target', this.targetItems);
   }
 
   incrementActiveIndex() {

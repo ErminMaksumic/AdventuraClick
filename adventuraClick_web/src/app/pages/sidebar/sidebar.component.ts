@@ -86,8 +86,6 @@ export class SidebarComponent implements OnInit {
       return;
     }
     this.selectedItem = menu.Label;
-    console.log(this.selectedItem);
-    console.log('routerLink', menu.RouterLink);
     this.sessionService.setItem('active-menu', menu.Label);
     this.routeStateService.add(menu.Label, menu.RouterLink, null, true);
   }

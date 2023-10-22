@@ -33,7 +33,6 @@ export class TravelModalComponent {
   }
 
   save() {
-    console.log('hej', this.groupData.value);
     if (this.groupData.valid) {
       this.submitted = true;
       this.onSave.emit(this.groupData.value);

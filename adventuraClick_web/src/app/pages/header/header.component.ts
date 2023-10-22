@@ -8,7 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   @Input() currentRoute: string = '';
   constructor() {
-  console.log("route", this.currentRoute);
   }
 
   ngOnInit(): void {}
