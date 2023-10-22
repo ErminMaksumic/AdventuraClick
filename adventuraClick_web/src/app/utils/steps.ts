@@ -5,7 +5,7 @@ export const getSteps = () => {
     },
 
     {
-      label: 'Location',
+      label: 'Location & Dates',
     },
     {
       label: 'Image',
