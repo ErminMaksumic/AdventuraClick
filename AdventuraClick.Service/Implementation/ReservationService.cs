@@ -11,7 +11,7 @@ namespace AdventuraClick.Service.Implementation
         ReservationUpdateRequest>, IReservationService
     {
         public ReservationService(AdventuraClickInitContext context, IMapper mapper) : base(context, mapper)
-        {}
+        { }
 
         public override IQueryable<Reservation> AddInclude(IQueryable<Reservation> query, ReservationSearchObject search = null)
         {
@@ -23,11 +23,11 @@ namespace AdventuraClick.Service.Implementation
             }
             if (search.IncludeAdditionalServices)
             {
-                includedQuery = includedQuery.Include(x=> x.AdditionalServicesReservations).ThenInclude(x=> x.AdditionalService);
+                includedQuery = includedQuery.Include(x => x.AdditionalServicesReservations).ThenInclude(x => x.AdditionalService);
             }
             if (search.IncludeTravel)
             {
-                includedQuery = includedQuery.Include("Travel");
+                includedQuery = includedQuery.Include(x => x.Travel).ThenInclude(x => x.TravelType);
             }
             if (search.IncludePayment)
             {
@@ -49,10 +49,14 @@ namespace AdventuraClick.Service.Implementation
             {
                 includedQuery = includedQuery.Where(x => x.Travel.Name.StartsWith(search.Name));
             }
-            if(search.UserId > 0)
+            if (search.UserId > 0)
             {
-                includedQuery = includedQuery.Where(x=> x.UserId == search.UserId);
+                includedQuery = includedQuery.Where(x => x.UserId == search.UserId);
             }
+            //if (!string.IsNullOrEmpty(search.Username))
+            //{
+            //    includedQuery = includedQuery.Where(x => x.User.Username.StartsWith(search.Username));
+            //}
 
             return includedQuery;
         }
@@ -61,6 +65,17 @@ namespace AdventuraClick.Service.Implementation
         {
 
             return base.Insert(request);
+        }
+
+        public Model.Reservation ChangeStatus(int id, ChangeReservationStatus request)
+        {
+            var reservation = _context.Reservations.Find(id);
+            if (reservation != null)
+            {
+                reservation.Status = request.Status;
+                _context.SaveChanges();
+            }
+            return _mapper.Map<Model.Reservation>(reservation);
         }
     }
 }

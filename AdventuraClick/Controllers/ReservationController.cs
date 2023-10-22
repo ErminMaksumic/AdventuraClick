@@ -1,5 +1,6 @@
 ﻿using AdventuraClick.Model.Requests;
 using AdventuraClick.Model.SearchObjects;
+using AdventuraClick.Service.Implementation;
 using AdventuraClick.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +12,13 @@ namespace AdventuraClick.Controllers
     {
         EmailSenderService _emailService;
         private IConfiguration _configuration;
+        private IReservationService _reservationService;
 
         public ReservationController(IReservationService service, EmailSenderService emailService, IConfiguration configuration) : base(service)
         {
             _emailService = emailService;
             _configuration = configuration;
+            _reservationService = service;
         }
         [HttpPost("sendConfirmationEmail")]
         public void SendConfirmationEmail([FromBody] EmailSenderRequest request)
@@ -40,5 +43,13 @@ AdventuraClick Team
 
             _ = _emailService.SendEmail(_configuration, request.FullName, request.Email, "Travel Reservation Confirmation", messageBody);
         }
+
+        [HttpPut("{id}/status")]
+        public Model.Reservation ChangeReservationStatus(int id, [FromBody] ChangeReservationStatus request)
+        {
+            return _reservationService.ChangeStatus(id, request);
+        }
+
+
     }
 }
