@@ -24,7 +24,6 @@ export class CustomMenuItem {
   selector: 'app-sidebar',
   templateUrl: 'sidebar.component.html',
   styleUrls: ['sidebar.component.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent implements OnInit {
   items: CustomMenuItem[];
@@ -87,8 +86,6 @@ export class SidebarComponent implements OnInit {
       return;
     }
     this.selectedItem = menu.Label;
-    console.log(this.selectedItem);
-    console.log('routerLink', menu.RouterLink);
     this.sessionService.setItem('active-menu', menu.Label);
     this.routeStateService.add(menu.Label, menu.RouterLink, null, true);
   }

@@ -35,7 +35,8 @@ namespace AdventuraClick.Service.Implementation
             entity = AddInclude(entity, search);
 
             var list = entity.ToList();
-            return _mapper.Map<IList<TModel>>(list);
+            var mapped = _mapper.Map<IList<TModel>>(list);
+            return mapped;
         }
 
 

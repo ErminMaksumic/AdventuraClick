@@ -60,7 +60,6 @@ export class TravelsComponent implements OnInit {
   }
 
   saveTravel(travelValue: Travel) {
-    console.log('edited', travelValue);
     this.submitted = true;
     this.travelService
       .update(this.travel.travelId || 0, travelValue)

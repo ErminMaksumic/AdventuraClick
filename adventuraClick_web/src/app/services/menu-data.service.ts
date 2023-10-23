@@ -28,7 +28,6 @@ export class MenuDataService {
   );
 
   getMenuList(): CustomMenuItem[] {
-    console.log('toggle', this.toggleMenuBar);
     return [
       {
         Label: 'Home',

@@ -1,4 +1,4 @@
-<form class="card ml-5" [formGroup]="groupData">
+<form class="card" [formGroup]="groupData">
   <p-steps
     [model]="items"
     [readonly]="false"
@@ -27,6 +27,15 @@
         locale="en-US"
         [style]="{ width: '50%' }"
       ></p-inputNumber>
+    </div>
+    <div class="flex flex-column gap-2 mt-3">
+      <label for="price">Travel Type</label>
+      <p-dropdown
+        formControlName="travelTypeId"
+        placeholder="Select"
+        [options]="travelTypes"
+        optionLabel="name"
+      ></p-dropdown>
     </div>
     <div class="flex flex-column gap-2 mt-3">
       <label for="price">Number of Nights</label>
@@ -60,7 +69,6 @@
       <button
         pButton
         pRipple
-        [disabled]="!groupData.valid"
         label="Next ->"
         (click)="incrementActiveIndex()"
         class="p-button-text"
@@ -68,12 +76,85 @@
     </div>
   </div>
 
-  <div *ngIf="activeIndex === 1" class="flex justify-content-center mt-5">
+  <div *ngIf="activeIndex === 1" class="mt-5" formGroupName="location">
+    <div class="flex flex-column gap-2">
+      <label for="cityName">City name</label>
+      <input
+        pInputText
+        id="cityName"
+        formControlName="cityName"
+        [style]="{ width: '50%' }"
+      />
+    </div>
+    <div class="flex flex-column gap-2 mt-3">
+      <label for="countryName">Country name</label>
+      <input
+        pInputText
+        id="countryName"
+        formControlName="countryName"
+        [style]="{ width: '50%' }"
+      />
+    </div>
+    <br>
+    <HR />
+    <div class="flex flex-column gap-2 mt-3" [formGroup]="groupData">
+      <label for="countryName">Dates</label>
+      <p-calendar
+        selectionMode="multiple"
+        [readonlyInput]="true"
+        formControlName="travelInformations"
+      ></p-calendar>
+    </div>
+    <div class="flex justify-content-center m-5">
+      <button
+        pButton
+        pRipple
+        label="Next ->"
+        (click)="incrementActiveIndex()"
+        class="p-button-text"
+      ></button>
+    </div>
+  </div>
+  <div *ngIf="activeIndex === 2" class="flex justify-content-center mt-5">
     <p-fileUpload
       name="myfile[]"
       [customUpload]="true"
       (uploadHandler)="onUpload($event)"
     ></p-fileUpload>
+    <div class="flex justify-content-center m-5">
+      <button
+        pButton
+        pRipple
+        label="Next ->"
+        (click)="incrementActiveIndex()"
+        class="p-button-text"
+      ></button>
+    </div>
+  </div>
+
+  <div *ngIf="activeIndex === 3" class="flex justify-content-center mt-5">
+    <p-pickList
+      [source]="sourceItems"
+      [target]="targetItems"
+      sourceHeader="Available"
+      targetHeader="Selected"
+      [dragdrop]="true"
+      [responsive]="true"
+      [sourceStyle]="{ height: '30rem' }"
+      [targetStyle]="{ height: '30rem' }"
+      filterBy="name"
+      sourceFilterPlaceholder="Search by name"
+      targetFilterPlaceholder="Search by name"
+      breakpoint="1400px"
+    >
+      <ng-template let-includedItem pTemplate="item">
+        <div class="flex flex-wrap p-2 align-items-center gap-3">
+          <div class="flex-1 flex flex-column gap-2">
+            <span class="font-bold">{{ includedItem.name }}</span>
+          </div>
+        </div>
+      </ng-template>
+    </p-pickList>
     <button
       pButton
       pRipple
@@ -82,19 +163,6 @@
       icon="pi pi-check"
       class="p-button-text"
       (click)="submit()"
-    ></button>
-  </div>
-
-  <div *ngIf="activeIndex === 2" class="flex justify-content-center"></div>
-
-  <div *ngIf="activeIndex === 3" class="flex justify-content-center">
-    <button
-      pButton
-      pRipple
-      [disabled]="!groupData.valid"
-      label="Save"
-      icon="pi pi-check"
-      class="p-button-text"
     ></button>
   </div>
 </form>

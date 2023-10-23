@@ -17,7 +17,5 @@
         public virtual Location? Location { get; set; }
         public List<IncludedItem> IncludedItems { get; set; }
 
-
-
     }
 }

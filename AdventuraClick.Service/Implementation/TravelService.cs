@@ -4,6 +4,7 @@ using AdventuraClick.Service.Database;
 using AdventuraClick.Service.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
 using Travel = AdventuraClick.Service.Database.Travel;
 
 namespace AdventuraClick.Service.Implementation
@@ -30,6 +31,10 @@ namespace AdventuraClick.Service.Implementation
             {
                 includedQuery = includedQuery.Include("TravelInformations");
             }
+            if (searchObject.IncludeIncludedItems)
+            {
+                includedQuery = includedQuery.Include(x => x.IncludedItemTravels).ThenInclude(x=> x.IncludedItem);
+            }
 
             return includedQuery;
         }
@@ -47,7 +52,7 @@ namespace AdventuraClick.Service.Implementation
             {
                 filteredQuery = filteredQuery.Where(x => x.Name.ToLower().StartsWith(search.Name.ToLower()));
             }
-          
+
             if (search.TravelTypeId > 0)
             {
                 filteredQuery = filteredQuery.Where(x => x.TravelTypeId == search.TravelTypeId);
@@ -70,7 +75,7 @@ namespace AdventuraClick.Service.Implementation
 
         public override void BeforeDelete(Travel entity)
         {
-            var travelInormation = _context.TravelInformations.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList(); 
+            var travelInormation = _context.TravelInformations.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
             var reservations = _context.Reservations.Include("TravelInformation").Where(x => x.TravelId == entity.TravelId).ToList();
             var payments = _context.Payments.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
             var ratings = _context.Ratings.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
@@ -87,9 +92,27 @@ namespace AdventuraClick.Service.Implementation
 
         public override Model.Travel Insert(TravelInsertRequest request)
         {
+
             byte[] imageBytes = Convert.FromBase64String(request.ImageString);
             request.Image = imageBytes;
-            return base.Insert(request);
+            var travel = _mapper.Map<Travel>(request);
+            _context.Travels.Add(travel);
+            _context.SaveChanges();
+
+
+            foreach (var includedItem in request.IncludedItemIds)
+            {
+                Database.IncludedItemTravel includedItemTravel = new Database.IncludedItemTravel();
+                includedItemTravel.IncludedItemId = includedItem;
+                includedItemTravel.TravelId = travel.TravelId;
+
+                _context.IncludedItemTravels.Add(includedItemTravel);
+
+                _context.SaveChanges();
+            }
+
+            return _mapper.Map<Model.Travel>(travel);
         }
+
     }
 }

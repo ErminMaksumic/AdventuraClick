@@ -56,6 +56,7 @@ builder.Services.AddTransient<IPaymentService, PaymentService>();
 builder.Services.AddTransient<ITravelInformationService, TravelInformationService>();
 builder.Services.AddTransient<IJWTService, JwtService>();
 builder.Services.AddTransient<IAdditionalService, AdventuraClick.Service.Implementation.AdditionalService>();
+builder.Services.AddTransient<ILocationService, LocationService>();
 builder.Services.AddSingleton<EmailSenderService>();
 // 
 builder.Services.AddAutoMapper(typeof(Mapper).Assembly);

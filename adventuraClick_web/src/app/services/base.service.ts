@@ -11,7 +11,6 @@ export abstract class BaseService<T> {
   url = `${devEnvironment.baseUrl}/api`;
 
   getAll(search = {}): Observable<T[]> {
-    console.log("srcc", search)
     const queryString = getQueryString(search);
     const url = `${this.url}/${this.endpoint}`;
     const uri = `${url}?${queryString}`;

@@ -1,4 +1,6 @@
-﻿namespace AdventuraClick.Model
+﻿using AdventuraClick.Model.Requests;
+
+namespace AdventuraClick.Model
 {
     public class TravelInsertRequest
     {
@@ -9,5 +11,10 @@
         public string? Description { get; set; }
         public float Price { get; set; }
         public string? Status { get; set; }
+        public int[]? IncludedItemIds { get; set; }
+        public int? TravelTypeId { get; set; }
+        public LocationUpsertRequest Location { get; set; }
+        public List<TravelInformationUpsertRequest> TravelInformations { get; set; }
+
     }
 }
