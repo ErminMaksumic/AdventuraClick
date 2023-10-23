@@ -12,7 +12,6 @@ class Reservation {
   String? status;
   DateTime? date;
   Travel? travel;
-  List<AdditionalServices>? additionalServices;
 
   Reservation();
 

@@ -8,5 +8,6 @@
         public bool IncludePayment { get; set; }
         public bool IncludeTravelInformation { get; set; }
         public int UserId { get; set; }
+        public string? Username { get; set; }
     }
 }

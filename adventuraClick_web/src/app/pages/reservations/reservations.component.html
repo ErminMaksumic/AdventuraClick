@@ -1,0 +1,126 @@
+<div class="card">
+  <p-table
+    #dt
+    [value]="reservations"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="[
+      'name',
+      'country.name',
+      'representative.name',
+      'status'
+    ]"
+    [tableStyle]="{ 'min-width': '70rem' }"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Resesrvations</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            placeholder="Search..."
+            [(ngModel)]="searchQuery"
+          />
+          <button
+            pButton
+            pRipple
+            label="Search"
+            icon="pi pi-search"
+            class="p-button ml-3"
+            (click)="search(searchQuery)"
+          ></button>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 15rem">User</th>
+        <th>Travel date</th>
+        <th>Travel</th>
+        <th>Type</th>
+        <th pSortableColumn="type" style="min-width: 10rem">
+          Number of Passangers
+        </th>
+        <th pSortableColumn="type" style="min-width: 10rem">
+          Number of Nights
+        </th>
+        <th>Price</th>
+        <th>Status</th>
+        <th pSortableColumn="action">Actions</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-reservation>
+      <tr>
+        <td>{{ reservation.user.username }}</td>
+        <td>{{ formatDateWrapper(reservation.travelInformation) }}</td>
+        <td>{{ reservation.travel.name }}</td>
+        <td>{{ reservation.travel.travelType.name }}</td>
+        <td>{{ reservation.numberOfPassengers }}</td>
+        <td>{{ reservation.travel.numberOfNights }}</td>
+        <td>{{ reservation.payment.amount }}</td>
+        <td
+          [style.color]="
+            reservation.status === 'Active'
+              ? 'green'
+              : reservation.status === 'Canceled'
+              ? 'red'
+              : 'inherit'
+          "
+        >
+          {{ reservation.status }}
+        </td>
+        <td>
+          <button
+            pButton
+            [disabled]="reservation.status === 'Canceled'"
+            pRipple
+            class="p-button-rounded p-button-danger"
+            (click)="cancelReservation(reservation.reservationId)"
+          >
+            Cancel
+          </button>
+          <button
+            pButton
+            pRipple
+            class="p-button-rounded p-button-info mt-1"
+            (click)="showModalData(reservation)"
+          >
+            Info
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-dialog
+    header="{{
+      reservationDetails?.travel?.name
+        ? reservationDetails?.user?.username +
+          ' - ' +
+          reservationDetails?.travel?.name
+        : ''
+    }}"
+    [(visible)]="additionalServicesInfoModal"
+    [style]="{ width: '50vw' }"
+    [modal]="true"
+  >
+    <h2>Additional services</h2>
+    <p-listbox
+      [options]="additionalServicesOptions"
+      [disabled]="true"
+      [style]="{ width: '15rem' }"
+    ></p-listbox>
+    <h2>Included items</h2>
+    <p-listbox
+      [options]="includedItems || []"
+      [disabled]="true"
+      [style]="{ width: '15rem' }"
+    ></p-listbox>
+  </p-dialog>
+</div>
