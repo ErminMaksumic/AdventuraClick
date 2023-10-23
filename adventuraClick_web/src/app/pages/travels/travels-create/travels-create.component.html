@@ -182,26 +182,36 @@
   header="New incl. Item"
   [modal]="true"
   styleClass="p-fluid"
+  [closable]="false"
 >
   <ng-template pTemplate="content">
-      <div class="field">
-        <label>Name</label>
-        <input
-          type="text"
-          pInputText
-          id="name"
-          [(ngModel)]="includedItemName"
-          required
-          autofocus
-        />
-      </div>
-      <button
-        pButton
-        [disabled]="includedItemName === ''"
-        pRipple
-        label="Save"
-        class="p-button-text"
-        (click)="createNewIncludedItem()"
-      ></button>
+    <div class="field">
+      <label>Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="includedItemName"
+        required
+        autofocus
+      />
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      [disabled]="includedItemName === ''"
+      pRipple
+      label="Save"
+      class="p-button-text"
+      (click)="createNewIncludedItem()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      class="p-button-text"
+      (click)="this.createIncludedItemModal = false"
+    ></button>
   </ng-template>
 </p-dialog>
