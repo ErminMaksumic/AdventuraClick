@@ -27,7 +27,10 @@ namespace AdventuraClick.Service.Implementation
             }
             if (search.IncludeTravel)
             {
-                includedQuery = includedQuery.Include(x => x.Travel).ThenInclude(x => x.TravelType);
+                includedQuery = includedQuery.Include(x => x.Travel)
+                                             .ThenInclude(x => x.TravelType)
+                                             .Include(x => x.Travel)
+                                             .ThenInclude(x => x.IncludedItemTravels).ThenInclude(x=> x.IncludedItem);
             }
             if (search.IncludePayment)
             {
@@ -63,8 +66,21 @@ namespace AdventuraClick.Service.Implementation
 
         public override Model.Reservation Insert(ReservationInsertRequest request)
         {
+            var reservation = _mapper.Map<Reservation>(request);
+            _context.Reservations.Add(reservation);
+            _context.SaveChanges();
 
-            return base.Insert(request);
+
+            foreach (var reservationAdditionalService in request.AdditionalServices)
+            {
+                AdditionalServiceReservation reservationAdditionalServiceObject = new AdditionalServiceReservation();
+                reservationAdditionalServiceObject.AdditionalServiceId = reservationAdditionalService;
+                reservationAdditionalServiceObject.ReservationId = reservation.ReservationId;
+                _context.AdditionalServiceReservations.Add(reservationAdditionalServiceObject);
+                _context.SaveChanges();
+            }
+
+            return _mapper.Map<Model.Reservation>(reservation);
         }
 
         public Model.Reservation ChangeStatus(int id, ChangeReservationStatus request)

@@ -13,6 +13,10 @@ import { MessageNotifications } from 'src/app/utils/messageNotifications';
 export class ReservationsComponent {
   reservations: Reservation[] = [];
   searchQuery: string = '';
+  additionalServicesInfoModal: boolean = false;
+  additionalServicesOptions: { label: string }[] = [];
+  reservationDetails: Reservation | undefined = {};
+  includedItems: { label: string }[] = [];
 
   constructor(
     private reservationService: ReservationService,
@@ -33,7 +37,7 @@ export class ReservationsComponent {
       .subscribe({
         next: (result: Reservation[]) => {
           this.reservations = result;
-          console.log("reservations", this.reservations);
+          console.log('reservations', this.reservations);
         },
         error: (error: any) => {
           console.log('error', error);
@@ -41,8 +45,7 @@ export class ReservationsComponent {
       });
   }
 
-  search(input: string)
-  {
+  search(input: string) {
     this.loadReservations(input);
   }
 
@@ -69,5 +72,22 @@ export class ReservationsComponent {
           console.log('error', error);
         },
       });
+  }
+
+  showModalData(reservation: Reservation) {
+    this.additionalServicesInfoModal = true;
+    this.reservationDetails = reservation;
+    this.additionalServicesOptions = reservation.additionalServices?.map(
+      (service) => {
+        return { label: `${service.name} - ${service.price}%` };
+      }
+    ) || [{ label: 'No data' }];
+    this.showIncludedItems(reservation);
+  }
+
+  showIncludedItems(reservation: Reservation) {
+    this.includedItems = reservation.travel?.includedItems?.map((item) => {
+      return { label: item.name || 'No data' };
+    }) || [{ label: 'No data' }];
   }
 }
