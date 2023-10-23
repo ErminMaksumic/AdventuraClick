@@ -25,6 +25,8 @@ export class TravelsCreateComponent implements OnInit {
   sourceItems!: IncludedItem[];
   targetItems: IncludedItem[] = [];
   travelTypes: TravelType[] = [];
+  createIncludedItemModal: boolean = false;
+  includedItemName: string = '';
 
   constructor(
     private builder: FormBuilder,
@@ -82,7 +84,6 @@ export class TravelsCreateComponent implements OnInit {
           createdBy: 'Admin',
         };
       });
-    console.log('dataaa', this.groupData.value);
     this.travelService.create(this.groupData.value).subscribe({
       next: (result: Travel) => {
         this.messageNotifications.showSuccess(
@@ -127,6 +128,23 @@ export class TravelsCreateComponent implements OnInit {
     this.travelTypeService.getAll().subscribe({
       next: (result: TravelType[]) => {
         this.travelTypes = result;
+      },
+      error: (error: any) => {
+        console.log('error', error);
+      },
+    });
+  }
+
+  createNewIncludedItem() {
+    this.includedItemService.create({ name: this.includedItemName }).subscribe({
+      next: () => {
+        this.messageNotifications.showSuccess(
+          'Incl. item created',
+          'Incl. item created successfully'
+        );
+        this.getIncludedItems();
+        this.createIncludedItemModal = false;
+        this.includedItemName = '';
       },
       error: (error: any) => {
         console.log('error', error);

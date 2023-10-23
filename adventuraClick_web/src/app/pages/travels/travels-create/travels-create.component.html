@@ -95,7 +95,7 @@
         [style]="{ width: '50%' }"
       />
     </div>
-    <br>
+    <br />
     <HR />
     <div class="flex flex-column gap-2 mt-3" [formGroup]="groupData">
       <label for="countryName">Dates</label>
@@ -158,6 +158,14 @@
     <button
       pButton
       pRipple
+      label="Create new incl. item"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="createIncludedItemModal = true"
+    ></button>
+    <button
+      pButton
+      pRipple
       [disabled]="!groupData.valid"
       label="Save"
       icon="pi pi-check"
@@ -166,3 +174,34 @@
     ></button>
   </div>
 </form>
+
+<!--modal-->
+
+<p-dialog
+  [visible]="createIncludedItemModal"
+  header="New incl. Item"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+      <div class="field">
+        <label>Name</label>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          [(ngModel)]="includedItemName"
+          required
+          autofocus
+        />
+      </div>
+      <button
+        pButton
+        [disabled]="includedItemName === ''"
+        pRipple
+        label="Save"
+        class="p-button-text"
+        (click)="createNewIncludedItem()"
+      ></button>
+  </ng-template>
+</p-dialog>
