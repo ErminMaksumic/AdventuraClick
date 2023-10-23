@@ -1,0 +1,58 @@
+<div class="card">
+  <p-table
+    #dt
+    [value]="ratings"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="[
+      'name',
+      'country.name',
+      'representative.name',
+      'status'
+    ]"
+    [tableStyle]="{ 'min-width': '70rem' }"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Ratings</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            placeholder="Search..."
+            [(ngModel)]="searchQuery"
+          />
+          <button
+            pButton
+            pRipple
+            label="Search"
+            icon="pi pi-search"
+            class="p-button ml-3"
+            (click)="search(searchQuery)"
+          ></button>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 15rem">User</th>
+        <th>Travel</th>
+        <th>Rate</th>
+        <th>Comment</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rating>
+      <tr>
+        <td>{{ rating.user.username }}</td>
+        <td>{{ rating.travel.name }}</td>
+        <td><p-rating [(ngModel)]="rating.rate" [disabled]="true" [cancel]="false"></p-rating></td>
+        <td>{{ rating.comment }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

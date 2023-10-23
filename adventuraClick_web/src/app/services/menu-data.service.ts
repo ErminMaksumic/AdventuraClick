@@ -71,6 +71,13 @@ export class MenuDataService {
         IsChildVisible: false,
       },
       {
+        Label: 'Ratings',
+        Icon: 'fa-star',
+        RouterLink: '/ratings',
+        Childs: null,
+        IsChildVisible: false,
+      },
+      {
         Label: 'Logout',
         Icon: 'fa-exclamation-triangle',
         RouterLink: '/logout',

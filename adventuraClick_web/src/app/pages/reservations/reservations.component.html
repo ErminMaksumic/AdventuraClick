@@ -18,7 +18,7 @@
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
-        <h5 class="m-0">Resesrvations</h5>
+        <h5 class="m-0">Reservations</h5>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input
@@ -81,19 +81,17 @@
             pButton
             [disabled]="reservation.status === 'Canceled'"
             pRipple
+            icon="pi pi-ban"
             class="p-button-rounded p-button-danger"
             (click)="cancelReservation(reservation.reservationId)"
-          >
-            Cancel
-          </button>
+          ></button>
           <button
             pButton
             pRipple
+            icon="pi pi-info"
             class="p-button-rounded p-button-info mt-1"
             (click)="showModalData(reservation)"
-          >
-            Info
-          </button>
+          ></button>
         </td>
       </tr>
     </ng-template>
