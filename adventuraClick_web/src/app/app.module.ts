@@ -9,14 +9,11 @@ import { SharedModule } from './utils/shared.module';
 import { TravelsModule } from './pages/travels/travels.module';
 import { FooterComponent } from './pages/footer/footer.component';
 import { HeaderComponent } from './pages/header/header.component';
+import { ReservationsModule } from './pages/reservations/reservations.module';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent, HeaderComponent],
-  imports: [
-    LoginModule,
-    SharedModule,
-    TravelsModule
-  ],
+  imports: [LoginModule, SharedModule, TravelsModule, ReservationsModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

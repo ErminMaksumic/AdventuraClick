@@ -15,10 +15,7 @@ Reservation _$ReservationFromJson(Map<String, dynamic> json) => Reservation()
   ..date = json['date'] == null ? null : DateTime.parse(json['date'] as String)
   ..travel = json['travel'] == null
       ? null
-      : Travel.fromJson(json['travel'] as Map<String, dynamic>)
-  ..additionalServices = (json['additionalServices'] as List<dynamic>?)
-      ?.map((e) => AdditionalServices.fromJson(e as Map<String, dynamic>))
-      .toList();
+      : Travel.fromJson(json['travel'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$ReservationToJson(Reservation instance) =>
     <String, dynamic>{
@@ -29,5 +26,4 @@ Map<String, dynamic> _$ReservationToJson(Reservation instance) =>
       'status': instance.status,
       'date': instance.date?.toIso8601String(),
       'travel': instance.travel,
-      'additionalServices': instance.additionalServices,
     };

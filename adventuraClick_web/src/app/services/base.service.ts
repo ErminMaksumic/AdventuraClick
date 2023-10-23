@@ -33,4 +33,8 @@ export abstract class BaseService<T> {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${this.endpoint}/${id}`);
   }
+
+  changeStatus(id: number, status: any): Observable<T> {
+    return this.http.put<T>(`${this.url}/${this.endpoint}/${id}/status`, { status });
+  }
 }
