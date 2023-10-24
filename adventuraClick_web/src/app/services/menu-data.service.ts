@@ -57,6 +57,13 @@ export class MenuDataService {
         IsChildVisible: false,
       },
       {
+        Label: 'Users',
+        Icon: 'fa-user',
+        RouterLink: '/users',
+        Childs: null,
+        IsChildVisible: false,
+      },
+      {
         Label: 'Reservations',
         Icon: 'fa-calendar',
         RouterLink: '/reservations',

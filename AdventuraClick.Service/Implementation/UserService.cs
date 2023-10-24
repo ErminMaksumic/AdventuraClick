@@ -84,6 +84,17 @@ namespace AdventuraClick.Service.Implementation
             return filteredQuery;
         }
 
+        public override IQueryable<User> AddInclude(IQueryable<User> query, UserSearchObject searchObject = null)
+        {
+            var includedQuery = base.AddInclude(query, searchObject);
+
+            if (searchObject.IncludeRole)
+            {
+                includedQuery = includedQuery.Include("Role");
+            }
+            return includedQuery;
+        }
+
         public override void BeforeInsert(UserInsertRequest request, User entity)
         {
 
@@ -141,9 +152,30 @@ namespace AdventuraClick.Service.Implementation
             return _mapper.Map<Model.User>(entity);
         }
 
+        public Model.User UpdateUserAccount(int id, AdminUserUpdate req)
+        {
+            var entity = _context.Users.Find(id);
+
+            entity.Username = req.Username ?? entity.Username;
+            entity.FirstName = req.FirstName ?? entity.FirstName;
+            entity.LastName = req.LastName ?? entity.LastName;
+            entity.RoleId = req.RoleId;
+            _context.SaveChanges();
+            return _mapper.Map<Model.User>(entity);
+        }
+
         public string GenerateToken(Model.User user)
         {
             return _jwtService.GenerateToken(user);
+        }
+
+        public override void BeforeDelete(User entity)
+        {
+            var ratings = _context.Ratings.Include("User").Where(x => x.UserId == entity.UserId).ToList();
+            var reservations = _context.Reservations.Include("User").Where(x => x.UserId == entity.UserId).ToList();
+            _context.Ratings.RemoveRange(ratings);
+            _context.Reservations.RemoveRange(reservations);
+            _context.SaveChanges();
         }
     }
 }

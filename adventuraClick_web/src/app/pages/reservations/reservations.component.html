@@ -40,7 +40,7 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="min-width: 15rem">User</th>
+        <th>User</th>
         <th>Travel date</th>
         <th>Travel</th>
         <th>Type</th>
@@ -82,14 +82,14 @@
             [disabled]="reservation.status === 'Canceled'"
             pRipple
             icon="pi pi-ban"
-            class="p-button-rounded p-button-danger"
+            class="p-button-rounded p-button-danger mr-2"
             (click)="cancelReservation(reservation.reservationId)"
           ></button>
           <button
             pButton
             pRipple
             icon="pi pi-info"
-            class="p-button-rounded p-button-info mt-1"
+            class="p-button-rounded p-button-info mr-2"
             (click)="showModalData(reservation)"
           ></button>
         </td>
@@ -105,7 +105,6 @@
         : ''
     }}"
     [(visible)]="additionalServicesInfoModal"
-    [style]="{ width: '50vw' }"
     [modal]="true"
   >
     <h2>Additional services</h2>

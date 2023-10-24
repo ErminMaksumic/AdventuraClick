@@ -1,0 +1,92 @@
+<p-dialog
+  [visible]="true"
+  [style]="{ width: '700px', height: '700px' }"
+  header="User Details"
+  [modal]="true"
+  styleClass="p-fluid"
+  [closable]="false"
+>
+  <ng-template pTemplate="content">
+    <form [formGroup]="groupData">
+      <img
+        [src]="transformImageWrapper(user.image)"
+        [alt]="user.image"
+        class="block m-auto pb-3"
+        *ngIf="user.image"
+        width="100%"
+        height="200px"
+      />
+      <div class="field">
+        <label>Username</label>
+        <input
+          type="text"
+          pInputText
+          id="username"
+          formControlName="username"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="submitted && !user.username"
+          >Username is required.</small
+        >
+        <div class="field">
+          <label>First name</label>
+          <input
+            type="text"
+            pInputText
+            id="firstName"
+            formControlName="firstName"
+            required
+            autofocus
+          />
+          <small class="p-error" *ngIf="submitted && !user.firstName"
+            >Name is required.</small
+          >
+        </div>
+        <div class="field">
+          <label>Last name</label>
+          <input
+            type="text"
+            pInputText
+            id="lastName"
+            formControlName="lastName"
+            required
+            autofocus
+          />
+          <small class="p-error" *ngIf="submitted && !user.lastName"
+            >Last name is required.</small
+          >
+        </div>
+        <div class="flex flex-column gap-2 mt-3">
+          <label for="price">Role</label>
+          <p-dropdown
+            formControlName="role"
+            placeholder="Select"
+            [options]="roles"
+            optionLabel="name"
+          ></p-dropdown>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [disabled]="!groupData.valid"
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="save()"
+    ></button>
+  </ng-template>
+</p-dialog>

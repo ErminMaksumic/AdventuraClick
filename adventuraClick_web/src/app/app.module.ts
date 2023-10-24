@@ -11,10 +11,18 @@ import { FooterComponent } from './pages/footer/footer.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { ReservationsModule } from './pages/reservations/reservations.module';
 import { RatingsModule } from './pages/ratings/ratings.module';
+import { UsersModule } from './pages/user/users.module';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent, HeaderComponent],
-  imports: [LoginModule, SharedModule, TravelsModule, ReservationsModule, RatingsModule],
+  imports: [
+    LoginModule,
+    SharedModule,
+    TravelsModule,
+    ReservationsModule,
+    RatingsModule,
+    UsersModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

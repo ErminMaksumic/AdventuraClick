@@ -8,5 +8,6 @@ namespace AdventuraClick.Service.Interfaces
     {
         User Login(string username, string password);
         User ProfileUpdate(int id, ProfileUpdateRequest req);
+        User UpdateUserAccount(int id, AdminUserUpdate req);
     }
 }
