@@ -88,4 +88,19 @@ export class AdditionalServicesComponent {
     this.selectedAdditionalService = additionalService;
     this.addServicesModal = true;
   }
+
+  deleteAddService(addServiceId: number){
+    this.additionalService.delete(addServiceId).subscribe({
+      next: () => {
+        this.messageNotifications.showSuccess(
+          'Additional service deleted',
+          'Additional service deleted successfully'
+        );
+        this.loadAdditionalServices()
+      },
+      error: (error: any) => {
+        console.log('error', error);
+      },
+    });
+  }
 }

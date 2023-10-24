@@ -68,6 +68,13 @@
             class="p-button-rounded p-button-success mr-2"
             (click)="selectAdditionalService(addService)"
           ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger mr-2"
+            (click)="deleteAddService(addService.addServiceId)"
+          ></button>
         </td>
       </tr>
     </ng-template>
