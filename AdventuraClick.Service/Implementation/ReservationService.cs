@@ -46,22 +46,17 @@ namespace AdventuraClick.Service.Implementation
 
         public override IQueryable<Reservation> AddFilter(IQueryable<Reservation> query, ReservationSearchObject search = null)
         {
-            var includedQuery = base.AddFilter(query, search);
+            var filteredQuery = base.AddFilter(query, search);
 
             if (!string.IsNullOrEmpty(search.Name))
             {
-                includedQuery = includedQuery.Where(x => x.Travel.Name.StartsWith(search.Name));
+                filteredQuery = filteredQuery.Where(x => x.Travel.Name.StartsWith(search.Name) || x.User.Username.StartsWith(search.Name));
             }
             if (search.UserId > 0)
             {
-                includedQuery = includedQuery.Where(x => x.UserId == search.UserId);
+                filteredQuery = filteredQuery.Where(x => x.UserId == search.UserId);
             }
-            //if (!string.IsNullOrEmpty(search.Username))
-            //{
-            //    includedQuery = includedQuery.Where(x => x.User.Username.StartsWith(search.Username));
-            //}
-
-            return includedQuery;
+            return filteredQuery;
         }
 
         public override Model.Reservation Insert(ReservationInsertRequest request)

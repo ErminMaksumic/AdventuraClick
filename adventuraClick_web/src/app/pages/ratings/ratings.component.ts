@@ -21,7 +21,8 @@ export class RatingsComponent {
       .getAll({
         IncludeUser: true,
         IncludeTravel: true,
-        travelName: search,
+        name: search,
+        username: search,
       })
       .subscribe({
         next: (result: Rating[]) => {

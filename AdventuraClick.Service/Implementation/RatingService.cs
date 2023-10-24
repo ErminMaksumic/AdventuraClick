@@ -17,9 +17,9 @@ namespace AdventuraClick.Service.Implementation
         {
             var filteredQuery = base.AddFilter(query, search);
 
-            if (!string.IsNullOrWhiteSpace(search.TravelName))
+            if (!string.IsNullOrEmpty(search.Name))
             {
-                filteredQuery = filteredQuery.Where(x => x.Travel.Name.StartsWith(search.TravelName));
+                filteredQuery = filteredQuery.Where(x => x.Travel.Name.StartsWith(search.Name) || x.User.Username.StartsWith(search.Username));
             }
 
 
