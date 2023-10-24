@@ -4,7 +4,9 @@ using AdventuraClick.Model.SearchObjects;
 using AdventuraClick.Service.Database;
 using AdventuraClick.Service.Interfaces;
 using AutoMapper;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -129,6 +131,12 @@ namespace AdventuraClick.Service.Implementation
         public Model.User ProfileUpdate(int id, ProfileUpdateRequest req)
         {
             var entity = _context.Users.Find(id);
+
+            if (!string.IsNullOrEmpty(req.ImageString))
+            {
+                byte[] imageBytes = Convert.FromBase64String(req.ImageString);
+                req.Image = imageBytes;
+            }
 
             if (req.Password != req.PasswordConfirmation)
             {

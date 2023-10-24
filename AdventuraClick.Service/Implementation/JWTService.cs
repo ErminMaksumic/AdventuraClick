@@ -20,7 +20,8 @@ public class JwtService : IJWTService
         {
             new Claim(ClaimTypes.NameIdentifier, user.Username),
             new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
-            new Claim(ClaimTypes.Role, user.Role.Name)
+            new Claim(ClaimTypes.Role, user.Role.Name),
+            new Claim("userId", user.UserId.ToString())
         };
 
         var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["keyjwt"]));

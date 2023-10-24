@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
+import { transformImage } from 'src/app/utils/transformImage';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +10,18 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Input() currentRoute: string = '';
-  constructor() {
+  @Input() user: User = {};
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.userService.userImage$.subscribe((newImageUrl) => {
+      if (newImageUrl) {
+        this.user.image = newImageUrl;
+      }
+    });
   }
 
-  ngOnInit(): void {}
+  transformImageWrapper() {
+    return transformImage(this.user.image || '');
+  }
 }

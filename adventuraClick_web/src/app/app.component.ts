@@ -1,6 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { UserService } from './services/user.service';
+import { getUserId } from './utils/jwt-decoder';
+import { User } from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +15,14 @@ export class AppComponent {
   currentRoutePath: string = '';
   title = 'adventuraClick_web';
   showSidebar: boolean = true;
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  userId: number = 0;
+  user: User = {};
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.router.events
@@ -27,5 +37,18 @@ export class AppComponent {
             ?.toUpperCase()}`;
         }
       });
+    this.userId = getUserId();
+    this.loadUser();
+  }
+
+  loadUser(search: string = '') {
+    this.userService.getById(this.userId).subscribe({
+      next: (result: User) => {
+        this.user = result;
+      },
+      error: (error: any) => {
+        console.log('error', error);
+      },
+    });
   }
 }

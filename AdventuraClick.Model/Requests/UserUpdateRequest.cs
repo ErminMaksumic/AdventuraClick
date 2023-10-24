@@ -10,13 +10,12 @@ namespace AdventuraClick.Model.Requests
         [Required(AllowEmptyStrings = false), MaxLength(20)]
         public string LastName { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
         [EmailAddress(), MaxLength(25)]
-        public string Email { get; set; }
-        [Required(AllowEmptyStrings = false), MaxLength(20)]
-        public string Password { get; set; }
-        [Required(AllowEmptyStrings = false), MaxLength(20)]
-        public string PasswordConfirmation { get; set; }
-        public byte[] Image { get; set; }
+        public string? Email { get; set; }
+        [MaxLength(20)]
+        public string? Password { get; set; }
+        [MaxLength(20)]
+        public string? PasswordConfirmation { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

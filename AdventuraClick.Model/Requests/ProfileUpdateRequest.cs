@@ -18,6 +18,7 @@ namespace AdventuraClick.Model.Requests
         [MaxLength(20)]
         public string? PasswordConfirmation { get; set; }
         public byte[]? Image { get; set; }
+        public string ImageString { get; set; }
 
     }
 }

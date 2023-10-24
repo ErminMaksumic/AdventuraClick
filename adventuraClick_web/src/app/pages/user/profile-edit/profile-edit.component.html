@@ -1,0 +1,64 @@
+<div class="profile-container">
+  <p-card header="Edit Profile">
+    <div class="card-content">
+      <div class="form-container">
+        <form [formGroup]="groupData">
+          <div class="p-field">
+            <label for="firstname">First name</label>
+            <input
+              id="firstname"
+              type="text"
+              pInputText
+              formControlName="firstName"
+            />
+          </div>
+
+          <div class="p-field">
+            <label for="lastname">Last name</label>
+            <input
+              id="lastname"
+              type="text"
+              pInputText
+              formControlName="lastName"
+            />
+          </div>
+
+          <div class="p-field">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              pPassword
+              formControlName="password"
+            />
+          </div>
+
+          <div class="p-field">
+            <label for="passwordConfirm">Password confirmation</label>
+            <input
+              id="passwordConfirm"
+              type="password"
+              pPassword
+              formControlName="passwordConfirmation"
+            />
+          </div>
+
+          <button
+            pButton
+            type="submit"
+            label="Submit"
+            (click)="saveUser()"
+            [disabled]="!groupData.valid"
+          ></button>
+        </form>
+      </div>
+      <p-fileUpload
+        name="myfile[]"
+        id="image"
+        [customUpload]="true"
+        (uploadHandler)="onUpload($event)"
+        >Choose new image</p-fileUpload
+      >
+    </div>
+  </p-card>
+</div>
