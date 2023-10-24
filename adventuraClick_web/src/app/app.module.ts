@@ -12,6 +12,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import { ReservationsModule } from './pages/reservations/reservations.module';
 import { RatingsModule } from './pages/ratings/ratings.module';
 import { UsersModule } from './pages/user/users.module';
+import { AdditionalServicesModule } from './pages/additional-services/additionalServices.module';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent, HeaderComponent],
@@ -22,6 +23,7 @@ import { UsersModule } from './pages/user/users.module';
     ReservationsModule,
     RatingsModule,
     UsersModule,
+    AdditionalServicesModule
   ],
   providers: [
     {

@@ -1,0 +1,82 @@
+<div class="card">
+  <p-table
+    #dt
+    [value]="additionalServices"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="[
+      'name',
+      'country.name',
+      'representative.name',
+      'status'
+    ]"
+    [tableStyle]="{ 'min-width': '70rem' }"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Additional Services</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            placeholder="Search..."
+            [(ngModel)]="searchQuery"
+          />
+          <button
+            pButton
+            pRipple
+            label="Search"
+            icon="pi pi-search"
+            class="p-button ml-3"
+            (click)="search(searchQuery)"
+          ></button>
+        </span>
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button p-mr-5"
+          (click)="selectAdditionalService()"
+        ></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Additional Service Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr></ng-template
+    >
+
+    <ng-template pTemplate="body" let-addService>
+      <tr>
+        <td>{{ addService.addServiceId }}</td>
+        <td>{{ addService.name }}</td>
+        <td>{{ addService.price }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+            (click)="selectAdditionalService(addService)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<app-additional-services-modal
+  *ngIf="addServicesModal"
+  [additionalService]="selectedAdditionalService"
+  (onClose)="addServicesModal = false"
+  (onSave)="saveAddService($event)"
+></app-additional-services-modal>

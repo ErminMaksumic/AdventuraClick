@@ -1,0 +1,55 @@
+<p-dialog
+  [visible]="true"
+  header="Additional Services"
+  [modal]="true"
+  styleClass="p-fluid"
+  [closable]="false"
+>
+  <ng-template pTemplate="content">
+    <form [formGroup]="groupData">
+      <div class="field">
+        <label>Name</label>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          formControlName="name"
+          required
+          autofocus
+        />
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label>Price</label>
+          <p-inputNumber
+            id="price"
+            formControlName="price"
+            mode="currency"
+            currency="USD"
+            locale="en-US"
+          ></p-inputNumber>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [disabled]="!groupData.valid"
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="save()"
+    ></button>
+  </ng-template>
+</p-dialog>

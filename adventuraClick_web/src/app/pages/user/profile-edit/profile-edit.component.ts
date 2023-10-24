@@ -77,7 +77,6 @@ export class ProfileEditComponent implements OnInit {
   fillInputs(value: User) {
     this.groupData.get('firstName')?.patchValue(value.firstName);
     this.groupData.get('lastName')?.patchValue(value.lastName);
-
   }
 
   saveUser() {
