@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
+import { RouteStateService } from 'src/app/services/route-state.service';
+import { SessionService } from 'src/app/services/session.service';
 import { UserService } from 'src/app/services/user.service';
 import { getUserId } from 'src/app/utils/jwt-decoder';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
@@ -20,13 +22,21 @@ export class ProfileEditComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private userService: UserService,
-    private messageNotifications: MessageNotifications
+    private messageNotifications: MessageNotifications,
+    private sessionService: SessionService,
+    private routeStateService: RouteStateService
   ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.userId = getUserId();
     this.loadUser();
+  }
+
+  ngAfterViewInit(): void {
+    this.sessionService.setItem('active-menu', 'home');
+    this.routeStateService.add('home', 'profile', null, true);
+    this.userService.changeActiveMenu('home');
   }
 
   initForm() {
@@ -56,6 +66,7 @@ export class ProfileEditComponent implements OnInit {
       next: (result: User) => {
         this.user = result;
         this.fillInputs(this.user);
+       
       },
       error: (error: any) => {
         console.log('error', error);
@@ -66,6 +77,7 @@ export class ProfileEditComponent implements OnInit {
   fillInputs(value: User) {
     this.groupData.get('firstName')?.patchValue(value.firstName);
     this.groupData.get('lastName')?.patchValue(value.lastName);
+
   }
 
   saveUser() {

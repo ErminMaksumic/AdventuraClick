@@ -1,26 +1,26 @@
 .site-header {
-  height: 5%;
+  height: 6%;
   width: 100%;
   background: linear-gradient(to right, #a29c9c, #cfc8c8, #E8EBF4);
-  display: flex; /* Postavite display na flex */
-  align-items: center; /* Centrirajte elemente vertikalno */
-  justify-content: flex-start; /* Postavite elemente na početak kontejnera */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   font-family: 'AdventuraFont';
-  padding: 0 1%; /* Dodajte padding na lijevoj i desnoj strani kako bi sve izgledalo uredno */
+  padding: 0 1%;
 }
 
 .route-display {
-  margin-top: 0; /* Nema potrebe za ovom marginom s flexom */
+  margin-top: 0;
   margin-left: 1%;
   color: rgb(255, 255, 255);
   font-size: larger;
-  flex: 1; /* Ovaj element će zauzeti preostali prostor */
+  flex: 1;
 }
 
 .profile-picture {
-  margin-left: 1%; /* Dodajte malo razmaka s lijeve strane slike */
-  width: 40px;
-  height: 40px;
-  border-radius: 50%; /* Ovaj stil čini sliku okruglom */
+  margin-left: 1%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   cursor: pointer;
 }

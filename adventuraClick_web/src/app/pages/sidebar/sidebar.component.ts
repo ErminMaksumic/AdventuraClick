@@ -4,6 +4,7 @@ import { MenuDataService } from 'src/app/services/menu-data.service';
 import { RouteStateService } from 'src/app/services/route-state.service';
 import { SecurityService } from 'src/app/services/security.service';
 import { SessionService } from 'src/app/services/session.service';
+import { UserService } from 'src/app/services/user.service';
 
 export class CustomMenuItem {
   constructor() {
@@ -35,7 +36,8 @@ export class SidebarComponent implements OnInit {
     private sessionService: SessionService,
     private menuDataService: MenuDataService,
     private securityService: SecurityService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.items = [];
     this.selectedItem = '';
@@ -57,6 +59,12 @@ export class SidebarComponent implements OnInit {
     } else {
       this.selectedItem = 'Home';
     }
+
+    this.userService.activeMenu$.subscribe((selectedItem) => {
+      if (selectedItem) {
+        this.selectedItem = selectedItem;
+      }
+    });
   }
 
   ngOnDestroy() {

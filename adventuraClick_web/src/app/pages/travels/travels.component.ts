@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Travel } from 'src/app/models/travel.model';
 import { TravelService } from 'src/app/services/travel.service';
+import { UserService } from 'src/app/services/user.service';
 import { displayDates } from 'src/app/utils/displayDates';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
 import { transformImage } from 'src/app/utils/transformImage';
@@ -21,7 +23,9 @@ export class TravelsComponent implements OnInit {
 
   constructor(
     private travelService: TravelService,
-    private messageNotifications: MessageNotifications
+    private messageNotifications: MessageNotifications,
+    private router: Router,
+    private userService: UserService,
   ) {}
 
   ngOnInit() {
@@ -79,6 +83,7 @@ export class TravelsComponent implements OnInit {
     this.travels = [...this.travels];
     this.travelDialog = false;
     this.travel = {};
+    this.router.navigate(['travels']);
   }
 
   loadTravels(search: string = '') {
@@ -105,5 +110,10 @@ export class TravelsComponent implements OnInit {
   search(input: string)
   {
     this.loadTravels(input);
+  }
+
+  showModal(){
+    this.userService.changeActiveMenu('Create Travel');
+    this.router.navigate(['travels/create']);
   }
 }
