@@ -11,8 +11,10 @@ import { BehaviorSubject } from 'rxjs';
 export class UserService extends BaseService<User> {
   private userImageSubject = new BehaviorSubject<string>('');
   private activeMenuSubject = new BehaviorSubject<string>('');
+  private usernameSubject = new BehaviorSubject<string>('');
   userImage$ = this.userImageSubject.asObservable();
   activeMenu$ = this.activeMenuSubject.asObservable();
+  username$ = this.usernameSubject.asObservable();
 
   constructor(protected override http: HttpClient) {
     super(http, 'user');
@@ -34,6 +36,10 @@ export class UserService extends BaseService<User> {
 
   updateUserImage(newImageUrl: string) {
     this.userImageSubject.next(newImageUrl);
+  }
+
+  updateUsername(newImageUrl: string) {
+    this.usernameSubject.next(newImageUrl);
   }
 
   changeActiveMenu(activeMenu: string) {

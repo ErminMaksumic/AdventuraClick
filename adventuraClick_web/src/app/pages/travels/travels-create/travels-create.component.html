@@ -17,6 +17,12 @@
         formControlName="name"
         [style]="{ width: '50%' }"
       />
+      <div
+      *ngIf="groupData.get('name')?.hasError('required') && groupData.get('name')?.touched"
+      class="text-danger"
+    >
+      Please enter the name
+    </div>
     </div>
     <div class="flex flex-column gap-2 mt-3">
       <label for="price">Price</label>
@@ -28,6 +34,12 @@
         locale="en-US"
         [style]="{ width: '50%' }"
       ></p-inputNumber>
+      <div
+      *ngIf="groupData.get('price')?.hasError('required') && groupData.get('price')?.touched"
+      class="text-danger"
+    >
+      Please enter the name
+    </div>
     </div>
     <div class="flex flex-column gap-2 mt-3">
       <label for="price">Travel Type</label>
@@ -86,6 +98,12 @@
         formControlName="cityName"
         [style]="{ width: '50%' }"
       />
+      <div
+      *ngIf="groupData.get('location.cityName')?.hasError('required') && groupData.get('location.cityName')?.touched"
+      class="text-danger"
+    >
+      Please enter the city
+    </div>
     </div>
     <div class="flex flex-column gap-2 mt-3">
       <label for="countryName">Country name</label>
@@ -95,6 +113,12 @@
         formControlName="countryName"
         [style]="{ width: '50%' }"
       />
+      <div
+      *ngIf="groupData.get('location.countryName')?.hasError('required') && groupData.get('location.countryName')?.touched"
+      class="text-danger"
+    >
+      Please enter the country
+    </div>
     </div>
     <br />
     <HR />

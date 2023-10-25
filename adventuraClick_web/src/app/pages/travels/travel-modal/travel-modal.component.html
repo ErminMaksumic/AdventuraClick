@@ -26,9 +26,12 @@
           required
           autofocus
         />
-        <small class="p-error" *ngIf="submitted && !travel.name"
-          >Name is required.</small
+        <div
+          *ngIf="groupData.get('name')?.hasError('required')"
+          class="text-danger"
         >
+          Please enter the name
+        </div>
       </div>
       <div class="formgrid grid">
         <div class="field col">
@@ -40,6 +43,12 @@
             currency="USD"
             locale="en-US"
           ></p-inputNumber>
+          <div
+            *ngIf="groupData.get('price')?.hasError('required')"
+            class="text-danger"
+          >
+            Please enter the price
+          </div>
         </div>
       </div>
       <div class="formgrid grid">

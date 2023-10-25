@@ -11,6 +11,15 @@
               pInputText
               formControlName="firstName"
             />
+            <div
+          *ngIf="
+            groupData.get('firstName')?.hasError('required') &&
+            groupData.get('firstName')?.touched
+          "
+          class="text-danger"
+        >
+          Please enter the first name
+        </div>
           </div>
 
           <div class="p-field">
@@ -21,6 +30,15 @@
               pInputText
               formControlName="lastName"
             />
+            <div
+            *ngIf="
+              groupData.get('lastName')?.hasError('required') &&
+              groupData.get('lastName')?.touched
+            "
+            class="text-danger"
+          >
+            Please enter the last name
+          </div>
           </div>
 
           <div class="p-field">

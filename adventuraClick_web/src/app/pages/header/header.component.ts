@@ -19,6 +19,11 @@ export class HeaderComponent implements OnInit {
         this.user.image = newImageUrl;
       }
     });
+    this.userService.username$.subscribe((newUsername) => {
+      if (newUsername) {
+        this.user.username = newUsername;
+      }
+    });
   }
 
   transformImageWrapper() {

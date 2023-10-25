@@ -17,6 +17,15 @@
           required
           autofocus
         />
+        <div
+          *ngIf="
+            groupData.get('name')?.hasError('required') &&
+            groupData.get('name')?.touched
+          "
+          class="text-danger"
+        >
+          Please enter the service name
+        </div>
       </div>
       <div class="formgrid grid">
         <div class="field col">
@@ -28,6 +37,15 @@
             currency="USD"
             locale="en-US"
           ></p-inputNumber>
+          <div
+          *ngIf="
+            groupData.get('price')?.hasError('required') &&
+            groupData.get('price')?.touched
+          "
+          class="text-danger"
+        >
+          Please enter the price
+        </div>
         </div>
       </div>
     </form>

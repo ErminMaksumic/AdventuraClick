@@ -53,19 +53,22 @@ export class UserComponent {
   }
 
   saveUser(userValue: User) {
-    this.userService.updateUserAccount(this.user.userId || 0, userValue).subscribe({
-      next: (result: User) => {
-        this.user = result;
-        this.loadUsers();
-        this.messageNotifications.showSuccess(
-          'User edited',
-          'User edited successfully'
-        );
-      },
-      error: (error: any) => {
-        console.log('error', error);
-      },
-    });
+    this.userService
+      .updateUserAccount(this.user.userId || 0, userValue)
+      .subscribe({
+        next: (result: User) => {
+          this.user = result;
+          this.loadUsers();
+          this.messageNotifications.showSuccess(
+            'User edited',
+            'User edited successfully'
+          );
+          this.userService.updateUsername(userValue.username || '');
+        },
+        error: (error: any) => {
+          console.log('error', error);
+        },
+      });
     this.users = [...this.users];
     this.userDialog = false;
     this.user = {};
@@ -78,7 +81,7 @@ export class UserComponent {
           'User deleted',
           'User deleted successfully'
         );
-        this.loadUsers()
+        this.loadUsers();
       },
       error: (error: any) => {
         console.log('error', error);

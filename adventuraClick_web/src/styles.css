@@ -19,3 +19,7 @@ body {
   font-family: "AdventuraFont";
   src: url("./assets/TRACER__.ttf");
 }
+
+.text-danger {
+  color: red;
+}

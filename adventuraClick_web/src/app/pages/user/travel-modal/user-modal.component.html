@@ -26,9 +26,15 @@
           required
           autofocus
         />
-        <small class="p-error" *ngIf="submitted && !user.username"
-          >Username is required.</small
+        <div
+          *ngIf="
+            groupData.get('username')?.hasError('required') &&
+            groupData.get('username')?.touched
+          "
+          class="text-danger"
         >
+          Please enter the username
+        </div>
         <div class="field">
           <label>First name</label>
           <input
@@ -39,9 +45,15 @@
             required
             autofocus
           />
-          <small class="p-error" *ngIf="submitted && !user.firstName"
-            >Name is required.</small
+          <div
+            *ngIf="
+              groupData.get('firstName')?.hasError('required') &&
+              groupData.get('firstName')?.touched
+            "
+            class="text-danger"
           >
+            Please enter the first name
+          </div>
         </div>
         <div class="field">
           <label>Last name</label>
@@ -53,9 +65,15 @@
             required
             autofocus
           />
-          <small class="p-error" *ngIf="submitted && !user.lastName"
-            >Last name is required.</small
-          >
+          <div
+          *ngIf="
+            groupData.get('lastName')?.hasError('required') &&
+            groupData.get('lastName')?.touched
+          "
+          class="text-danger"
+        >
+          Please enter the last name
+        </div>
         </div>
         <div class="flex flex-column gap-2 mt-3">
           <label for="price">Role</label>
