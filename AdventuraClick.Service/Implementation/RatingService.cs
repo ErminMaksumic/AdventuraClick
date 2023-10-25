@@ -22,7 +22,6 @@ namespace AdventuraClick.Service.Implementation
                 filteredQuery = filteredQuery.Where(x => x.Travel.Name.StartsWith(search.Name) || x.User.Username.StartsWith(search.Username));
             }
 
-
             return filteredQuery;
         }
 

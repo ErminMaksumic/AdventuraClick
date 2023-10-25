@@ -12,9 +12,10 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: hsl(0, 0%, 96%);
 }
 
-@font-face{
-  font-family: 'AdventuraFont';
-  src: url('./assets/TRACER__.ttf');
+@font-face {
+  font-family: "AdventuraFont";
+  src: url("./assets/TRACER__.ttf");
 }

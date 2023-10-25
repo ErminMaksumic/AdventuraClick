@@ -25,12 +25,20 @@ import { StepsModule } from 'primeng/steps';
 import { PickListModule } from 'primeng/picklist';
 import { ListboxModule } from 'primeng/listbox';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ChartModule } from 'primeng/chart';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RouterModule } from '@angular/router';
+import { HomeComponent } from '../pages/home/home.component';
 
 @NgModule({
-  declarations: [SidebarComponent],
-  imports: [SidebarModule, ButtonModule, CommonModule, RouterModule],
+  declarations: [SidebarComponent, HomeComponent],
+  imports: [
+    SidebarModule,
+    ButtonModule,
+    CommonModule,
+    RouterModule,
+    ChartModule,
+  ],
   exports: [
     PasswordModule,
     BrowserModule,
@@ -60,7 +68,7 @@ import { RouterModule } from '@angular/router';
     FileUploadModule,
     PickListModule,
     CalendarModule,
-    ListboxModule
+    ListboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

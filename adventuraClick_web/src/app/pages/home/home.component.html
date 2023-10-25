@@ -1,0 +1,26 @@
+<div class="stats-wrapper">
+  <div class="stats-container">
+    <div class="stat-card">
+      <i class="fas fa-user"></i>
+      <p class="stat-number">{{ users.length }}</p>
+      <span class="stat-label">USERS</span>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-calendar"></i>
+      <p class="stat-number">{{ reservations.length }}</p>
+      <span class="stat-label">RESERVATIONS</span>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-suitcase"></i>
+      <p class="stat-number">{{ travels.length }}</p>
+      <span class="stat-label">TRAVELS</span>
+    </div>
+  </div>
+</div>
+
+<div class="chart-wrapper">
+  <div class="chart-container">
+    <p-chart class="line-chart" type="line" [data]="data"></p-chart>
+    <p-chart class="pie-chart" type="pie" [data]="travelChartData"></p-chart>
+  </div>
+</div>
