@@ -52,5 +52,12 @@ namespace AdventuraClick.Controllers
         {
             return _service.UpdateUserAccount(id, req);
         }
+
+        [HttpGet("isReserved/{userId}/{travelId}")]
+
+        public bool IsReserved(int userId, int travelId)
+        {
+            return _service.IsReserved(userId, travelId);
+        }
     }
 }

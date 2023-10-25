@@ -68,4 +68,18 @@ class UserProvider extends BaseProvider<User> {
       return null;
     }
   }
+
+  Future<bool> isReserved(String travelId) async {
+    var url = Uri.parse(
+        "$fullUrl/isReserved/${Authorization.user?.userId}/$travelId");
+    Map<String, String> headers = createHeaders();
+
+    var response = await http!.get(url, headers: headers);
+
+    if (isValidResponseCode(response)) {
+      return response.body.toLowerCase() == 'true';
+    } else {
+      throw Exception("An error occured!");
+    }
+  }
 }

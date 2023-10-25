@@ -185,5 +185,10 @@ namespace AdventuraClick.Service.Implementation
             _context.Reservations.RemoveRange(reservations);
             _context.SaveChanges();
         }
+
+        public bool IsReserved(int userId, int travelId)
+        {
+            return _context.Reservations.Any(reservation => reservation.UserId == userId && reservation.TravelId == travelId);
+        }
     }
 }

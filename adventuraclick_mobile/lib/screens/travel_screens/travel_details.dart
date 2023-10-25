@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:adventuraclick_mobile/model/travel.dart';
 import 'package:adventuraclick_mobile/model/travel_information.dart';
 import 'package:adventuraclick_mobile/providers/travel_provider.dart';
+import 'package:adventuraclick_mobile/providers/user_provider.dart';
 import 'package:adventuraclick_mobile/screens/travel_screens/rating_screen.dart';
 import 'package:adventuraclick_mobile/screens/reservation_screens/reservation_screen.dart';
 import 'package:adventuraclick_mobile/utils/app_colors.dart';
@@ -27,6 +28,7 @@ class TravelDetailsScreen extends StatefulWidget {
 
 class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
   TravelProvider? _travelProvider;
+  UserProvider? _userProvider;
   Travel data = Travel();
   String id;
 
@@ -36,6 +38,7 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
   void initState() {
     super.initState();
     _travelProvider = context.read<TravelProvider>();
+    _userProvider = context.read<UserProvider>();
     loadData();
   }
 
@@ -98,10 +101,9 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                             child: Text(
                               data.travelType?.name ?? 'Unknown',
                               style: const TextStyle(
-                                color: Color.fromARGB(255, 48, 46, 46),
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.bold
-                              ),
+                                  color: Color.fromARGB(255, 48, 46, 46),
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -211,7 +213,8 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                     height: 50,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
-                                        gradient: const LinearGradient(colors: AppColors.submitButton)),
+                                        gradient: const LinearGradient(
+                                            colors: AppColors.submitButton)),
                                     child: InkWell(
                                         onTap: () {
                                           Navigator.pushNamed(context,
@@ -224,23 +227,58 @@ class _TravelDetailsScreenState extends State<TravelDetailsScreen> {
                                         ))),
                                   ),
                                   Container(
-                                    width: 150,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        gradient: const LinearGradient(
-                                            colors: AppColors.submitButton)),
-                                    child: InkWell(
-                                        onTap: () {
-                                          Navigator.pushNamed(context,
-                                              "${RatingScreen.routeName}/${data.travelId}");
+                                      width: 150,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          gradient: const LinearGradient(
+                                              colors: AppColors.submitButton)),
+                                      child: FutureBuilder<bool>(
+                                        future: _userProvider?.isReserved(id),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<bool> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          } else if (snapshot.connectionState ==
+                                                  ConnectionState.done &&
+                                              !snapshot.hasError) {
+                                            if (snapshot.data!) {
+                                              // if isReserved returns true
+                                              return InkWell(
+                                                onTap: () {
+                                                  Navigator.pushNamed(context,
+                                                      "${RatingScreen.routeName}/${data.travelId}");
+                                                },
+                                                child: const Center(
+                                                  child: Text(
+                                                    "Rate this travel",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              );
+                                            } else {
+                                              // if isReserved returns false
+                                              return const Center(
+                                                child: Text(
+                                                  "Rate this travel",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                          } else {
+                                            return const Center(
+                                                child:
+                                                    Text('An error occurred'));
+                                          }
                                         },
-                                        child: const Center(
-                                            child: Text(
-                                          "Rate this travel",
-                                          style: TextStyle(color: Colors.white),
-                                        ))),
-                                  ),
+                                      )),
                                 ],
                               ),
                             ])),
