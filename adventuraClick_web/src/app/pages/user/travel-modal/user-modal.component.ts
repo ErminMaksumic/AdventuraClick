@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Travel } from 'src/app/models/travel.model';
 import { Role, User } from 'src/app/models/user.model';
 import { RoleService } from 'src/app/services/role.service';
+import { parseWebAPiErrors } from 'src/app/utils/parseWebApiErrors';
 import { transformImage } from 'src/app/utils/transformImage';
 
 @Component({
@@ -16,6 +17,7 @@ export class UserModalComponent {
   groupData!: FormGroup;
   formData = new FormData();
   roles: Role[] = [];
+  errors: string[] = [];
   @Output() onSave: EventEmitter<Travel> = new EventEmitter();
   @Output() onClose: EventEmitter<Travel> = new EventEmitter();
 
@@ -65,6 +67,7 @@ export class UserModalComponent {
         this.roles = result;
       },
       error: (error: any) => {
+        this.errors = parseWebAPiErrors(error);
         console.log('error', error);
       },
     });

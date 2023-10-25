@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Travel } from 'src/app/models/travel.model';
@@ -6,6 +6,7 @@ import { TravelService } from 'src/app/services/travel.service';
 import { UserService } from 'src/app/services/user.service';
 import { displayDates } from 'src/app/utils/displayDates';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
+import { parseWebAPiErrors } from 'src/app/utils/parseWebApiErrors';
 import { transformImage } from 'src/app/utils/transformImage';
 
 @Component({
@@ -20,6 +21,7 @@ export class TravelsComponent implements OnInit {
   submitted: boolean = false;
   joinedDates: string = '';
   searchQuery: string = '';
+  errors: string[] = [];
 
   constructor(
     private travelService: TravelService,
@@ -53,6 +55,7 @@ export class TravelsComponent implements OnInit {
         this.loadTravels()
       },
       error: (error: any) => {
+        this.errors = parseWebAPiErrors(error);
         console.log('error', error);
       },
     });
@@ -77,6 +80,7 @@ export class TravelsComponent implements OnInit {
           );
         },
         error: (error: any) => {
+          this.errors = parseWebAPiErrors(error);
           console.log('error', error);
         },
       });
@@ -94,6 +98,7 @@ export class TravelsComponent implements OnInit {
           this.travels = result;
         },
         error: (error: any) => {
+          this.errors = parseWebAPiErrors(error);
           console.log('error', error);
         },
       });

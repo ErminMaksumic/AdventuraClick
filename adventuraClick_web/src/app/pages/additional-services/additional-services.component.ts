@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdditionalService } from 'src/app/models/additionalService.model';
 import { AdditionalServices } from 'src/app/services/additionalService.service';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
+import { parseWebAPiErrors } from 'src/app/utils/parseWebApiErrors';
 
 @Component({
   selector: 'app-additional-services',
@@ -16,6 +17,7 @@ export class AdditionalServicesComponent {
   groupData!: FormGroup;
   formData = new FormData();
   addServicesModal: boolean = false;
+  errors: string[] = [];
 
   constructor(
     private additionalService: AdditionalServices,
@@ -32,6 +34,7 @@ export class AdditionalServicesComponent {
         this.additionalServices = result;
       },
       error: (error: any) => {
+        this.errors = parseWebAPiErrors(error);
         console.log('error', error);
       },
     });
@@ -50,7 +53,7 @@ export class AdditionalServicesComponent {
       this.additionalService
         .update(addService.addServiceId || 0, addService)
         .subscribe({
-          next: (result: AdditionalService) => {
+          next: () => {
             this.addServicesModal = false;
             this.selectedAdditionalService = {};
             this.loadAdditionalServices();
@@ -60,27 +63,26 @@ export class AdditionalServicesComponent {
             );
           },
           error: (error: any) => {
+            this.errors = parseWebAPiErrors(error);
             console.log('error', error);
           },
         });
-    }
-    else{
-      this.additionalService
-        .create(addService)
-        .subscribe({
-          next: (result: AdditionalService) => {
-            this.addServicesModal = false;
-            this.selectedAdditionalService = {};
-            this.loadAdditionalServices();
-            this.messageNotifications.showSuccess(
-              'Additional service created',
-              'Additional service created successfully'
-            );
-          },
-          error: (error: any) => {
-            console.log('error', error);
-          },
-        });
+    } else {
+      this.additionalService.create(addService).subscribe({
+        next: (result: AdditionalService) => {
+          this.addServicesModal = false;
+          this.selectedAdditionalService = {};
+          this.loadAdditionalServices();
+          this.messageNotifications.showSuccess(
+            'Additional service created',
+            'Additional service created successfully'
+          );
+        },
+        error: (error: any) => {
+          this.errors = parseWebAPiErrors(error);
+          console.log('error', error);
+        },
+      });
     }
   }
 
@@ -89,16 +91,17 @@ export class AdditionalServicesComponent {
     this.addServicesModal = true;
   }
 
-  deleteAddService(addServiceId: number){
+  deleteAddService(addServiceId: number) {
     this.additionalService.delete(addServiceId).subscribe({
       next: () => {
         this.messageNotifications.showSuccess(
           'Additional service deleted',
           'Additional service deleted successfully'
         );
-        this.loadAdditionalServices()
+        this.loadAdditionalServices();
       },
       error: (error: any) => {
+        this.errors = parseWebAPiErrors(error);
         console.log('error', error);
       },
     });

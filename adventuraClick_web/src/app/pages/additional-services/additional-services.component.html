@@ -1,4 +1,8 @@
 <div class="card">
+  <app-display-errors
+    *ngIf="errors.length > 0"
+    [errors]="errors"
+  ></app-display-errors>
   <p-table
     #dt
     [value]="additionalServices"

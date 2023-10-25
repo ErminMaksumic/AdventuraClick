@@ -29,9 +29,10 @@ import { ChartModule } from 'primeng/chart';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from '../pages/home/home.component';
+import { DisplayErrorsComponent } from './display-errors/display-errors.component';
 
 @NgModule({
-  declarations: [SidebarComponent, HomeComponent],
+  declarations: [SidebarComponent, HomeComponent, DisplayErrorsComponent],
   imports: [
     SidebarModule,
     ButtonModule,
@@ -69,6 +70,7 @@ import { HomeComponent } from '../pages/home/home.component';
     PickListModule,
     CalendarModule,
     ListboxModule,
+    DisplayErrorsComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

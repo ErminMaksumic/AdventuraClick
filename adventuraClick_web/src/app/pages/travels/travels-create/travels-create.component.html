@@ -1,4 +1,8 @@
 <form class="card" [formGroup]="groupData">
+  <app-display-errors
+  *ngIf="errors.length > 0"
+  [errors]="errors"
+></app-display-errors>
   <p-steps
     [model]="items"
     [readonly]="false"

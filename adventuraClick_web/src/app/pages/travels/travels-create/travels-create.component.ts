@@ -8,6 +8,7 @@ import { IncludedItemService } from 'src/app/services/includedItems.service';
 import { TravelService } from 'src/app/services/travel.service';
 import { TravelTypeService } from 'src/app/services/travelType.service';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
+import { parseWebAPiErrors } from 'src/app/utils/parseWebApiErrors';
 import { getSteps } from 'src/app/utils/steps';
 import { imgToByte } from 'src/app/utils/transformImage';
 
@@ -27,6 +28,7 @@ export class TravelsCreateComponent implements OnInit {
   travelTypes: TravelType[] = [];
   createIncludedItemModal: boolean = false;
   includedItemName: string = '';
+  errors: string[] = [];
 
   constructor(
     private builder: FormBuilder,
@@ -70,20 +72,7 @@ export class TravelsCreateComponent implements OnInit {
   }
 
   submit() {
-    // Set Included Items IDs
-    const includedItemIds = this.targetItems.map((item) => item.includedItemId);
-    this.groupData.value.includedItemIds = includedItemIds;
-    // Set Travel Type IDs
-    this.groupData.value.travelTypeId =
-      this.groupData.value.travelTypeId.travelTypeId;
-    // Set dates
-    this.groupData.value.travelInformations =
-      this.groupData.value.travelInformations.map((x: string) => {
-        return {
-          departureTime: new Date(x),
-          createdBy: 'Admin',
-        };
-      });
+    this.prepareGroupData();
     this.travelService.create(this.groupData.value).subscribe({
       next: (result: Travel) => {
         this.messageNotifications.showSuccess(
@@ -93,6 +82,7 @@ export class TravelsCreateComponent implements OnInit {
         console.log('result', result);
       },
       error: (error: any) => {
+        this.errors = parseWebAPiErrors(error);
         console.log('error', error);
       },
     });
@@ -119,6 +109,7 @@ export class TravelsCreateComponent implements OnInit {
         this.cdr.markForCheck();
       },
       error: (error: any) => {
+        this.errors = parseWebAPiErrors(error);
         console.log('error', error);
       },
     });
@@ -130,6 +121,7 @@ export class TravelsCreateComponent implements OnInit {
         this.travelTypes = result;
       },
       error: (error: any) => {
+        this.errors = parseWebAPiErrors(error);
         console.log('error', error);
       },
     });
@@ -147,8 +139,26 @@ export class TravelsCreateComponent implements OnInit {
         this.includedItemName = '';
       },
       error: (error: any) => {
+        this.errors = parseWebAPiErrors(error);
         console.log('error', error);
       },
     });
+  }
+
+  prepareGroupData() {
+    // Set Included Items IDs
+    const includedItemIds = this.targetItems.map((item) => item.includedItemId);
+    this.groupData.value.includedItemIds = includedItemIds;
+    // Set Travel Type IDs
+    this.groupData.value.travelTypeId =
+      this.groupData.value.travelTypeId.travelTypeId;
+    // Set dates
+    this.groupData.value.travelInformations =
+      this.groupData.value.travelInformations.map((x: string) => {
+        return {
+          departureTime: new Date(x),
+          createdBy: 'Admin',
+        };
+      });
   }
 }
