@@ -30,6 +30,13 @@ export class SecurityService extends BaseService<User> {
     return true;
   }
 
+  isAdmin(): boolean {
+    const role = this.getFieldFromJWT(
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+    );
+    return role === 'Admin';
+  }
+
   getToken() {
     return localStorage.getItem(this.tokenKey);
   }

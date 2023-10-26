@@ -1,11 +1,10 @@
-<header class="site-header">
+<header class="site-header" *ngIf="user">
   <span class="route-display">{{ currentRoute }}</span>
   <img
-    *ngIf="user"
     src="{{ transformImageWrapper() }}"
     alt="profile image"
     class="profile-picture"
     routerLink="profile"
   />
-  <span>{{user.username}}</span>
+  <span>{{ user.username }}</span>
 </header>

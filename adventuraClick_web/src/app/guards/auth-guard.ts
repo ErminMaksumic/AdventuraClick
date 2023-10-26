@@ -14,7 +14,7 @@ export const canActivate: CanActivateFn = (
 ) => {
   const securityService = inject(SecurityService);
   const router = inject(Router);
-  if (securityService.isAuthenticated()) {
+  if (securityService.isAuthenticated() && securityService.isAdmin()) {
     return true;
   }
 

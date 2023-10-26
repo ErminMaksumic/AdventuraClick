@@ -37,8 +37,10 @@ export class AppComponent {
             ?.toUpperCase()}`;
         }
       });
-    this.userId = getUserId();
-    this.loadUser();
+    if (localStorage.getItem('JWT')) {
+      this.userId = getUserId();
+      this.loadUser();
+    }
   }
 
   loadUser(search: string = '') {

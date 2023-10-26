@@ -14,11 +14,9 @@ namespace AdventuraClick.Controllers
     {
         private readonly IUserService _service;
 
-        private readonly IConfiguration _configuration;
-        public UserController(IUserService service, IConfiguration configuration) : base(service)
+        public UserController(IUserService service) : base(service)
         {
             _service = service;
-            _configuration = configuration;
         }
 
         [HttpGet("login")]
@@ -48,6 +46,7 @@ namespace AdventuraClick.Controllers
         }
 
         [HttpPut("accountUpdate/{id}")]
+        [Authorize(Roles = "Admin")]
         public Model.User UpdateUserAccount(int id, [FromBody] AdminUserUpdate req)
         {
             return _service.UpdateUserAccount(id, req);

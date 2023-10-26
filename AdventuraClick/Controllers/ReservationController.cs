@@ -2,6 +2,7 @@
 using AdventuraClick.Model.SearchObjects;
 using AdventuraClick.Service.Implementation;
 using AdventuraClick.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdventuraClick.Controllers
@@ -45,6 +46,7 @@ AdventuraClick Team
         }
 
         [HttpPut("{id}/status")]
+        [Authorize(Roles = "Admin")]
         public Model.Reservation ChangeReservationStatus(int id, [FromBody] ChangeReservationStatus request)
         {
             return _reservationService.ChangeStatus(id, request);
