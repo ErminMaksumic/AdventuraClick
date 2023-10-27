@@ -44,6 +44,7 @@ export class HomeComponent {
     this.loadReservations();
     this.loadTravels();
     this.loadUsers();
+    this.userService.updateUsername('');
   }
 
   loadReservations() {

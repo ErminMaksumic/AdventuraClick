@@ -4,7 +4,7 @@
   </div>
   <div class="right">
     <app-header
-      *ngIf="showSidebar && user"
+      *ngIf="showSidebar && user.username"
       [currentRoute]="currentRoutePath"
       [user]="user"
     ></app-header>

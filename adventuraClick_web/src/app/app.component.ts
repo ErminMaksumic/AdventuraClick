@@ -25,6 +25,13 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
+    this.userService.username$.subscribe(() => {
+      if (localStorage.getItem('JWT')) {
+        this.userId = getUserId();
+        this.loadUser();
+      }
+    });
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -37,10 +44,6 @@ export class AppComponent {
             ?.toUpperCase()}`;
         }
       });
-    if (localStorage.getItem('JWT')) {
-      this.userId = getUserId();
-      this.loadUser();
-    }
   }
 
   loadUser(search: string = '') {
