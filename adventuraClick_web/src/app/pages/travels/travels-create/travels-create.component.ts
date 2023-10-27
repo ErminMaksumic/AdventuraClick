@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { IncludedItem } from 'src/app/models/included-item.model';
 import { TravelType } from 'src/app/models/travel-type.model';
@@ -36,7 +37,8 @@ export class TravelsCreateComponent implements OnInit {
     private travelTypeService: TravelTypeService,
     private includedItemService: IncludedItemService,
     private messageNotifications: MessageNotifications,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   onActiveIndexChange(event: number) {
@@ -79,7 +81,7 @@ export class TravelsCreateComponent implements OnInit {
           'Travel created',
           'Travel created successfully'
         );
-        console.log('result', result);
+        this.router.navigate(['travels']);
       },
       error: (error: any) => {
         this.errors = parseWebAPiErrors(error);

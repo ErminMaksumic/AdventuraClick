@@ -64,7 +64,7 @@
         <td>{{ reservation.travel.travelType.name }}</td>
         <td>{{ reservation.numberOfPassengers }}</td>
         <td>{{ reservation.travel.numberOfNights }}</td>
-        <td>{{ reservation.payment.amount }}</td>
+        <td>{{ reservation.payment.amount | currency : "USD" }}</td>
         <td
           [style.color]="
             reservation.status === 'Active'

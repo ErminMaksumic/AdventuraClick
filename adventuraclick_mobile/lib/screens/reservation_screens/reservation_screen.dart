@@ -175,8 +175,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                   labelText: 'Passengers',
                                   labelStyle:
                                       TextStyle(color: Colors.deepPurple),
-                                  errorStyle:
-                                      TextStyle(color: Colors.red),
+                                  errorStyle: TextStyle(color: Colors.red),
                                 ),
                               ),
                             ),
@@ -218,7 +217,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                   colors: AppColors.submitButton)),
                           child: InkWell(
                             onTap: () async {
-                              await makePayment(calculateAmount(_data!.price!));
+                              await makePayment(calculateAmount(_data!.price!) *
+                                  selectedPassengers);
                             },
                             child: const Center(child: Text("Reserve travel")),
                           ),
@@ -322,11 +322,11 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 title: const Text("Error ocurred"),
                 content: const Text("Payment canceled!"),
                 actions: [
-                          TextButton(
-                            child: const Text("Ok"),
-                            onPressed: () => Navigator.pop(context),
-                            )
-                        ],
+                  TextButton(
+                    child: const Text("Ok"),
+                    onPressed: () => Navigator.pop(context),
+                  )
+                ],
               ));
     } catch (e) {
       print('$e');
