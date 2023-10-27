@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using AdventuraClick.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using AdventuraClick;
+using TheLionsDen.DbSetup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,11 +79,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 // Allow localhost - frontend
-app.UseCors(x => x
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapControllers();
+//app.UseCors(x => x
+//            .AllowAnyOrigin()
+//            .AllowAnyMethod()
+//            .AllowAnyHeader());
+//app.UseAuthentication();
+//app.UseAuthorization();
+//app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var database = scope.ServiceProvider.GetService<AdventuraClickInitContext>();
+    new DbHelper().Init(database);
+}
+
 app.Run();
