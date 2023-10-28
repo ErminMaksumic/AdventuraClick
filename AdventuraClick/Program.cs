@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using AdventuraClick.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using AdventuraClick;
+using AdventuraClick.DatabaseSeed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -85,4 +86,11 @@ app.UseCors(x => x
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+using (var scope = app.Services.CreateScope())
+{
+    var database = scope.ServiceProvider.GetService<AdventuraClickInitContext>();
+    new DbHelper().Init(database);
+    if (database.Roles.Count() < 1)
+        new DbHelper().InsertData(database);
+}
 app.Run();
