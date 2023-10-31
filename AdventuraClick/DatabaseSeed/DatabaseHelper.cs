@@ -12,7 +12,7 @@ namespace AdventuraClick.DatabaseSeed
 
         public void InsertData(AdventuraClickInitContext context)
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "Database seed", "adventuraClick.sql");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "DatabaseSeed", "adventuraClick.sql");
             var query = File.ReadAllText(path);
             context.Database.ExecuteSqlRaw(query);
         }
