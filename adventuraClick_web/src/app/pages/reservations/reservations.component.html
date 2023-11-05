@@ -42,24 +42,22 @@
       <tr>
         <th>User</th>
         <th>Travel date</th>
+        <th>Transaction ID</th>
         <th>Travel</th>
         <th>Type</th>
-        <th pSortableColumn="type" style="min-width: 10rem">
-          Number of Passangers
-        </th>
-        <th pSortableColumn="type" style="min-width: 10rem">
-          Number of Nights
-        </th>
+        <th>Passangers</th>
+        <th>Nights</th>
         <th>Price</th>
         <th>Status</th>
         <th pSortableColumn="action">Actions</th>
         <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-reservation>
+    <ng-template pTemplate="body" let-reservation  style="width: 100%;">
       <tr>
         <td>{{ reservation.user.username }}</td>
         <td>{{ formatDateWrapper(reservation.travelInformation) }}</td>
+        <td>{{ reservation.payment.transactionNumber }}</td>
         <td>{{ reservation.travel.name }}</td>
         <td>{{ reservation.travel.travelType.name }}</td>
         <td>{{ reservation.numberOfPassengers }}</td>
@@ -82,7 +80,7 @@
             [disabled]="reservation.status === 'Canceled'"
             pRipple
             icon="pi pi-ban"
-            class="p-button-rounded p-button-danger mr-2"
+            class="p-button-rounded p-button-danger mb-2"
             (click)="cancelReservation(reservation.reservationId)"
           ></button>
           <button

@@ -6,7 +6,7 @@ namespace AdventuraClick.Model.Requests
     {
         [Required, Range(1, 5)]
         public int? Rate { get; set; }
-        [MaxLength(30)]
+        [MaxLength(70)]
         public string Comment { get; set; }
         public int TravelId { get; set; }
         public int UserId { get; set; }

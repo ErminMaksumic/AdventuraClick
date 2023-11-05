@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdditionalService } from 'src/app/models/additionalService.model';
 import { AdditionalServices } from 'src/app/services/additionalService.service';
+import { UserService } from 'src/app/services/user.service';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
 import { parseWebAPiErrors } from 'src/app/utils/parseWebApiErrors';
 
@@ -21,10 +22,12 @@ export class AdditionalServicesComponent {
 
   constructor(
     private additionalService: AdditionalServices,
-    private messageNotifications: MessageNotifications
+    private messageNotifications: MessageNotifications,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
+    this.userService.changeActiveMenu('Additional Services');
     this.loadAdditionalServices();
   }
 

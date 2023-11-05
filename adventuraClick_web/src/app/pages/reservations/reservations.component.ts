@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Reservation } from 'src/app/models/reservation.model';
 import { TravelInformation } from 'src/app/models/travel-information.model';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { UserService } from 'src/app/services/user.service';
 import { displayDates } from 'src/app/utils/displayDates';
 import { MessageNotifications } from 'src/app/utils/messageNotifications';
 
@@ -20,8 +21,14 @@ export class ReservationsComponent {
 
   constructor(
     private reservationService: ReservationService,
-    private messageNotifications: MessageNotifications
+    private messageNotifications: MessageNotifications,
+    private userService: UserService
   ) {}
+
+  ngOnInit() {
+    this.userService.changeActiveMenu('Reservations');
+    this.loadReservations();
+  }
 
   loadReservations(search: string = '') {
     this.reservationService
@@ -49,9 +56,7 @@ export class ReservationsComponent {
     this.loadReservations(input);
   }
 
-  ngOnInit() {
-    this.loadReservations();
-  }
+  
 
   formatDateWrapper(travelInformation: TravelInformation) {
     return displayDates([travelInformation]);

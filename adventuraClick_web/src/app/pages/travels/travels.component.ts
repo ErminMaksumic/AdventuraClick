@@ -31,6 +31,7 @@ export class TravelsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.userService.changeActiveMenu('travels');
     this.loadTravels();
   }
 

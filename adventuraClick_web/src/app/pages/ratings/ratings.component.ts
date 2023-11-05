@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Rating } from 'src/app/models/rating.model';
 import { RatingService } from 'src/app/services/rating.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-ratings',
@@ -10,9 +11,13 @@ import { RatingService } from 'src/app/services/rating.service';
 export class RatingsComponent {
   ratings: Rating[] = [];
   searchQuery: string = '';
-  constructor(private ratingService: RatingService) {}
+  constructor(
+    private ratingService: RatingService,
+    private userService: UserService
+  ) {}
 
-  ngOnInit(){
+  ngOnInit() {
+    this.userService.changeActiveMenu('Ratings');
     this.loadRatings();
   }
 
