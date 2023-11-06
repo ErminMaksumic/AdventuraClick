@@ -39,13 +39,13 @@ export class LoginComponent implements OnInit {
 
   login(username: string, password: string) {
     this.securityService.login({ username, password }).subscribe({
-      next: (result: AuthorizationResponse) => {
+      next: () => {
         if (!this.securityService.isAdmin()) {
           this.messageNotifications.showError(
             'Login failed',
             "You don't have admin role!"
           );
-          localStorage.setItem("JWT", '');
+          localStorage.setItem('JWT', '');
         } else {
           this.messageNotifications.showSuccess(
             'Login success',

@@ -44,7 +44,6 @@ export class ReservationsComponent {
       .subscribe({
         next: (result: Reservation[]) => {
           this.reservations = result;
-          console.log('reservations', this.reservations);
         },
         error: (error: any) => {
           console.log('error', error);
@@ -55,8 +54,6 @@ export class ReservationsComponent {
   search(input: string) {
     this.loadReservations(input);
   }
-
-  
 
   formatDateWrapper(travelInformation: TravelInformation) {
     return displayDates([travelInformation]);
