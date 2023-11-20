@@ -63,9 +63,7 @@ class _ReservationListScreenScreenState
       child: Text(
         "My Travels",
         style: TextStyle(
-            color: AppColors.text,
-            fontWeight: FontWeight.bold,
-            fontSize: 40),
+            color: AppColors.text, fontWeight: FontWeight.bold, fontSize: 40),
       ),
     );
   }
@@ -80,10 +78,8 @@ class _ReservationListScreenScreenState
             onSubmitted: (value) => _searchReservations(),
             decoration: const InputDecoration(
               hintText: "Search by travel name",
-              hintStyle: TextStyle(
-                color: AppColors.text,
-                fontWeight: FontWeight.bold
-              ),
+              hintStyle:
+                  TextStyle(color: AppColors.text, fontWeight: FontWeight.bold),
               prefixIcon: Icon(Icons.search),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: AppColors.borders),
@@ -135,7 +131,7 @@ class _ReservationListScreenScreenState
                     _buildDetailRow("- Date: ", formatDate(x.date.toString())),
                     _buildDetailRow("- Status: ", x.status!, isStatus: true),
                     _buildDetailRow(
-                        "- Price: ", "${formatNumber(x.travel!.price)} \$"),
+                        "- Price: ", "${formatNumber(x.travel!.price)} €"),
                   ],
                 ),
               ),

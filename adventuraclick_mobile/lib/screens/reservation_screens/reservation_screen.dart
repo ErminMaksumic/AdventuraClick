@@ -261,7 +261,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
     try {
       if (_formKey.currentState!.validate() && selectedDate != 99) {
         paymentIntentData =
-            await createPaymentIntent((amount * 100).round().toString(), 'usd');
+            await createPaymentIntent((amount * 100).round().toString(), 'eur');
         await Stripe.instance
             .initPaymentSheet(
                 paymentSheetParameters: SetupPaymentSheetParameters(
@@ -363,7 +363,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
         .map(
           (x) => Center(
             child: CheckboxListTile(
-              title: Text("${x.name!}" "(${x.price!}\$)"),
+              title: Text("${x.name!}" "(${x.price!}€)"),
               secondary: const Icon(Icons.plus_one),
               autofocus: false,
               activeColor: Colors.green,
