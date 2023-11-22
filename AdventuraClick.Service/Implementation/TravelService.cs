@@ -76,7 +76,7 @@ namespace AdventuraClick.Service.Implementation
         public override void BeforeDelete(Travel entity)
         {
             var travelInormation = _context.TravelInformations.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
-            var reservations = _context.Reservations.Include("TravelInformation").Where(x => x.TravelId == entity.TravelId).ToList();
+            var reservations = _context.Reservations.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
             var payments = _context.Payments.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
             var ratings = _context.Ratings.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
             var includeItemTravels = _context.IncludedItemTravels.Include("Travel").Where(x => x.TravelId == entity.TravelId).ToList();
@@ -87,6 +87,7 @@ namespace AdventuraClick.Service.Implementation
             _context.TravelInformations.RemoveRange(travelInormation);
             _context.Payments.RemoveRange(payments);
             _context.Ratings.RemoveRange(ratings);
+            _context.Reservations.RemoveRange(reservations);
             _context.SaveChanges();
         }
 
